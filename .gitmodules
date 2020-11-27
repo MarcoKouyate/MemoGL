@@ -1,0 +1,9 @@
+[submodule "third-party/glew/glew-cmake"]
+	path = third-party/glew/glew-cmake
+	url = https://github.com/Perlmint/glew-cmake.git
+[submodule "third-party/glm/glm"]
+	path = third-party/glm/glm
+	url = https://github.com/g-truc/glm.git
+[submodule "third-party/glfw/glfw"]
+	path = third-party/glfw/glfw
+	url = https://github.com/glfw/glfw.git
