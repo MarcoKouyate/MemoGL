@@ -1,4 +1,5 @@
 set(LIBRARY_DIR glm)
 
 set(GLM_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/${LIBRARY_DIR}/glm PARENT_SCOPE)
-add_subdirectory(${LIBRARY_DIR})
+
+add_subdirectory_with_folder( ${THIRD_PARTY_PROJECT_FOLDER} ${LIBRARY_DIR})
