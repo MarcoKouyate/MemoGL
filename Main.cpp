@@ -1,7 +1,5 @@
-#include <iostream>
-
+#include "MemoGL.h"
 
 int main(int argc, char** argv) {
-	std::cout << "Hellossu World" << std::endl;
-	return 0;
+	return MemoGL::main(argc, argv);
 }
