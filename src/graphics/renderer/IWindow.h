@@ -9,6 +9,7 @@ namespace MemoGL {
             virtual ~IWindow() = default;
             virtual void initialize(int width, int height, const char* name) = 0;
             virtual void release() = 0;
+            virtual bool isRunning() = 0;
 
             virtual GLFWwindow* get() {
                 return window;

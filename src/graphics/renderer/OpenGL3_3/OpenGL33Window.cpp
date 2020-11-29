@@ -49,4 +49,8 @@ namespace MemoGL {
         window = nullptr;
         std::cout << "OpenGL 3.3  window has been released" << std::endl;
     }
+
+    bool OpenGL33Window::isRunning() {
+        return (!glfwWindowShouldClose(window) && glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS);
+    }
 }

@@ -7,5 +7,6 @@ namespace MemoGL {
 			~OpenGL33Window() override;
 			void initialize(int width, int height, const char* name) override;
 			void release() override;
+			bool isRunning() override;
 	};
 }

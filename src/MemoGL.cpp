@@ -16,7 +16,7 @@ namespace MemoGL{
             std::cerr << "Exception : " << error.what() << std::endl;
         }
 
-        while (!glfwWindowShouldClose(window.get()) && glfwGetKey(window.get(), GLFW_KEY_ESCAPE) != GLFW_PRESS) {
+        while (window.isRunning()) {
             glfwSwapBuffers(window.get());
             glfwPollEvents();
         }
