@@ -14,7 +14,6 @@ namespace MemoGL {
     }
         
     void RasterizationEngine::render(float lag) {
-
-        glfwSwapBuffers(renderer->getWindow()->get());
+        renderer->render();
     }
 }

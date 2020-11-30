@@ -1,6 +1,7 @@
 #pragma once
 #include "graphics/IGraphicsEngine.h"
 #include "graphics/renderer/OpenGL3_3/OpenGL33Renderer.h"
+#include "graphics/renderer/OpenGL_Legacy/OpenGLLegacyRenderer.h"
 
 namespace MemoGL {
     class RasterizationEngine : public IGraphicsEngine{
