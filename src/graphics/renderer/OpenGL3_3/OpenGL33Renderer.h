@@ -6,10 +6,7 @@ namespace MemoGL {
     class OpenGL33Renderer : public IRenderer {
         public:
             ~OpenGL33Renderer() override;
-            void initialize(const RendererType& rendererType, const WindowProperties& windowProperties) override;
+            void initialize(std::shared_ptr<IWindow> pWindow) override;
             void release() override;
-
-        private:
-            OpenGL33Window m_window;
     };
 }

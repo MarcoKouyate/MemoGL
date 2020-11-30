@@ -10,16 +10,16 @@ namespace MemoGL {
     class IGraphicsEngine {
         public:
             virtual ~IGraphicsEngine() = default;
-            virtual void initialize(const GraphicsEngineType& graphicsType, const RendererType& rendererType, const WindowProperties& windowProperties) = 0;
+            virtual void initialize(std::shared_ptr<IRenderer> pRenderer) = 0;
             virtual void release() = 0;
             virtual void render(float lag) = 0;
 
-            IRenderer* getRenderer() {
+            std::shared_ptr<IRenderer> getRenderer() {
                 return renderer;
             }
 
         protected:
             bool isInitialized = false;
-            IRenderer* renderer = nullptr;
+            std::shared_ptr<IRenderer> renderer = nullptr;
     };
 }

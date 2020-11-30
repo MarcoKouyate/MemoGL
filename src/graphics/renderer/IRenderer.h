@@ -1,5 +1,6 @@
 #pragma once
 #include "IWindow.h"
+#include <memory>
 
 namespace MemoGL {
 
@@ -12,15 +13,15 @@ namespace MemoGL {
     class IRenderer {
         public:
             virtual ~IRenderer() = default;
-            virtual void initialize(const RendererType& rendererType, const WindowProperties& windowProperties) = 0;
+            virtual void initialize(std::shared_ptr<IWindow> pWindow) = 0;
             virtual void release() = 0;
 
-            IWindow* getWindow(){
+            std::shared_ptr<IWindow> getWindow(){
                 return window;
             }
 
         protected:
             bool isInitialized; 
-            IWindow* window = nullptr;
+            std::shared_ptr<IWindow> window = nullptr;
     };
 }

@@ -7,7 +7,7 @@ namespace MemoGL {
         release();
     }
 
-    void OpenGL33Renderer::initialize(const RendererType& renderertype, const WindowProperties& windowProperties) {
+    void OpenGL33Renderer::initialize(std::shared_ptr<IWindow> pWindow) {
         
         if (isInitialized) {
             release();
@@ -15,8 +15,7 @@ namespace MemoGL {
 
         std::cout << "Initializing OpenGL 3.3 renderer..." << std::endl;
 
-        m_window.initialize(windowProperties);
-        window = &m_window;
+        window = pWindow;
 
         isInitialized = true;
 
@@ -26,7 +25,6 @@ namespace MemoGL {
 
     void OpenGL33Renderer::release() {
         if (isInitialized) {
-            m_window.release();
             window = nullptr;
 
             isInitialized = false;

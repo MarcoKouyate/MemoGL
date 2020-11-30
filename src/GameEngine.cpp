@@ -8,28 +8,20 @@ namespace MemoGL {
         release();
     }
 
-    void GameEngine::initialize(const GraphicsEngineType& graphicsType, const RendererType& rendererType, const WindowProperties& windowProperties) {
+    void GameEngine::initialize(std::shared_ptr<IGraphicsEngine> pGraphicsEngine) {
         if (isInitialized) {
             release();
         }
 
         std::cout << "Initializing Game Engine..." << std::endl;
         
-        switch(graphicsType) {
-            case GraphicsEngineType::Rasterization: 
-                graphicsEngine = new RasterizationEngine();
-                break;
-            case GraphicsEngineType::RayTracing:
-                throw std::runtime_error("Raytracing engine not implemented yet.");
-                break;
-        }
+        graphicsEngine = pGraphicsEngine;
 
         if(!graphicsEngine) {
             throw std::bad_alloc();
         }
 
         isInitialized = true;
-        graphicsEngine->initialize(graphicsType, rendererType, windowProperties);
 
         std::cout << "Game Engine initialized." << std::endl;
     }
@@ -38,8 +30,6 @@ namespace MemoGL {
         if (isInitialized) {
 
             if(graphicsEngine) {
-                graphicsEngine->release();
-                delete graphicsEngine;
                 graphicsEngine = nullptr;
             }
 
@@ -54,7 +44,7 @@ namespace MemoGL {
             throw std::runtime_error("Game Engine tried to run without being initialized.");
         }
 
-        IWindow* window = graphicsEngine->getRenderer()->getWindow();
+        std::shared_ptr<IWindow> window = graphicsEngine->getRenderer()->getWindow();
 
         double lag = 0.0;
         double previous = glfwGetTime();

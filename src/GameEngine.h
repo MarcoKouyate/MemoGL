@@ -1,11 +1,12 @@
 #pragma once
 #include "IGameEngine.h"
+#include "graphics/rasterization/RasterizationEngine.h"
 
 namespace MemoGL {
     class GameEngine : public IGameEngine {
         public:
             ~GameEngine() override;
-            void initialize(const GraphicsEngineType& graphicsType, const RendererType& rendererType, const WindowProperties& windowProperties) override;
+            void initialize(std::shared_ptr<IGraphicsEngine> pGraphicsEngine) override;
             void release() override;
             void run() override;
 
