@@ -13,7 +13,14 @@ namespace MemoGL {
 		release();
 	}
 
-	void OpenGL33Window::initialize(int width, int height, const char* name) {
+	void OpenGL33Window::initialize(const WindowProperties& properties) {
+
+        if (isInitialized) {
+            release();
+        }
+
+        std::cout << "Initializing OpenGL 3.3 window..." << std::endl;
+
         if (!glfwInit()) {
             throw std::runtime_error("Failed to initialize GLFW");
         }
@@ -25,7 +32,7 @@ namespace MemoGL {
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-        window = glfwCreateWindow(width, height, name, nullptr, nullptr);
+        window = glfwCreateWindow(properties.width, properties.height, properties.name, nullptr, nullptr);
 
         if (!window) {
             glfwTerminate();
@@ -42,12 +49,20 @@ namespace MemoGL {
         }
 
         glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+
+        isInitialized = true;
+
+        std::cout << "OpenGL 3.3 window initialized." << std::endl;
 	}
 
 	void OpenGL33Window::release() {
-        glfwTerminate();
-        window = nullptr;
-        std::cout << "OpenGL 3.3  window has been released" << std::endl;
+        if(isInitialized) {
+            glfwTerminate();
+            window = nullptr;
+            isInitialized = false;
+            std::cout << "OpenGL 3.3  window has been released." << std::endl;
+        }
+
     }
 
     bool OpenGL33Window::isRunning() {

@@ -1,28 +1,31 @@
 #include <iostream>
-#include "graphics/renderer/OpenGL3_3/OpenGL33Window.h"
+#include "GameEngine.h"
 
 
 namespace MemoGL{
 
     int main(int argc, char** argv) {
       
-        OpenGL33Window window;
+        GameEngine gameEngine;
+        WindowProperties windowProperties;
+        windowProperties.name = "MemoGL";
+        windowProperties.width = 1280;
+        windowProperties.height = 720;
 
         try {
-            window.initialize(1280, 720, "MemoGL");
+            gameEngine.initialize(GraphicsEngineType::Rasterization, RendererType::OpenGL33, windowProperties);
+            gameEngine.run();
         }
 
         catch (std::runtime_error& error) {
             std::cerr << "Exception : " << error.what() << std::endl;
         }
 
-        while (window.isRunning()) {
-            glfwSwapBuffers(window.get());
-            glfwPollEvents();
+        catch (std::bad_alloc& error) {
+            std::cerr << "Exception : " << error.what() << std::endl;
         }
-
-        glfwTerminate();
 
         return 0;
     }
+    
 }
