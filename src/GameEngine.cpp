@@ -4,44 +4,18 @@
 #include <iostream>
 
 namespace MemoGL {
-    GameEngine::~GameEngine(){
-        release();
-    }
-
-    void GameEngine::initialize(std::shared_ptr<IGraphicsEngine> pGraphicsEngine) {
-        if (isInitialized) {
-            release();
-        }
-
-        std::cout << "Initializing Game Engine..." << std::endl;
-        
+    GameEngine::GameEngine(std::shared_ptr<IGraphicsEngine> pGraphicsEngine) {
         graphicsEngine = pGraphicsEngine;
-
-        if(!graphicsEngine) {
-            throw std::bad_alloc();
-        }
-
-        isInitialized = true;
-
         std::cout << "Game Engine initialized." << std::endl;
     }
 
-    void GameEngine::release() {
-        if (isInitialized) {
-
-            if(graphicsEngine) {
-                graphicsEngine = nullptr;
-            }
-
-            isInitialized = false;
-            std::cout << "Game Engine has been released." << std::endl;
-        }
-
+    GameEngine::~GameEngine() {
+        std::cout << "Game Engine has been deleted." << std::endl;
     }
 
     void GameEngine::run() {
-        if (!isInitialized) {
-            throw std::runtime_error("Game Engine tried to run without being initialized.");
+        if (!graphicsEngine) {
+            throw std::runtime_error("Game Engine tried to run without graphics engine.");
         }
 
         std::shared_ptr<IWindow> window = graphicsEngine->getRenderer()->getWindow();

@@ -13,17 +13,13 @@ namespace MemoGL{
         windowProperties.width = 1280;
         windowProperties.height = 720;
 
-        GameEngine gameEngine;
-
-        std::shared_ptr<IWindow> window = std::make_shared<OpenGL33Window>();
-        std::shared_ptr<IRenderer> renderer = std::make_shared<OpenGL33Renderer>();
-        std::shared_ptr<IGraphicsEngine> graphicsEngine = std::make_shared<RasterizationEngine>();
-
+        
         try {
-            window->initialize(windowProperties);
-            renderer->initialize(window);
-            graphicsEngine->initialize(renderer);
-            gameEngine.initialize(graphicsEngine);
+            std::shared_ptr<IWindow> window = std::make_shared<OpenGL33Window>(windowProperties);
+            std::shared_ptr<IRenderer> renderer = std::make_shared<OpenGL33Renderer>(window);
+            std::shared_ptr<IGraphicsEngine> graphicsEngine = std::make_shared<RasterizationEngine>(renderer);
+
+            GameEngine gameEngine(graphicsEngine);
 
             gameEngine.run();
         }

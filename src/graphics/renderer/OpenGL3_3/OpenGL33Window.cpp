@@ -9,16 +9,8 @@ namespace MemoGL {
         std::cerr << "Error : " << description << std::endl;
     }
 
-	OpenGL33Window::~OpenGL33Window() {
-		release();
-	}
 
-	void OpenGL33Window::initialize(const WindowProperties& properties) {
-
-        if (isInitialized) {
-            release();
-        }
-
+	OpenGL33Window::OpenGL33Window(const WindowProperties& properties) {
         std::cout << "Initializing OpenGL 3.3 window..." << std::endl;
 
         if (!glfwInit()) {
@@ -50,19 +42,12 @@ namespace MemoGL {
 
         glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
-        isInitialized = true;
-
         std::cout << "OpenGL 3.3 window initialized." << std::endl;
 	}
 
-	void OpenGL33Window::release() {
-        if(isInitialized) {
-            glfwTerminate();
-            window = nullptr;
-            isInitialized = false;
-            std::cout << "OpenGL 3.3  window has been released." << std::endl;
-        }
-
+	OpenGL33Window::~OpenGL33Window() {
+        glfwTerminate();
+        std::cout << "OpenGL 3.3 window has been deleted." << std::endl;
     }
 
     bool OpenGL33Window::isRunning() {

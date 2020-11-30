@@ -10,12 +10,8 @@ namespace MemoGL {
         const char* name;
     };
 
-
     class IWindow {
         public:
-            virtual ~IWindow() = default;
-            virtual void initialize(const WindowProperties& properties) = 0;
-            virtual void release() = 0;
             virtual bool isRunning() = 0;
 
             virtual GLFWwindow* get() {
@@ -24,6 +20,5 @@ namespace MemoGL {
 
         protected:
             GLFWwindow* window;
-            bool isInitialized = false;
     };
 }

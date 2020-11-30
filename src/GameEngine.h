@@ -5,10 +5,9 @@
 namespace MemoGL {
     class GameEngine : public IGameEngine {
         public:
-            ~GameEngine() override;
-            void initialize(std::shared_ptr<IGraphicsEngine> pGraphicsEngine) override;
-            void release() override;
             void run() override;
 
+            GameEngine(std::shared_ptr<IGraphicsEngine> pGraphicsEngine);
+            ~GameEngine();
     };
 }

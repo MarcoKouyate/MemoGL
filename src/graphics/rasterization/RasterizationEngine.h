@@ -5,9 +5,9 @@
 namespace MemoGL {
     class RasterizationEngine : public IGraphicsEngine{
         public:
-            ~RasterizationEngine() override;
-            void initialize(std::shared_ptr<IRenderer> pRenderer) override;
-            void release() override;
             void render(float lag) override;
+
+            RasterizationEngine(std::shared_ptr<IRenderer> pRenderer);
+            ~RasterizationEngine();
     };
 }
