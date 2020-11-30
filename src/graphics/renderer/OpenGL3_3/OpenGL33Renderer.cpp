@@ -9,7 +9,15 @@ namespace MemoGL {
 
     OpenGL33Renderer::OpenGL33Renderer(std::shared_ptr<IWindow> pWindow) {
         window = pWindow;
-        std::cout << "OpenGL 3.3 renderer initialized." << std::endl;
+
+        glewExperimental = GL_TRUE;
+
+        if (glewInit() != GLEW_OK) {
+            window->close();
+            throw std::runtime_error("Failed to initialize GLEW");
+        }
+
+        std::cout << "OpenGL " << glGetString(GL_VERSION) << " renderer initialized." << std::endl;
     }
 
     OpenGL33Renderer::~OpenGL33Renderer() {

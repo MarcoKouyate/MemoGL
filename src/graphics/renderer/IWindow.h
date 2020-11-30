@@ -13,6 +13,7 @@ namespace MemoGL {
     class IWindow {
         public:
             virtual bool isRunning() = 0;
+            virtual void close() = 0;
 
             virtual GLFWwindow* get() {
                 return window;
