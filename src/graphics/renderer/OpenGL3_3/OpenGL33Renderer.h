@@ -8,5 +8,8 @@ namespace MemoGL {
             void render() override;
             OpenGL33Renderer(std::shared_ptr<IWindow> pWindow);
             ~OpenGL33Renderer();
+        private:
+            void init(std::shared_ptr<IWindow> pWindow);
+            void initializeGlew();
     };
 }

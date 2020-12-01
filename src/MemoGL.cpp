@@ -14,8 +14,8 @@ namespace MemoGL{
 
         
         try {
-            std::shared_ptr<IWindow> window = std::make_shared<OpenGLLegacyWindow>(windowProperties);
-            std::shared_ptr<IRenderer> renderer = std::make_shared<OpenGLLegacy>(window);
+            std::shared_ptr<IWindow> window = std::make_shared<OpenGL33Window>(windowProperties);
+            std::shared_ptr<IRenderer> renderer = std::make_shared<OpenGL33Renderer>(window);
             std::shared_ptr<IGraphicsEngine> graphicsEngine = std::make_shared<RasterizationEngine>(renderer);
 
             GameEngine gameEngine(graphicsEngine);

@@ -16,6 +16,7 @@ namespace MemoGL {
     }
 
     OpenGLLegacy::OpenGLLegacy(std::shared_ptr<IWindow> pWindow) {
+        std::cout << "Initializing OpenGL Legacy renderer..." << std::endl;
         window = pWindow;
 
         glewExperimental = GL_TRUE;

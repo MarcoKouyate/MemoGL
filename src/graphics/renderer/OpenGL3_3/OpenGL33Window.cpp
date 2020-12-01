@@ -27,9 +27,9 @@ namespace MemoGL {
         glfwSetErrorCallback(ErrorCallback);
         glfwWindowHint(GLFW_SAMPLES, 4);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+        //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+        //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
         window = glfwCreateWindow(properties.width, properties.height, properties.name, nullptr, nullptr);
 
@@ -47,7 +47,6 @@ namespace MemoGL {
 	OpenGL33Window::OpenGL33Window(const WindowProperties& properties) {
         std::cout << "Initializing OpenGL 3.3 window..." << std::endl;
         createContext(properties);
-
         std::cout << "OpenGL 3.3 window initialized." << std::endl;
 	}
 
