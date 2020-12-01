@@ -1,6 +1,7 @@
 #pragma once
 #include "graphics/renderer/IRenderer.h"
 #include "OpenGL33Window.h"
+#include <string>
 
 namespace MemoGL {
     class OpenGL33Renderer : public IRenderer {
@@ -11,5 +12,9 @@ namespace MemoGL {
         private:
             void init(std::shared_ptr<IWindow> pWindow);
             void initializeGlew();
+            void initializeShaders();
+            void initializeVertexBuffers();
+            unsigned int createShaders(const std::string& vertexShader, const std::string& fragmentShader);
+            unsigned int compileShader(unsigned int type, const std::string& source);
     };
 }

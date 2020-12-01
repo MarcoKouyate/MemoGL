@@ -19,6 +19,8 @@ set(SOURCES_F
     graphics/renderer/OpenGL3_3/OpenGL33Window.cpp
     graphics/renderer/OpenGL_Legacy/OpenGLLegacyWindow.cpp
     graphics/renderer/OpenGL_Legacy/OpenGLLegacyWindow.h
+    tools/File.cpp 
+    tools/File.h
 )
 
 add_library(${PROJECT_LIB} STATIC 
