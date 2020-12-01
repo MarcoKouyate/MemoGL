@@ -22,6 +22,16 @@ set_property(TARGET ${PROJECT_EXE} PROPERTY CXX_STANDARD 14)
 target_compile_options(${PROJECT_EXE} PRIVATE -Wall)
 
 
+set(RESOURCES_SRC ${CMAKE_SOURCE_DIR}/res)
+set(RESOURCES_DST ${CMAKE_BINARY_DIR}/res)
+
+add_custom_command(TARGET ${PROJECT_EXE} POST_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy_directory
+                   ${RESOURCES_SRC} ${RESOURCES_DST}
+                   COMMENT "symbolic link resources folder from ${RESOURCES_SRC} => ${RESOURCES_DST}"
+                   )
+
+
 #===== THIRD PARTIES
 set(THIRD_PARTY_DIR third-party)
 add_subdirectory(${THIRD_PARTY_DIR})

@@ -1,9 +1,24 @@
 #include "OpenGL33Renderer.h"
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <sstream>
 
 
 namespace MemoGL {
+
+    struct ShaderProgram {
+        std::string vertex;
+        std::string fragment;
+    };
+
+    std::string readFile(const std::string& filepath) {
+        std::ifstream in(filepath);
+        std::stringstream buffer;
+        buffer << in.rdbuf();
+        std::string contents(buffer.str());
+        return contents;
+    }
 
     static unsigned int CompileShader(unsigned int type, const std::string& source) {
         unsigned int id = glCreateShader(type);
@@ -67,25 +82,10 @@ namespace MemoGL {
         glEnableVertexAttribArray(VERTEX_ATTR_POSITION);
         glVertexAttribPointer(VERTEX_ATTR_POSITION, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
 
-        const std::string vs = R"glsl(
-            #version 330 core
+        const std::string vs = readFile("res/shaders/basic.vert");
+        const std::string fs = readFile("res/shaders/green.frag");
 
-            layout(location = 0) in vec4 position;
-
-            void main(){
-               gl_Position = position;
-            }
-        )glsl";
-
-        const std::string fs = R"glsl(
-            #version 330 core
-
-            layout(location = 0) out vec4 color;
-
-            void main(){
-               color = vec4(0.0, 1.0, 0.0, 1.0);
-            }
-        )glsl";
+        
 
         unsigned int shader = CreateShader(vs, fs);
         glUseProgram(shader);
