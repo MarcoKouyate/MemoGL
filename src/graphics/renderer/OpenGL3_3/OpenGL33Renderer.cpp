@@ -3,6 +3,20 @@
 #include <iostream>
 
 
+#ifdef _MSC_VER
+    #define ASSERT(x) if(!(x)) __debugbreak();
+#else 
+    #include <signal.h>
+    #define ASSERT(x) if (!(x)) raise(SIGINT);
+#endif
+
+#ifdef _DEBUG
+    #define CallGL(x) clearGlErrors();\
+    x;\
+    ASSERT(logGlCalls(#x, __FILE__, __LINE__))
+#else
+    #define CallGL(x) x
+#endif
 
 namespace MemoGL {
     // INITIALIZATION
@@ -98,11 +112,26 @@ namespace MemoGL {
 
 
 
+    //Error handling
+    void OpenGL33Renderer::clearGlErrors() {
+        while (glGetError() != GL_NO_ERROR);
+    }
+
+    bool OpenGL33Renderer::logGlCalls(const char* functionName, const char* file, int line)
+    {
+        while (GLenum error = glGetError()) {
+            std::cout << "[OpenGL Error] (0x" << std::hex << error << "): ";
+            std::cout << functionName << " " << file << ":" << std::dec <<line << std::endl;
+            return false;
+        }
+
+        return true;
+    }
 
     // RENDER LOOP
     void OpenGL33Renderer::render() {
         glClear(GL_COLOR_BUFFER_BIT);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+        CallGL(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
         glfwSwapBuffers(window->get());
     }
 
