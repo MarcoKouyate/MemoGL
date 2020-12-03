@@ -1,19 +1,19 @@
-#include "OpenGL33Renderer.h"
+#include "OpenGL4Renderer.h"
 #include "tools/File.h"
 #include <iostream>
-#include "OpenGL33Error.h"
+#include "OpenGL4Error.h"
 
 
 namespace MemoGL {
     // INITIALIZATION
-    void OpenGL33Renderer::init(std::shared_ptr<IWindow> pWindow) {
+    void OpenGL4Renderer::init(std::shared_ptr<IWindow> pWindow) {
         window = pWindow;
         initializeGlew();
         initializeShaders();
         initializeVertexBuffers();
     }
 
-    void OpenGL33Renderer::initializeGlew() {
+    void OpenGL4Renderer::initializeGlew() {
         glewExperimental = GL_TRUE;
 
         if (glewInit() != GLEW_OK) {
@@ -22,14 +22,14 @@ namespace MemoGL {
         }
     }
 
-    void OpenGL33Renderer::initializeShaders() {
+    void OpenGL4Renderer::initializeShaders() {
         const std::string vs = readFile("res/shaders/basic.vert");
         const std::string fs = readFile("res/shaders/green.frag");
         unsigned int shader = createShaders(vs, fs);
         glUseProgram(shader);
     }
 
-    void OpenGL33Renderer::initializeVertexBuffers() {
+    void OpenGL4Renderer::initializeVertexBuffers() {
         float positions[] = {
             -0.5f, -0.5f,
              0.5f, -0.5f,
@@ -57,7 +57,7 @@ namespace MemoGL {
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), indices, GL_STATIC_DRAW);
     }
 
-    unsigned int OpenGL33Renderer::createShaders(const std::string& vertexShader, const std::string& fragmentShader) {
+    unsigned int OpenGL4Renderer::createShaders(const std::string& vertexShader, const std::string& fragmentShader) {
         GLuint program = GLCallR(glCreateProgram());
         GLuint vs = compileShader(GL_VERTEX_SHADER, vertexShader);
         GLuint fs = compileShader(GL_FRAGMENT_SHADER, fragmentShader);
@@ -72,7 +72,7 @@ namespace MemoGL {
         return program;
     }
 
-    unsigned int OpenGL33Renderer::compileShader(unsigned int type, const std::string& source) {
+    unsigned int OpenGL4Renderer::compileShader(unsigned int type, const std::string& source) {
         unsigned int id = glCreateShader(type);
         const char* src = source.c_str();
         glShaderSource(id, 1, &src, nullptr);
@@ -101,7 +101,7 @@ namespace MemoGL {
 
 
     // RENDER LOOP
-    void OpenGL33Renderer::render() {
+    void OpenGL4Renderer::render() {
         glClear(GL_COLOR_BUFFER_BIT);
         GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
         glfwSwapBuffers(window->get());
@@ -110,13 +110,13 @@ namespace MemoGL {
 
 
     // CONSTRUCTORS 
-    OpenGL33Renderer::OpenGL33Renderer(std::shared_ptr<IWindow> pWindow) {
+    OpenGL4Renderer::OpenGL4Renderer(std::shared_ptr<IWindow> pWindow) {
         std::cout << "Initializing initialized OpenGL " << glGetString(GL_VERSION) << "..." << std::endl;
         init(pWindow);
         std::cout << "OpenGL " << glGetString(GL_VERSION) << " renderer initialized." << std::endl;
     }
 
-    OpenGL33Renderer::~OpenGL33Renderer() {
+    OpenGL4Renderer::~OpenGL4Renderer() {
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
         std::cout << "OpenGL 3.3 renderer has been released." << std::endl;

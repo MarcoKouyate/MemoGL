@@ -1,4 +1,4 @@
-#include "OpenGL33Error.h"
+#include "OpenGL4Error.h"
 
 namespace MemoGL {
     void glClearErrors() {
