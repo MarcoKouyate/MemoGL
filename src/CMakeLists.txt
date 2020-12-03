@@ -17,6 +17,8 @@ set(SOURCES_F
     graphics/renderer/IWindow.h
     graphics/renderer/OpenGL3_3/OpenGL33Window.h
     graphics/renderer/OpenGL3_3/OpenGL33Window.cpp
+    graphics/renderer/OpenGL3_3/OpenGL33Error.h
+    graphics/renderer/OpenGL3_3/OpenGL33Error.cpp
     graphics/renderer/OpenGL_Legacy/OpenGLLegacyWindow.cpp
     graphics/renderer/OpenGL_Legacy/OpenGLLegacyWindow.h
     tools/File.cpp 

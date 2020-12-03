@@ -16,7 +16,5 @@ namespace MemoGL {
             void initializeVertexBuffers();
             unsigned int createShaders(const std::string& vertexShader, const std::string& fragmentShader);
             unsigned int compileShader(unsigned int type, const std::string& source);
-            void clearGlErrors();
-            bool logGlCalls(const char* functionName, const char* file, int line);
     };
 }
