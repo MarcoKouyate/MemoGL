@@ -13,6 +13,10 @@ namespace MemoGL {
         return (!glfwWindowShouldClose(window) && glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS);
     }
 
+    void GLFWContext::swapBuffers() {
+        glfwSwapBuffers(window);
+    }
+
     void GLFWContext::close() {
         glfwTerminate();
         std::cout << "GLFW context has been closed." << std::endl;

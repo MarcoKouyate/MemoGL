@@ -30,6 +30,7 @@ namespace MemoGL {
     class IContext {
         public:
             virtual void init(const ContextSettings& properties) = 0;
+            virtual void swapBuffers() = 0;
             virtual bool isRunning() = 0;
             virtual void close() = 0;
 
