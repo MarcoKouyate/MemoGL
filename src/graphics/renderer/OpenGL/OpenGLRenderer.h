@@ -15,6 +15,7 @@ namespace MemoGL {
         private:
             void init();
             void initializeWindow();
+            IOpenGLVersion* getOpenGLVersion();
             void initializeGlew();
             void initializeShaders();
             void initializeUniforms(unsigned int shader);

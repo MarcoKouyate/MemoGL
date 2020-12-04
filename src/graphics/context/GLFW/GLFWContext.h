@@ -4,7 +4,7 @@
 namespace MemoGL {
     class GLFWContext : public IContext {
         public:
-            void init(const ContextSettings& properties) override;
+            void init(ContextSettings* properties) override;
             void swapBuffers() override;
             void pollEvents() override;
             double getTime() override;

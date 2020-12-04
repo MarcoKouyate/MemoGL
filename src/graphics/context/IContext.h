@@ -21,7 +21,7 @@ namespace MemoGL {
         WindowSettings() : width(), height(), name("") {};
     };
 
-    enum class APIProfile { compatibility, core };
+    enum class APIProfile { none, compatibility, core };
 
     struct ContextSettings {
         Version version;
@@ -32,7 +32,7 @@ namespace MemoGL {
 
     class IContext {
         public:
-            virtual void init(const ContextSettings& properties) = 0;
+            virtual void init(ContextSettings* properties) = 0;
             virtual void swapBuffers() = 0;
             virtual void pollEvents() = 0;
             virtual double getTime() = 0;

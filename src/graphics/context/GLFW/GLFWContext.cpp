@@ -30,7 +30,8 @@ namespace MemoGL {
         glfwPollEvents();
     }
 
-    void GLFWContext::init(const ContextSettings& properties) {
+
+    void GLFWContext::init(ContextSettings* properties) {
         std::cout << "Initializing GLFW context..." << std::endl;
 
         if (!glfwInit()) {
@@ -39,14 +40,19 @@ namespace MemoGL {
 
         glfwSetErrorCallback(ErrorCallback);
 
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, properties.version.major);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, properties.version.minor);
-        //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-        glfwWindowHint(GLFW_SAMPLES, 4);
-        glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, properties.debugMode);
-        glfwWindowHint(GLFW_OPENGL_PROFILE, getProfile(properties.profile));
-
-        window = glfwCreateWindow(properties.window.width, properties.window.height, properties.window.name, nullptr, nullptr);
+        if (properties) {
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, properties->version.major);
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, properties->version.minor);
+            //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+            glfwWindowHint(GLFW_SAMPLES, 4);
+            glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, properties->debugMode);
+            glfwWindowHint(GLFW_OPENGL_PROFILE, getProfile(properties->profile));
+            window = glfwCreateWindow(properties->window.width, properties->window.height, properties->window.name, nullptr, nullptr);
+        }
+        else {
+            std::cout << " --> dummy GLFW context..." << std::endl;
+            window = glfwCreateWindow(10, 10, "Dummy Context", nullptr, nullptr);
+        }
 
         if (!window) {
             close();
@@ -54,8 +60,8 @@ namespace MemoGL {
         }
 
         glfwMakeContextCurrent(window);
-
         glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+        
         std::cout << "GLFW context initialized." << std::endl;
     }
 
