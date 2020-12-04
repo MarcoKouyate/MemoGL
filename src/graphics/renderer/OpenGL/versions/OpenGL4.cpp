@@ -12,6 +12,8 @@ namespace MemoGL {
         GLsizei length,
         const GLchar* message,
         const void* userParam) {
+
+#ifdef _DEBUG
         std::cout << std::endl;
         std::cout << "--------------------- OpenGL 4.X Error start----------------" << std::endl;
         std::cout << "[type] ";
@@ -54,6 +56,7 @@ namespace MemoGL {
         std::cout << std::endl;
         std::cout << "[message] " << message << std::endl;
         std::cout << "------------------------------------------------------------" << std::endl;
+#endif
     }
 
     void OpenGL4::changeSettings(ContextSettings& settings) {

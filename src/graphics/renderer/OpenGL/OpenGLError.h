@@ -26,7 +26,7 @@
      return retVal; \
    }()
 #else
-#define GLCallV( x ) x
+#define GLCallR( x ) x
 #define GLCall( x ) x
 #endif
 

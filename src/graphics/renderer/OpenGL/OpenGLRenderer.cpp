@@ -13,6 +13,7 @@ namespace MemoGL {
         initializeWindow();
         initializeGlew();
         initializeShaders();
+        initializeUniforms();
         initializeVertexBuffers();
         openGLVersion->initErrorCalls(); 
     }
@@ -38,7 +39,11 @@ namespace MemoGL {
         const std::string vs = readFile("res/shaders/basic.vert");
         const std::string fs = readFile("res/shaders/green.frag");
         unsigned int shader = createShaders(vs, fs);
-        glUseProgram(shader);
+        GLCall(glUseProgram(shader));
+    }
+
+    void OpenGLRenderer::initializeUniforms() {
+
     }
 
     void OpenGLRenderer::initializeVertexBuffers() {
@@ -55,18 +60,18 @@ namespace MemoGL {
         };
 
         GLuint vertexBuffer;
-        glGenBuffers(1, &vertexBuffer);
-        glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-        glBufferData(GL_ARRAY_BUFFER, 6 * 2 * sizeof(float), positions, GL_STATIC_DRAW);
+        GLCall(glGenBuffers(1, &vertexBuffer));
+        GLCall(glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer));
+        GLCall(glBufferData(GL_ARRAY_BUFFER, 6 * 2 * sizeof(float), positions, GL_STATIC_DRAW));
 
         const GLuint VERTEX_ATTR_POSITION = 0;
-        glEnableVertexAttribArray(VERTEX_ATTR_POSITION);
-        glVertexAttribPointer(VERTEX_ATTR_POSITION, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
+        GLCall(glEnableVertexAttribArray(VERTEX_ATTR_POSITION));
+        GLCall(glVertexAttribPointer(VERTEX_ATTR_POSITION, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0));
 
         GLuint indexBuffer;
-        glGenBuffers(1, &indexBuffer);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), indices, GL_STATIC_DRAW);
+        GLCall(glGenBuffers(1, &indexBuffer));
+        GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer));
+        GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), indices, GL_STATIC_DRAW));
     }
 
     unsigned int OpenGLRenderer::createShaders(const std::string& vertexShader, const std::string& fragmentShader) {
@@ -75,31 +80,31 @@ namespace MemoGL {
         GLuint fs = compileShader(GL_FRAGMENT_SHADER, fragmentShader);
 
         GLCall(glAttachShader(program, vs));
-        glAttachShader(program, fs);
-        glLinkProgram(program);
-        glValidateProgram(program);
-        glDeleteShader(vs);
-        glDeleteShader(fs);
+        GLCall(glAttachShader(program, fs));
+        GLCall(glLinkProgram(program));
+        GLCall(glValidateProgram(program));
+        GLCall(glDeleteShader(vs));
+        GLCall(glDeleteShader(fs));
 
         return program;
     }
 
     unsigned int OpenGLRenderer::compileShader(unsigned int type, const std::string& source) {
-        unsigned int id = glCreateShader(type);
+        unsigned int id = GLCallR(glCreateShader(type));
         const char* src = source.c_str();
-        glShaderSource(id, 1, &src, nullptr);
-        glCompileShader(id);
+        GLCall(glShaderSource(id, 1, &src, nullptr));
+        GLCall(glCompileShader(id));
 
         int result;
-        glGetShaderiv(id, GL_COMPILE_STATUS, &result);
+        GLCall(glGetShaderiv(id, GL_COMPILE_STATUS, &result));
         if (result == GL_FALSE) {
             int length;
-            glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
+            GLCall(glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length));
             char* message = (char*)alloca(length * sizeof(char));
-            glGetShaderInfoLog(id, length, &length, message);
+            GLCall(glGetShaderInfoLog(id, length, &length, message));
 
             std::cout << "Failed to compile " << (type == GL_VERTEX_SHADER ? "VERTEX" : "FRAGMENT") << " shader!" << std::endl;
-            glDeleteShader(id);
+            GLCall(glDeleteShader(id));
             std::cout << message << std::endl;
             return 0;
         }
@@ -114,7 +119,7 @@ namespace MemoGL {
 
     // RENDER LOOP
     void OpenGLRenderer::render() {
-        glClear(GL_COLOR_BUFFER_BIT);
+        GLCall(glClear(GL_COLOR_BUFFER_BIT));
         GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
         context->swapBuffers();
     }
@@ -128,12 +133,12 @@ namespace MemoGL {
         context = new GLFWContext();
         openGLVersion = new OpenGL4();
         init();
-        std::cout << "OpenGL " << glGetString(GL_VERSION) << " renderer initialized." << std::endl;
+        std::cout << "OpenGL " << GLCallR(glGetString(GL_VERSION)) << " renderer initialized." << std::endl;
     }
 
     OpenGLRenderer::~OpenGLRenderer() {
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+        GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
+        GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 
         if (context) {
             delete context;
