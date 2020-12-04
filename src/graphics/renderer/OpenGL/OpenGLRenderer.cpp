@@ -13,7 +13,6 @@ namespace MemoGL {
         initializeWindow();
         initializeGlew();
         initializeShaders();
-        initializeUniforms();
         initializeVertexBuffers();
         openGLVersion->initErrorCalls(); 
     }
@@ -37,13 +36,16 @@ namespace MemoGL {
 
     void OpenGLRenderer::initializeShaders() {
         const std::string vs = readFile("res/shaders/basic.vert");
-        const std::string fs = readFile("res/shaders/green.frag");
+        const std::string fs = readFile("res/shaders/plaincolor.frag");
         unsigned int shader = createShaders(vs, fs);
         GLCall(glUseProgram(shader));
+        initializeUniforms(shader);
     }
 
-    void OpenGLRenderer::initializeUniforms() {
-
+    void OpenGLRenderer::initializeUniforms(unsigned int shader) {
+        GLint location = GLCallR(glGetUniformLocation(shader, "u_Color"));
+        ASSERT(location != -1);
+        GLCall(glUniform4f(location, 0.2f, 0.3f, 0.8f, 0.1f));
     }
 
     void OpenGLRenderer::initializeVertexBuffers() {
