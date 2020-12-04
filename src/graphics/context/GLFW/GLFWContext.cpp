@@ -22,6 +22,14 @@ namespace MemoGL {
         std::cout << "GLFW context has been closed." << std::endl;
     }
 
+    double GLFWContext::getTime() {
+        return glfwGetTime();
+    }
+
+    void GLFWContext::pollEvents() {
+        glfwPollEvents();
+    }
+
     void GLFWContext::init(const ContextSettings& properties) {
         std::cout << "Initializing GLFW context..." << std::endl;
 

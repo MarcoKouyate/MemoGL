@@ -6,6 +6,8 @@ namespace MemoGL {
         public:
             void init(const ContextSettings& properties) override;
             void swapBuffers() override;
+            void pollEvents() override;
+            double getTime() override;
             bool isRunning() override;
             void close() override;
             

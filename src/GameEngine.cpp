@@ -21,19 +21,19 @@ namespace MemoGL {
         IContext* context = graphicsEngine->getRenderer()->getContext();
 
         double lag = 0.0;
-        double previous = glfwGetTime();
+        double previous = context->getTime();
         double SECONDS_PER_UPDATE = 1.0 / 60.0;
 
         while (context->isRunning()) {
 
-            double current = glfwGetTime();
+            double current = context->getTime();
             double elapsed = current - previous;
             previous = current;
 
             lag += elapsed;
 
             // input update
-            glfwPollEvents();
+            context->pollEvents();
 
             while (lag >= SECONDS_PER_UPDATE) {
                 // Game logic
