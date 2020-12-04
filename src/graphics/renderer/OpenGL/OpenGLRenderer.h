@@ -1,20 +1,26 @@
 #pragma once
 #include "graphics/renderer/IRenderer.h"
-#include "OpenGL4Window.h"
+#include "versions/OpenGL3.h"
+#include "versions/OpenGL4.h"
 #include <string>
 
 namespace MemoGL {
-    class OpenGL4Renderer : public IRenderer {
+    class OpenGLRenderer : public IRenderer {
         public:
             void render() override;
-            OpenGL4Renderer(std::shared_ptr<IWindow> pWindow);
-            ~OpenGL4Renderer();
+
+            OpenGLRenderer();
+            ~OpenGLRenderer();
+
         private:
-            void init(std::shared_ptr<IWindow> pWindow);
+            void init();
+            void initializeWindow();
             void initializeGlew();
             void initializeShaders();
             void initializeVertexBuffers();
             unsigned int createShaders(const std::string& vertexShader, const std::string& fragmentShader);
             unsigned int compileShader(unsigned int type, const std::string& source);
+
+            IOpenGLVersion* openGLVersion = nullptr;
     };
 }

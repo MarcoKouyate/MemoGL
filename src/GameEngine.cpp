@@ -18,13 +18,13 @@ namespace MemoGL {
             throw std::runtime_error("Game Engine tried to run without graphics engine.");
         }
 
-        std::shared_ptr<IWindow> window = graphicsEngine->getRenderer()->getWindow();
+        IContext* context = graphicsEngine->getRenderer()->getContext();
 
         double lag = 0.0;
         double previous = glfwGetTime();
         double SECONDS_PER_UPDATE = 1.0 / 60.0;
 
-        while (window->isRunning()) {
+        while (context->isRunning()) {
 
             double current = glfwGetTime();
             double elapsed = current - previous;

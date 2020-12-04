@@ -1,6 +1,10 @@
 #pragma once
 #include "GL/glew.h"
 #include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+
+//Macros for glGetError()
 
 #ifdef _MSC_VER
 #define ASSERT(x) if(!(x)) __debugbreak();
@@ -27,7 +31,10 @@
 #endif
 
 
+
 namespace MemoGL {
+
+
     //Error handling
     void glClearErrors();
     bool glLogErrors(const char* functionName, const char* file, int line);

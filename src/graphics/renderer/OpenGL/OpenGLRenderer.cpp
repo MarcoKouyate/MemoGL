@@ -1,35 +1,47 @@
-#include "OpenGL4Renderer.h"
+#include "OpenGLRenderer.h"
 #include "tools/File.h"
 #include <iostream>
-#include "OpenGL4Error.h"
+#include "OpenGLError.h"
+#include "graphics/context/GLFW/GLFWContext.h"
+
+
 
 
 namespace MemoGL {
     // INITIALIZATION
-    void OpenGL4Renderer::init(std::shared_ptr<IWindow> pWindow) {
-        window = pWindow;
+    void OpenGLRenderer::init() {
+        initializeWindow();
         initializeGlew();
         initializeShaders();
         initializeVertexBuffers();
+        openGLVersion->initErrorCalls(); 
     }
 
-    void OpenGL4Renderer::initializeGlew() {
+    void OpenGLRenderer::initializeWindow() {
+        ContextSettings properties;
+        properties.window = WindowSettings(1280, 720, "MemoGL");
+        openGLVersion->changeSettings(properties);
+        context->init(properties);
+    }
+
+
+    void OpenGLRenderer::initializeGlew() {
         glewExperimental = GL_TRUE;
 
         if (glewInit() != GLEW_OK) {
-            window->close();
+            context->close();
             throw std::runtime_error("Failed to initialize GLEW");
         }
     }
 
-    void OpenGL4Renderer::initializeShaders() {
+    void OpenGLRenderer::initializeShaders() {
         const std::string vs = readFile("res/shaders/basic.vert");
         const std::string fs = readFile("res/shaders/green.frag");
         unsigned int shader = createShaders(vs, fs);
         glUseProgram(shader);
     }
 
-    void OpenGL4Renderer::initializeVertexBuffers() {
+    void OpenGLRenderer::initializeVertexBuffers() {
         float positions[] = {
             -0.5f, -0.5f,
              0.5f, -0.5f,
@@ -57,7 +69,7 @@ namespace MemoGL {
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), indices, GL_STATIC_DRAW);
     }
 
-    unsigned int OpenGL4Renderer::createShaders(const std::string& vertexShader, const std::string& fragmentShader) {
+    unsigned int OpenGLRenderer::createShaders(const std::string& vertexShader, const std::string& fragmentShader) {
         GLuint program = GLCallR(glCreateProgram());
         GLuint vs = compileShader(GL_VERTEX_SHADER, vertexShader);
         GLuint fs = compileShader(GL_FRAGMENT_SHADER, fragmentShader);
@@ -72,7 +84,7 @@ namespace MemoGL {
         return program;
     }
 
-    unsigned int OpenGL4Renderer::compileShader(unsigned int type, const std::string& source) {
+    unsigned int OpenGLRenderer::compileShader(unsigned int type, const std::string& source) {
         unsigned int id = glCreateShader(type);
         const char* src = source.c_str();
         glShaderSource(id, 1, &src, nullptr);
@@ -101,24 +113,38 @@ namespace MemoGL {
 
 
     // RENDER LOOP
-    void OpenGL4Renderer::render() {
+    void OpenGLRenderer::render() {
         glClear(GL_COLOR_BUFFER_BIT);
         GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
-        glfwSwapBuffers(window->get());
+        glfwSwapBuffers(context->get());
     }
+
 
 
 
     // CONSTRUCTORS 
-    OpenGL4Renderer::OpenGL4Renderer(std::shared_ptr<IWindow> pWindow) {
-        std::cout << "Initializing initialized OpenGL " << glGetString(GL_VERSION) << "..." << std::endl;
-        init(pWindow);
+    OpenGLRenderer::OpenGLRenderer() {
+        std::cout << "Initializing OpenGL renderer..." << std::endl;
+        context = new GLFWContext();
+        openGLVersion = new OpenGL4();
+        init();
         std::cout << "OpenGL " << glGetString(GL_VERSION) << " renderer initialized." << std::endl;
     }
 
-    OpenGL4Renderer::~OpenGL4Renderer() {
+    OpenGLRenderer::~OpenGLRenderer() {
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-        std::cout << "OpenGL 3.3 renderer has been released." << std::endl;
+
+        if (context) {
+            delete context;
+            context = nullptr;
+        }
+
+        if (openGLVersion) {
+            delete openGLVersion;
+            openGLVersion = nullptr;
+        }
+
+        std::cout << "OpenGL renderer has been released." << std::endl;
     }
 }

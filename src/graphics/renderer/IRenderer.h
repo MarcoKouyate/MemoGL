@@ -1,5 +1,5 @@
 #pragma once
-#include "IWindow.h"
+#include "graphics/context/IContext.h"
 #include <memory>
 
 namespace MemoGL {
@@ -7,11 +7,13 @@ namespace MemoGL {
         public:
             virtual void render() = 0;
 
-            std::shared_ptr<IWindow> getWindow(){
-                return window;
+            IContext* getContext() {
+                return context;
             }
 
         protected:
-            std::shared_ptr<IWindow> window = nullptr;
+            IContext* context = nullptr;
     };
+
+
 }
