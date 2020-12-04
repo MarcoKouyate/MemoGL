@@ -21,10 +21,13 @@ namespace MemoGL {
         WindowSettings() : width(), height(), name("") {};
     };
 
+    enum class APIProfile { compatibility, core };
+
     struct ContextSettings {
         Version version;
         WindowSettings window;
         bool debugMode;
+        APIProfile profile;
     };
 
     class IContext {

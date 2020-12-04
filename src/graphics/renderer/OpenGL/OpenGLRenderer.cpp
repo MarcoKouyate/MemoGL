@@ -14,12 +14,13 @@ namespace MemoGL {
         initializeGlew();
         initializeShaders();
         initializeVertexBuffers();
-        openGLVersion->initErrorCalls(); 
     }
 
     void OpenGLRenderer::initializeWindow() {
         ContextSettings properties;
         properties.window = WindowSettings(1280, 720, "MemoGL");
+        properties.profile = APIProfile::core;
+
         openGLVersion->changeSettings(properties);
         context->init(properties);
     }
@@ -32,54 +33,20 @@ namespace MemoGL {
             context->close();
             throw std::runtime_error("Failed to initialize GLEW");
         }
+
+        openGLVersion->initErrorCalls();
     }
 
     void OpenGLRenderer::initializeShaders() {
-        const std::string vs = readFile("res/shaders/basic.vert");
-        const std::string fs = readFile("res/shaders/plaincolor.frag");
-        unsigned int shader = createShaders(vs, fs);
+        unsigned int shader = createShaders("res/shaders/basic.vert", "res/shaders/plaincolor.frag");
         GLCall(glUseProgram(shader));
         initializeUniforms(shader);
     }
 
-    void OpenGLRenderer::initializeUniforms(unsigned int shader) {
-        GLint location = GLCallR(glGetUniformLocation(shader, "u_Color"));
-        ASSERT(location != -1);
-        GLCall(glUniform4f(location, 0.2f, 0.3f, 0.8f, 0.1f));
-    }
-
-    void OpenGLRenderer::initializeVertexBuffers() {
-        float positions[] = {
-            -0.5f, -0.5f,
-             0.5f, -0.5f,
-             0.5f,  0.5f,
-            -0.5f,  0.5f
-        };
-
-        unsigned int indices[] = {
-            0, 1, 2,
-            2, 3, 0
-        };
-
-        GLuint vertexBuffer;
-        GLCall(glGenBuffers(1, &vertexBuffer));
-        GLCall(glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer));
-        GLCall(glBufferData(GL_ARRAY_BUFFER, 6 * 2 * sizeof(float), positions, GL_STATIC_DRAW));
-
-        const GLuint VERTEX_ATTR_POSITION = 0;
-        GLCall(glEnableVertexAttribArray(VERTEX_ATTR_POSITION));
-        GLCall(glVertexAttribPointer(VERTEX_ATTR_POSITION, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0));
-
-        GLuint indexBuffer;
-        GLCall(glGenBuffers(1, &indexBuffer));
-        GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer));
-        GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), indices, GL_STATIC_DRAW));
-    }
-
     unsigned int OpenGLRenderer::createShaders(const std::string& vertexShader, const std::string& fragmentShader) {
         GLuint program = GLCallR(glCreateProgram());
-        GLuint vs = compileShader(GL_VERTEX_SHADER, vertexShader);
-        GLuint fs = compileShader(GL_FRAGMENT_SHADER, fragmentShader);
+        GLuint vs = compileShader(GL_VERTEX_SHADER, readFile(vertexShader));
+        GLuint fs = compileShader(GL_FRAGMENT_SHADER, readFile(fragmentShader));
 
         GLCall(glAttachShader(program, vs));
         GLCall(glAttachShader(program, fs));
@@ -114,6 +81,48 @@ namespace MemoGL {
         std::cout << "Succeed to compile " << (type == GL_VERTEX_SHADER ? "VERTEX" : "FRAGMENT") << " shader!" << std::endl;
         return id;
     }
+
+    void OpenGLRenderer::initializeUniforms(unsigned int shader) {
+        GLint location = GLCallR(glGetUniformLocation(shader, "u_Color"));
+        ASSERT(location != -1);
+        GLCall(glUniform4f(location, 0.2f, 0.3f, 0.8f, 0.1f));
+    }
+
+    void OpenGLRenderer::initializeVertexBuffers() {
+        float positions[] = {
+            -0.5f, -0.5f,
+             0.5f, -0.5f,
+             0.5f,  0.5f,
+            -0.5f,  0.5f
+        };
+
+        unsigned int indices[] = {
+            0, 1, 2,
+            2, 3, 0
+        };
+
+        GLuint vertexArray;
+        GLCall(glGenVertexArrays(1, &vertexArray));
+        GLCall(glBindVertexArray(vertexArray));
+
+        GLuint vertexBuffer;
+        GLCall(glGenBuffers(1, &vertexBuffer));
+        GLCall(glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer));
+        GLCall(glBufferData(GL_ARRAY_BUFFER, 6 * 2 * sizeof(float), positions, GL_STATIC_DRAW));
+
+        const GLuint VERTEX_ATTR_POSITION = 0;
+        GLCall(glEnableVertexAttribArray(VERTEX_ATTR_POSITION));
+        GLCall(glVertexAttribPointer(VERTEX_ATTR_POSITION, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0));
+
+        GLuint indexBuffer;
+        GLCall(glGenBuffers(1, &indexBuffer));
+        GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer));
+        GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), indices, GL_STATIC_DRAW));
+
+        GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
+    }
+
+
 
 
 

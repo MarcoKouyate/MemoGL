@@ -6,7 +6,7 @@
 namespace MemoGL {
     
     void ErrorCallback(int error, const char* description) {
-        std::cerr << "Error : " << description << std::endl;
+        std::cerr << "[GLFW Error] " << description << std::endl;
     }
 
     bool GLFWContext::isRunning() {
@@ -38,13 +38,14 @@ namespace MemoGL {
         }
 
         glfwSetErrorCallback(ErrorCallback);
+
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, properties.version.major);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, properties.version.minor);
+        //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
         glfwWindowHint(GLFW_SAMPLES, 4);
         glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, properties.debugMode);
-        //glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, properties.version.major);
-        //glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, properties.version.minor);
-        //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-        //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-        WindowSettings windowSettings = properties.window;
+        glfwWindowHint(GLFW_OPENGL_PROFILE, getProfile(properties.profile));
+
         window = glfwCreateWindow(properties.window.width, properties.window.height, properties.window.name, nullptr, nullptr);
 
         if (!window) {
@@ -58,7 +59,14 @@ namespace MemoGL {
         std::cout << "GLFW context initialized." << std::endl;
     }
 
+    int GLFWContext::getProfile(APIProfile profile) {
+        switch (profile) {
+            case APIProfile::compatibility: return GLFW_OPENGL_COMPAT_PROFILE;
+            case APIProfile::core: return GLFW_OPENGL_CORE_PROFILE;
+        }
 
+        return GLFW_OPENGL_ANY_PROFILE;
+    }
 
 
 	GLFWContext::GLFWContext() {

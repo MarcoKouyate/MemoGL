@@ -13,5 +13,8 @@ namespace MemoGL {
             
             GLFWContext();
             ~GLFWContext();
+
+        private:
+            int getProfile(APIProfile profile);
     };
 }
