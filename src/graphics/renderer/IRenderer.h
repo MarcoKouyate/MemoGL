@@ -7,12 +7,12 @@ namespace MemoGL {
         public:
             virtual void render() = 0;
 
-            IContext* getContext() {
+            std::shared_ptr<IContext> getContext() {
                 return context;
             }
 
         protected:
-            IContext* context = nullptr;
+            std::shared_ptr<IContext> context = nullptr;
     };
 
 

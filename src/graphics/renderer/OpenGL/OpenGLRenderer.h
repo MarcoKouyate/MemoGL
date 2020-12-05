@@ -3,6 +3,9 @@
 #include "versions/OpenGL3.h"
 #include "versions/OpenGL4.h"
 #include <string>
+#include <memory.h>
+#include "buffer/OpenGLIndexBuffer.h"
+#include "buffer/OpenGLVertexBuffer.h"
 
 namespace MemoGL {
     class OpenGLRenderer : public IRenderer {
@@ -15,7 +18,7 @@ namespace MemoGL {
         private:
             void init();
             void initializeWindow();
-            IOpenGLVersion* getOpenGLVersion();
+            std::unique_ptr<IOpenGLVersion> getOpenGLVersion();
             void initializeGlew();
             void initializeShaders();
             void initializeUniforms(unsigned int shader);
@@ -23,6 +26,8 @@ namespace MemoGL {
             unsigned int createShaders(const std::string& vertexShader, const std::string& fragmentShader);
             unsigned int compileShader(unsigned int type, const std::string& source);
 
-            IOpenGLVersion* openGLVersion = nullptr;
+            std::unique_ptr<IOpenGLVersion> openGLVersion = nullptr;
+            std::unique_ptr<OpenGLVertexBuffer> vbo = nullptr;
+            std::unique_ptr<OpenGLIndexBuffer> ibo = nullptr;
     };
 }

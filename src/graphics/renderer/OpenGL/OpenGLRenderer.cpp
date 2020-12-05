@@ -1,9 +1,11 @@
 #include "OpenGLRenderer.h"
-#include "tools/File.h"
-#include <iostream>
+
 #include "OpenGLError.h"
+
+#include "tools/File.h"
 #include "graphics/context/GLFW/GLFWContext.h"
 
+#include <iostream>
 
 
 
@@ -31,17 +33,17 @@ namespace MemoGL {
         context->init(&properties);
     }
 
-    IOpenGLVersion* OpenGLRenderer::getOpenGLVersion() {
+    std::unique_ptr<IOpenGLVersion> OpenGLRenderer::getOpenGLVersion() {
         int major;
         int minor;
         glGetIntegerv(GL_MAJOR_VERSION, &major);
         glGetIntegerv(GL_MINOR_VERSION, &minor);
 
         if (major >= 4 && minor >= 3) {
-            return new OpenGL4();
+            return std::make_unique<OpenGL4>();
         }
         else {
-            return new OpenGL3();
+            return std::make_unique<OpenGL3>();
         }
     }
 
@@ -124,21 +126,15 @@ namespace MemoGL {
         GLCall(glGenVertexArrays(1, &vertexArray));
         GLCall(glBindVertexArray(vertexArray));
 
-        GLuint vertexBuffer;
-        GLCall(glGenBuffers(1, &vertexBuffer));
-        GLCall(glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer));
-        GLCall(glBufferData(GL_ARRAY_BUFFER, 6 * 2 * sizeof(float), positions, GL_STATIC_DRAW));
+        vbo = std::make_unique<OpenGLVertexBuffer>(positions, 6 * 2 * sizeof(float));
+        vbo->bind();
 
         const GLuint VERTEX_ATTR_POSITION = 0;
         GLCall(glEnableVertexAttribArray(VERTEX_ATTR_POSITION));
         GLCall(glVertexAttribPointer(VERTEX_ATTR_POSITION, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0));
 
-        GLuint indexBuffer;
-        GLCall(glGenBuffers(1, &indexBuffer));
-        GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer));
-        GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), indices, GL_STATIC_DRAW));
-
-        GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
+        ibo = std::make_unique<OpenGLIndexBuffer>(indices, 6);
+        ibo->bind();
     }
 
 
@@ -160,25 +156,12 @@ namespace MemoGL {
     // CONSTRUCTORS 
     OpenGLRenderer::OpenGLRenderer() {
         std::cout << "Initializing OpenGL renderer..." << std::endl;
-        context = new GLFWContext();
+        context = std::make_shared<GLFWContext>();
         init();
         std::cout << "OpenGL " << GLCallR(glGetString(GL_VERSION)) << " renderer initialized." << std::endl;
     }
 
     OpenGLRenderer::~OpenGLRenderer() {
-        GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
-        GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
-
-        if (context) {
-            delete context;
-            context = nullptr;
-        }
-
-        if (openGLVersion) {
-            delete openGLVersion;
-            openGLVersion = nullptr;
-        }
-
         std::cout << "OpenGL renderer has been released." << std::endl;
     }
 }
