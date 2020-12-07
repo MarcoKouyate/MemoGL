@@ -5,7 +5,7 @@
 #include <string>
 #include <memory.h>
 #include "buffer/OpenGLIndexBuffer.h"
-#include "buffer/OpenGLVertexBuffer.h"
+#include "buffer/OpenGLVertexArray.h"
 
 namespace MemoGL {
     class OpenGLRenderer : public IRenderer {
@@ -27,7 +27,8 @@ namespace MemoGL {
             unsigned int compileShader(unsigned int type, const std::string& source);
 
             std::unique_ptr<IOpenGLVersion> openGLVersion = nullptr;
-            std::unique_ptr<OpenGLVertexBuffer> vbo = nullptr;
+            std::unique_ptr<OpenGLVertexArray> vao = nullptr;
+            std::shared_ptr<OpenGLVertexBuffer> vbo = nullptr;
             std::unique_ptr<OpenGLIndexBuffer> ibo = nullptr;
     };
 }

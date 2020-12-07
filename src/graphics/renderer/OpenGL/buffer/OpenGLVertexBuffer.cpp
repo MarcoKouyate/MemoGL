@@ -10,6 +10,7 @@ namespace MemoGL {
 		unbind();
 	}
 	OpenGLVertexBuffer::~OpenGLVertexBuffer() {
+		std::cout << "Buffer deleted" << std::endl;
 		GLCall(glDeleteBuffers(1, &id));
 	}
 	void OpenGLVertexBuffer::bind() const

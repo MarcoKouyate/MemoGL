@@ -1,7 +1,6 @@
 #include "OpenGLRenderer.h"
 
 #include "OpenGLError.h"
-
 #include "tools/File.h"
 #include "graphics/context/GLFW/GLFWContext.h"
 
@@ -122,18 +121,17 @@ namespace MemoGL {
             2, 3, 0
         };
 
-        GLuint vertexArray;
-        GLCall(glGenVertexArrays(1, &vertexArray));
-        GLCall(glBindVertexArray(vertexArray));
 
-        vbo = std::make_unique<OpenGLVertexBuffer>(positions, 6 * 2 * sizeof(float));
-        vbo->bind();
-
-        const GLuint VERTEX_ATTR_POSITION = 0;
-        GLCall(glEnableVertexAttribArray(VERTEX_ATTR_POSITION));
-        GLCall(glVertexAttribPointer(VERTEX_ATTR_POSITION, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0));
-
+        vao = std::make_unique<OpenGLVertexArray>();
+        vbo = std::make_shared<OpenGLVertexBuffer>(positions, 4 * 2 * sizeof(float));
         ibo = std::make_unique<OpenGLIndexBuffer>(indices, 6);
+
+        OpenGLVertexLayout layout;
+        layout.push<float>(2);
+        
+        vao->addBuffer(vbo, layout);
+
+        vao->bind();
         ibo->bind();
     }
 
