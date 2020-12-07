@@ -5,10 +5,10 @@
 
 namespace MemoGL {
     struct Version {
-        unsigned int major;
-        unsigned int minor;
+        unsigned int majorId;
+        unsigned int minorId;
         
-        Version(unsigned int major, unsigned int minor) : major(major), minor(minor) {};
+        Version(unsigned int majorId, unsigned int minorId) : majorId(majorId), minorId(minorId) {};
         Version() : Version(0, 0) {};
     };
 

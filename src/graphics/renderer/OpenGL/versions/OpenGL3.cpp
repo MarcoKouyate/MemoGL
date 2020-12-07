@@ -3,8 +3,8 @@
 namespace MemoGL {
 	void OpenGL3::changeSettings(ContextSettings& settings) {
 		settings.debugMode = false;
-		settings.version.major = 3;
-		settings.version.minor = 3;
+		settings.version.majorId = 3;
+		settings.version.minorId = 3;
 	}
 
 	void OpenGL3::initErrorCalls() {

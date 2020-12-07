@@ -41,8 +41,8 @@ namespace MemoGL {
         glfwSetErrorCallback(ErrorCallback);
 
         if (properties) {
-            glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, properties->version.major);
-            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, properties->version.minor);
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, properties->version.majorId);
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, properties->version.minorId);
             //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
             glfwWindowHint(GLFW_SAMPLES, 4);
             glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, properties->debugMode);
