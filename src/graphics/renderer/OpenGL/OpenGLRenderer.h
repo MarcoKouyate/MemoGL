@@ -21,10 +21,7 @@ namespace MemoGL {
             std::unique_ptr<IOpenGLVersion> getOpenGLVersion();
             void initializeGlew();
             void initializeShaders();
-            void initializeUniforms(unsigned int shader);
             void initializeVertexBuffers();
-            unsigned int createShaders(const std::string& vertexShader, const std::string& fragmentShader);
-            unsigned int compileShader(unsigned int type, const std::string& source);
 
             std::unique_ptr<IOpenGLVersion> openGLVersion = nullptr;
             std::unique_ptr<OpenGLVertexArray> vao = nullptr;

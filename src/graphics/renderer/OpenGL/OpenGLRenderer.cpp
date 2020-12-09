@@ -1,6 +1,7 @@
 #include "OpenGLRenderer.h"
-
 #include "OpenGLError.h"
+
+#include "shader/OpenGLShader.h"
 #include "tools/File.h"
 #include "graphics/context/GLFW/GLFWContext.h"
 
@@ -58,54 +59,9 @@ namespace MemoGL {
     }
 
     void OpenGLRenderer::initializeShaders() {
-        unsigned int shader = createShaders("res/shaders/basic.vert", "res/shaders/plaincolor.frag");
-        GLCall(glUseProgram(shader));
-        initializeUniforms(shader);
-    }
-
-    unsigned int OpenGLRenderer::createShaders(const std::string& vertexShader, const std::string& fragmentShader) {
-        GLuint program = GLCallR(glCreateProgram());
-        GLuint vs = compileShader(GL_VERTEX_SHADER, readFile(vertexShader));
-        GLuint fs = compileShader(GL_FRAGMENT_SHADER, readFile(fragmentShader));
-
-        GLCall(glAttachShader(program, vs));
-        GLCall(glAttachShader(program, fs));
-        GLCall(glLinkProgram(program));
-        GLCall(glValidateProgram(program));
-        GLCall(glDeleteShader(vs));
-        GLCall(glDeleteShader(fs));
-
-        return program;
-    }
-
-    unsigned int OpenGLRenderer::compileShader(unsigned int type, const std::string& source) {
-        unsigned int id = GLCallR(glCreateShader(type));
-        const char* src = source.c_str();
-        GLCall(glShaderSource(id, 1, &src, nullptr));
-        GLCall(glCompileShader(id));
-
-        int result;
-        GLCall(glGetShaderiv(id, GL_COMPILE_STATUS, &result));
-        if (result == GL_FALSE) {
-            int length;
-            GLCall(glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length));
-            char* message = (char*)alloca(length * sizeof(char));
-            GLCall(glGetShaderInfoLog(id, length, &length, message));
-
-            std::cout << "Failed to compile " << (type == GL_VERTEX_SHADER ? "VERTEX" : "FRAGMENT") << " shader!" << std::endl;
-            GLCall(glDeleteShader(id));
-            std::cout << message << std::endl;
-            return 0;
-        }
-
-        std::cout << "Succeed to compile " << (type == GL_VERTEX_SHADER ? "VERTEX" : "FRAGMENT") << " shader!" << std::endl;
-        return id;
-    }
-
-    void OpenGLRenderer::initializeUniforms(unsigned int shader) {
-        GLint location = GLCallR(glGetUniformLocation(shader, "u_Color"));
-        ASSERT(location != -1);
-        GLCall(glUniform4f(location, 0.2f, 0.3f, 0.8f, 0.1f));
+        OpenGLShader shader("res/shaders/basic.vert", "res/shaders/plaincolor.frag");
+        shader.bind();
+        shader.setUniform4f("u_Color", 0.8f, 0.5f, 0.3f, 1.0f);
     }
 
     void OpenGLRenderer::initializeVertexBuffers() {
