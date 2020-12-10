@@ -72,6 +72,10 @@ namespace MemoGL {
         GLCall(glUniform1f(getUniformLocation(name), value));
     }
 
+    void OpenGLShader::setUniformMat4f(const std::string& name, const glm::mat4& matrix) {
+        GLCall(glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, &matrix[0][0]));
+    }
+
     int OpenGLShader::getUniformLocation(const std::string& name) {
 
         if (uniformLocationsCache.find(name) != uniformLocationsCache.end()) {
