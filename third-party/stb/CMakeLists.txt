@@ -1,7 +1,6 @@
 set(LIBRARY_DIR stb)
 
-set(GLFW_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR} PARENT_SCOPE)
-
 add_library(${LIBRARY_DIR} STATIC 
+    stb_image.h
     stb_image.cpp
 )

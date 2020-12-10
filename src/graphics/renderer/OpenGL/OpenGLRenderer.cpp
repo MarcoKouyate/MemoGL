@@ -1,7 +1,8 @@
 #include "OpenGLRenderer.h"
 #include "OpenGLError.h"
 
-#include "shader/OpenGLShader.h"
+
+
 #include "tools/File.h"
 #include "graphics/context/GLFW/GLFWContext.h"
 
@@ -17,6 +18,7 @@ namespace MemoGL {
         initializeWindow();
         initializeGlew();
         initializeShaders();
+        initializeTextures();
         initializeVertexBuffers();
     }
 
@@ -61,17 +63,26 @@ namespace MemoGL {
     }
 
     void OpenGLRenderer::initializeShaders() {
-        OpenGLShader shader("res/shaders/basic.vert", "res/shaders/plaincolor.frag");
+        OpenGLShader shader("res/shaders/texture2d.vert", "res/shaders/texture2d.frag");
         shader.bind();
         shader.setUniform4f("u_Color", 0.8f, 0.5f, 0.3f, 1.0f);
+        shader.setUniform1i("u_Texture_Slot", 0);
+    }
+
+    void OpenGLRenderer::initializeTextures() {
+        GLCall(glEnable(GL_BLEND));
+        GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+        
+        texture = std::make_unique<OpenGLTexture>("res/textures/memoticone_admiration.png");
+        texture->bind();
     }
 
     void OpenGLRenderer::initializeVertexBuffers() {
         float positions[] = {
-            -0.5f, -0.5f,
-             0.5f, -0.5f,
-             0.5f,  0.5f,
-            -0.5f,  0.5f
+            -0.5f, -0.5f, 0.0f, 0.0f,
+             0.5f, -0.5f, 1.0f, 0.0f,
+             0.5f,  0.5f, 1.0f, 1.0f,
+            -0.5f,  0.5f, 0.0f, 1.0f
         };
 
         unsigned int indices[] = {
@@ -81,10 +92,11 @@ namespace MemoGL {
 
 
         vao = std::make_unique<OpenGLVertexArray>();
-        vbo = std::make_shared<OpenGLVertexBuffer>(positions, 4 * 2 * sizeof(float));
+        vbo = std::make_shared<OpenGLVertexBuffer>(positions, 4 * 4 * sizeof(float));
         ibo = std::make_unique<OpenGLIndexBuffer>(indices, 6);
 
         OpenGLVertexLayout layout;
+        layout.push<float>(2);
         layout.push<float>(2);
         
         vao->addBuffer(vbo, layout);

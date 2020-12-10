@@ -64,7 +64,15 @@ namespace MemoGL {
         GLCall(glUniform4f(getUniformLocation(name), v0, v1, v2, v3));
     }
 
-    unsigned int OpenGLShader::getUniformLocation(const std::string& name) {
+    void OpenGLShader::setUniform1i(const std::string& name, int value) {
+        GLCall(glUniform1i(getUniformLocation(name), value));
+    }
+
+    void OpenGLShader::setUniform1f(const std::string& name, float value) {
+        GLCall(glUniform1f(getUniformLocation(name), value));
+    }
+
+    int OpenGLShader::getUniformLocation(const std::string& name) {
 
         if (uniformLocationsCache.find(name) != uniformLocationsCache.end()) {
             return uniformLocationsCache[name];
