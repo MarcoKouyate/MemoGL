@@ -5,6 +5,8 @@
 #include "tools/File.h"
 #include "graphics/context/GLFW/GLFWContext.h"
 
+
+
 #include <iostream>
 
 
@@ -99,6 +101,7 @@ namespace MemoGL {
 
     // RENDER LOOP
     void OpenGLRenderer::render() {
+
         GLCall(glClear(GL_COLOR_BUFFER_BIT));
         GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
         context->swapBuffers();

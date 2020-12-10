@@ -35,5 +35,9 @@ target_link_libraries(${PROJECT_LIB} PRIVATE libglew_static)
 target_include_directories(${PROJECT_LIB} PRIVATE ${GLM_INCLUDE_DIR})
 target_link_libraries(${PROJECT_LIB} PRIVATE glm)
 
+#stb
+target_include_directories(${PROJECT_LIB} PRIVATE ${STB_INCLUDE_DIR})
+target_link_libraries(${PROJECT_LIB} PRIVATE stb)
+
 #testing
 add_subdirectory(test)
