@@ -65,11 +65,16 @@ namespace MemoGL {
 
     void OpenGLRenderer::initializeShaders() {
         glm::mat4 proj = glm::ortho(-2.0f, 2.0f, -1.125f, 1.125f, -1.0f, 1.0f);
+        glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(-1, 0, 0));
+        glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 1, 0));
+
+        glm::mat4 mvp = proj * view * model;
+
 
         OpenGLShader shader("res/shaders/texture2d.vert", "res/shaders/texture2d.frag");
         shader.bind();
         shader.setUniform4f("u_Color", 0.8f, 0.5f, 0.3f, 1.0f);
-        shader.setUniformMat4f("u_MVP", proj);
+        shader.setUniformMat4f("u_MVP", mvp);
         shader.setUniform1i("u_Texture_Slot", 0);
     }
 
