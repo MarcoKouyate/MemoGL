@@ -39,5 +39,9 @@ target_link_libraries(${PROJECT_LIB} PRIVATE glm)
 target_include_directories(${PROJECT_LIB} PRIVATE ${STB_INCLUDE_DIR})
 target_link_libraries(${PROJECT_LIB} PRIVATE stb)
 
+#imgui
+target_include_directories(${PROJECT_LIB} PRIVATE ${IMGUI_INCLUDE_DIR})
+target_link_libraries(${PROJECT_LIB} PRIVATE imgui)
+
 #testing
 add_subdirectory(test)

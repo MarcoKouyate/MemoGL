@@ -10,6 +10,10 @@
 #include <string>
 #include <memory.h>
 
+#include "imconfig.h"
+#include "imgui/imgui_impl_opengl3.h"
+#include "imgui/imgui_impl_glfw.h"
+
 namespace MemoGL {
     class OpenGLRenderer : public IRenderer {
         public:
@@ -32,5 +36,11 @@ namespace MemoGL {
             std::shared_ptr<OpenGLVertexBuffer> vbo = nullptr;
             std::unique_ptr<OpenGLIndexBuffer> ibo = nullptr;
             std::unique_ptr<OpenGLTexture> texture = nullptr;
+            std::unique_ptr<OpenGLShader> shader = nullptr;
+
+
+            bool show_demo_window = true;
+            bool show_another_window = false;
+            ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
     };
 }
