@@ -64,7 +64,7 @@ namespace MemoGL {
     void OpenGLRenderer::initializeShaders() {
         proj = glm::ortho(-2.0f, 2.0f, -1.125f, 1.125f, -1.0f, 1.0f);
         view = glm::translate(glm::mat4(1.0f), glm::vec3(camera_position_x, camera_position_y, 0));
-        model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
+        model = glm::translate(glm::mat4(1.0f), translationA);
 
         glm::mat4 mvp = proj * view * model;
 
@@ -129,23 +129,13 @@ namespace MemoGL {
 
             ImGui::Text("Controls for the MemoGL Renderer");               // Display some text (you can use a format strings too)
             ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
-            ImGui::Checkbox("Another Window", &show_another_window);
 
-            ImGui::SliderFloat("Camera x", &camera_position_x, -1.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+            ImGui::SliderFloat3("Translation A", &translationA.x, -1.0f, 1.0f);  
+            ImGui::SliderFloat3("Translation B", &translationB.x, -1.0f, 1.0f);
             ImGui::SliderFloat("Camera y", &camera_position_y, -1.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
             ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
 
             ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-            ImGui::End();
-        }
-
-        // 3. Show another simple window.
-        if (show_another_window)
-        {
-            ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-            ImGui::Text("Hello from another window!");
-            if (ImGui::Button("Close Me"))
-                show_another_window = false;
             ImGui::End();
         }
     }
@@ -156,10 +146,20 @@ namespace MemoGL {
         
         vao->bind();
         ibo->bind();
-        shader->bind();
+
 
         view = glm::translate(glm::mat4(1.0f), glm::vec3(camera_position_x, camera_position_y, 0));
+        
+        model = glm::translate(glm::mat4(1.0f), translationA);
         glm::mat4 mvp = proj * view * model;
+        shader->bind();
+        shader->setUniformMat4f("u_MVP", mvp);
+
+        GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
+
+        model = glm::translate(glm::mat4(1.0f), translationB);
+        mvp = proj * view * model;
+        shader->bind();
         shader->setUniformMat4f("u_MVP", mvp);
 
         GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));

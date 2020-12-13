@@ -42,9 +42,10 @@ namespace MemoGL {
             glm::mat4 proj;
             glm::mat4 view;
             glm::mat4 model;
+            glm::vec3 translationA;
+            glm::vec3 translationB;
 
             bool show_demo_window = true;
-            bool show_another_window = false;
             ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
             float camera_position_x = 0;
             float camera_position_y = 0;
