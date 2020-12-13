@@ -62,9 +62,9 @@ namespace MemoGL {
     }
 
     void OpenGLRenderer::initializeShaders() {
-        glm::mat4 proj = glm::ortho(-2.0f, 2.0f, -1.125f, 1.125f, -1.0f, 1.0f);
-        glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(-1, 0, 0));
-        glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 1, 0));
+        proj = glm::ortho(-2.0f, 2.0f, -1.125f, 1.125f, -1.0f, 1.0f);
+        view = glm::translate(glm::mat4(1.0f), glm::vec3(camera_position_x, camera_position_y, 0));
+        model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
 
         glm::mat4 mvp = proj * view * model;
 
@@ -97,7 +97,6 @@ namespace MemoGL {
             2, 3, 0
         };
 
-
         vao = std::make_unique<OpenGLVertexArray>();
         vbo = std::make_shared<OpenGLVertexBuffer>(positions, 4 * 4 * sizeof(float));
         ibo = std::make_unique<OpenGLIndexBuffer>(indices, 6);
@@ -126,22 +125,15 @@ namespace MemoGL {
 
         // 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
         {
-            static float f = 0.0f;
-            static int counter = 0;
+            ImGui::Begin("MemoGL");                          // Create a window called "Hello, world!" and append into it.
 
-            ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
-
-            ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
+            ImGui::Text("Controls for the MemoGL Renderer");               // Display some text (you can use a format strings too)
             ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
             ImGui::Checkbox("Another Window", &show_another_window);
 
-            ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+            ImGui::SliderFloat("Camera x", &camera_position_x, -1.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+            ImGui::SliderFloat("Camera y", &camera_position_y, -1.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
             ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
-
-            if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-                counter++;
-            ImGui::SameLine();
-            ImGui::Text("counter = %d", counter);
 
             ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
             ImGui::End();
@@ -161,20 +153,25 @@ namespace MemoGL {
 
     // RENDER LOOP
     void OpenGLRenderer::render() {
-
-        glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
-        GLCall(glClear(GL_COLOR_BUFFER_BIT));
         
+        vao->bind();
+        ibo->bind();
+        shader->bind();
+
+        view = glm::translate(glm::mat4(1.0f), glm::vec3(camera_position_x, camera_position_y, 0));
+        glm::mat4 mvp = proj * view * model;
+        shader->setUniformMat4f("u_MVP", mvp);
+
+        GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
+
         imgui->begin();
         drawImGui();
         imgui->end();
 
-        vao->bind();
-        ibo->bind();
-        shader->bind();
-        GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
-
         context->swapBuffers();
+
+        GLCall(glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w));
+        GLCall(glClear(GL_COLOR_BUFFER_BIT));
     }
 
 

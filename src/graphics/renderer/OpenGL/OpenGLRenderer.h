@@ -39,8 +39,14 @@ namespace MemoGL {
             std::unique_ptr<OpenGLShader> shader = nullptr;
             std::unique_ptr<OpenGLImGui> imgui = nullptr;
 
+            glm::mat4 proj;
+            glm::mat4 view;
+            glm::mat4 model;
+
             bool show_demo_window = true;
             bool show_another_window = false;
             ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+            float camera_position_x = 0;
+            float camera_position_y = 0;
     };
 }
