@@ -10,9 +10,7 @@
 #include <string>
 #include <memory.h>
 
-#include "imconfig.h"
-#include "imgui/imgui_impl_opengl3.h"
-#include "imgui/imgui_impl_glfw.h"
+#include "imgui/OpenGLImGui.h"
 
 namespace MemoGL {
     class OpenGLRenderer : public IRenderer {
@@ -30,6 +28,8 @@ namespace MemoGL {
             void initializeShaders();
             void initializeTextures();
             void initializeVertexBuffers();
+            void initializeImGui();
+            void drawImGui();
 
             std::unique_ptr<IOpenGLVersion> openGLVersion = nullptr;
             std::unique_ptr<OpenGLVertexArray> vao = nullptr;
@@ -37,7 +37,7 @@ namespace MemoGL {
             std::unique_ptr<OpenGLIndexBuffer> ibo = nullptr;
             std::unique_ptr<OpenGLTexture> texture = nullptr;
             std::unique_ptr<OpenGLShader> shader = nullptr;
-
+            std::unique_ptr<OpenGLImGui> imgui = nullptr;
 
             bool show_demo_window = true;
             bool show_another_window = false;
