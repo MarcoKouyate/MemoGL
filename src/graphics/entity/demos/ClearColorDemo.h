@@ -1,6 +1,7 @@
 #pragma once
 #include "../Demo.h"
 
+
 namespace MemoGL {
 	class ClearColorDemo : public IDemo{
 	public:
@@ -8,7 +9,7 @@ namespace MemoGL {
 		~ClearColorDemo() override;
 
 		void update(float deltatime) override;
-		void render() override;
+		void render(IRenderer& renderer) override;
 		void imgui() override;
 
 	private:

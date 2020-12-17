@@ -10,5 +10,8 @@ namespace MemoGL {
 
             RasterizationEngine(std::shared_ptr<IRenderer> pRenderer);
             ~RasterizationEngine();
+
+        private: 
+            ClearColorDemo demo;
     };
 }

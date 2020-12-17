@@ -18,9 +18,8 @@ namespace MemoGL {
 
 	}
 
-	void ClearColorDemo::render() {
-		GLCall(glClearColor(clearColor[0], clearColor[1], clearColor[2], clearColor[3]));
-		GLCall(glClear(GL_COLOR_BUFFER_BIT));
+	void ClearColorDemo::render(IRenderer& renderer) {
+		renderer.clearColor({ clearColor[0], clearColor[1], clearColor[2], clearColor[3]});
 	}
 
 	void ClearColorDemo::imgui() {

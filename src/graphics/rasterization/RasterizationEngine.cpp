@@ -14,6 +14,15 @@ namespace MemoGL {
     }
         
     void RasterizationEngine::render(float lag) {
-        renderer->render();
+        renderer->begin();
+        demo.render(*renderer);
+        
+
+        renderer->imGuiBegin();
+        demo.imgui();
+        renderer->imGuiEnd();
+        renderer->end();
+
+        
     }
 }

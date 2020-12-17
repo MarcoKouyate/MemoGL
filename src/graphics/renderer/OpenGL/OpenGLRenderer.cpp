@@ -19,7 +19,6 @@ namespace MemoGL {
         initializeTextures();
         initializeVertexBuffers();
         initializeImGui();
-        demo = std::make_unique<ClearColorDemo>();
     }
 
     void OpenGLRenderer::initializeWindow() {
@@ -113,72 +112,30 @@ namespace MemoGL {
     }
 
 
-
     void OpenGLRenderer::initializeImGui() {
         imgui = std::make_unique<OpenGLImGui>(context, "#version 330", true);
     }
 
-
-    void OpenGLRenderer::drawImGui() {
-        // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
-        if (show_demo_window)
-            ImGui::ShowDemoWindow(&show_demo_window);
-
-        // 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
-        {
-            ImGui::Begin("MemoGL");                          // Create a window called "Hello, world!" and append into it.
-
-            ImGui::Text("Controls for the MemoGL Renderer");               // Display some text (you can use a format strings too)
-            ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
-
-            ImGui::SliderFloat3("Translation A", &translationA.x, -1.0f, 1.0f);  
-            ImGui::SliderFloat3("Translation B", &translationB.x, -1.0f, 1.0f);
-            ImGui::SliderFloat("Camera y", &camera_position_y, -1.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-            ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
-
-            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-            ImGui::End();
-        }
-    }
-
-
-    // RENDER LOOP
-    void OpenGLRenderer::render() {
-        
-        //vao->bind();
-        //ibo->bind();
-
-
-        //view = glm::translate(glm::mat4(1.0f), glm::vec3(camera_position_x, camera_position_y, 0));
-        //
-        //model = glm::translate(glm::mat4(1.0f), translationA);
-        //glm::mat4 mvp = proj * view * model;
-        //shader->bind();
-        //shader->setUniformMat4f("u_MVP", mvp);
-
-        //GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
-
-        //model = glm::translate(glm::mat4(1.0f), translationB);
-        //mvp = proj * view * model;
-        //shader->bind();
-        //shader->setUniformMat4f("u_MVP", mvp);
-
-        //GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
-
-        demo->render();
-
-        imgui->begin();
-        //drawImGui();
-        demo->imgui();
-        imgui->end();
-
-        context->swapBuffers();
-
-        GLCall(glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w));
+    void OpenGLRenderer::clearColor(const RGBAColor& color){
+        GLCall(glClearColor(color.r, color.g, color.b, color.a));
         GLCall(glClear(GL_COLOR_BUFFER_BIT));
     }
 
+    void OpenGLRenderer::imGuiBegin() {
+        imgui->begin();
+    }
 
+    void OpenGLRenderer::imGuiEnd() {
+        imgui->end();
+    }
+
+    void OpenGLRenderer::begin() {
+
+    }
+
+    void OpenGLRenderer::end() {
+        context->swapBuffers();
+    }
 
 
     // CONSTRUCTORS 

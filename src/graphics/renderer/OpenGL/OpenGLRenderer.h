@@ -16,7 +16,14 @@
 namespace MemoGL {
     class OpenGLRenderer : public IRenderer {
         public:
-            void render() override;
+            void clearColor(const RGBAColor& color) override;
+
+            void begin() override;
+            void end() override;
+
+            void imGuiBegin() override;
+            void imGuiEnd() override;
+
 
             OpenGLRenderer();
             ~OpenGLRenderer();
@@ -30,7 +37,6 @@ namespace MemoGL {
             void initializeTextures();
             void initializeVertexBuffers();
             void initializeImGui();
-            void drawImGui();
 
             std::unique_ptr<IOpenGLVersion> openGLVersion = nullptr;
             std::unique_ptr<OpenGLVertexArray> vao = nullptr;
@@ -39,7 +45,6 @@ namespace MemoGL {
             std::unique_ptr<OpenGLTexture> texture = nullptr;
             std::unique_ptr<OpenGLShader> shader = nullptr;
             std::unique_ptr<OpenGLImGui> imgui = nullptr;
-            std::unique_ptr<ClearColorDemo> demo = nullptr;
 
             glm::mat4 proj;
             glm::mat4 view;
@@ -47,8 +52,6 @@ namespace MemoGL {
             glm::vec3 translationA;
             glm::vec3 translationB;
 
-            bool show_demo_window = true;
-            ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
             float camera_position_x = 0;
             float camera_position_y = 0;
     };
