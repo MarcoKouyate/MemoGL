@@ -19,6 +19,7 @@ namespace MemoGL {
         initializeTextures();
         initializeVertexBuffers();
         initializeImGui();
+        demo = std::make_unique<ClearColorDemo>();
     }
 
     void OpenGLRenderer::initializeWindow() {
@@ -144,28 +145,31 @@ namespace MemoGL {
     // RENDER LOOP
     void OpenGLRenderer::render() {
         
-        vao->bind();
-        ibo->bind();
+        //vao->bind();
+        //ibo->bind();
 
 
-        view = glm::translate(glm::mat4(1.0f), glm::vec3(camera_position_x, camera_position_y, 0));
-        
-        model = glm::translate(glm::mat4(1.0f), translationA);
-        glm::mat4 mvp = proj * view * model;
-        shader->bind();
-        shader->setUniformMat4f("u_MVP", mvp);
+        //view = glm::translate(glm::mat4(1.0f), glm::vec3(camera_position_x, camera_position_y, 0));
+        //
+        //model = glm::translate(glm::mat4(1.0f), translationA);
+        //glm::mat4 mvp = proj * view * model;
+        //shader->bind();
+        //shader->setUniformMat4f("u_MVP", mvp);
 
-        GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
+        //GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
 
-        model = glm::translate(glm::mat4(1.0f), translationB);
-        mvp = proj * view * model;
-        shader->bind();
-        shader->setUniformMat4f("u_MVP", mvp);
+        //model = glm::translate(glm::mat4(1.0f), translationB);
+        //mvp = proj * view * model;
+        //shader->bind();
+        //shader->setUniformMat4f("u_MVP", mvp);
 
-        GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
+        //GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
+
+        demo->render();
 
         imgui->begin();
-        drawImGui();
+        //drawImGui();
+        demo->imgui();
         imgui->end();
 
         context->swapBuffers();

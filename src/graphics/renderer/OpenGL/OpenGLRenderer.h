@@ -11,6 +11,7 @@
 #include <memory.h>
 
 #include "imgui/OpenGLImGui.h"
+#include "graphics/entity/demos/ClearColorDemo.h"
 
 namespace MemoGL {
     class OpenGLRenderer : public IRenderer {
@@ -38,6 +39,7 @@ namespace MemoGL {
             std::unique_ptr<OpenGLTexture> texture = nullptr;
             std::unique_ptr<OpenGLShader> shader = nullptr;
             std::unique_ptr<OpenGLImGui> imgui = nullptr;
+            std::unique_ptr<ClearColorDemo> demo = nullptr;
 
             glm::mat4 proj;
             glm::mat4 view;
