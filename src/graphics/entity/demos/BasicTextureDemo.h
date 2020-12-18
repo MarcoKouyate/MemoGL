@@ -6,7 +6,7 @@ namespace MemoGL {
     class BasicTextureDemo : public Demo {
         public:
             BasicTextureDemo();
-            ~BasicTextureDemo();
+            ~BasicTextureDemo() override;
 
             void update(float deltatime) override;
             void render(IRenderer& renderer) override;
