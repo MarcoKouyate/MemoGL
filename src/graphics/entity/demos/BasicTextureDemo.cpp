@@ -15,17 +15,15 @@ namespace MemoGL {
         
     }
 
-    void BasicTextureDemo::addChild(std::shared_ptr<Object> p_object) {
-        sprite = p_object;
-    }
 
     void BasicTextureDemo::render(IRenderer& renderer) {
         renderer.clearColor({ 0.5f, 0.5f, 0.3f, 1.0f });
-        sprite->render(renderer);
+        renderChildren(renderer);
     }
 
 
     void BasicTextureDemo::imgui() {
         ImGui::Text("Hello World");
+        imguiChildren();
     }
 }

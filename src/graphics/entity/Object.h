@@ -11,13 +11,11 @@ namespace MemoGL {
 	class Object : public Entity {
 		public:
 			Object(std::shared_ptr<Shader> shader);
-			~Object();
+			~Object() override;
 
 			void render(IRenderer& renderer) override;
-
-			void bind() {
-				shader->bind();
-			}
+			void update(float deltatime);
+			void imgui();
 
 		private:
 			std::shared_ptr<Shader> shader = nullptr;

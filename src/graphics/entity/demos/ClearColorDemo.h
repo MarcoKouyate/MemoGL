@@ -3,7 +3,7 @@
 
 
 namespace MemoGL {
-	class ClearColorDemo : public IDemo{
+	class ClearColorDemo : public Demo{
 	public:
 		ClearColorDemo();
 		~ClearColorDemo() override;

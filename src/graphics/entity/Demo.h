@@ -1,14 +1,11 @@
 #pragma once
-#include "graphics/renderer/IRenderer.h"
+#include "graphics/entity/Entity.h"
+
 
 
 namespace MemoGL {
-	class IDemo {
+	class Demo : public Entity {
 	public:
-		virtual ~IDemo() = default;
-
-		virtual void update(float deltatime) = 0; 
-		virtual void render(IRenderer& renderer) = 0;
-		virtual void imgui() = 0;
+		virtual ~Demo() = default;
 	};
 }

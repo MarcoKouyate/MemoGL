@@ -1,10 +1,21 @@
 #include "Object.h"
+#include "imgui.h"
 
 namespace MemoGL {
 
 	void Object::render(IRenderer& renderer) {
+		renderChildren(renderer);
 		shader->bind();
 		renderer.draw();
+	}
+
+	void Object::update(float deltatime) {
+
+	}
+
+	void Object::imgui() {
+		ImGui::Text("Hello from object");
+		imguiChildren();
 	}
 
 	Object::Object(std::shared_ptr<Shader> shader) : shader(shader) {
@@ -15,7 +26,7 @@ namespace MemoGL {
 
 		glm::mat4 mvp = proj * view * model;
 
-		bind();
+		shader->bind();
 		shader->setUniform4f("u_Color", 0.8f, 0.5f, 0.3f, 1.0f);
 		shader->setUniformMat4f("u_MVP", mvp);
 		shader->setUniform1i("u_Texture_Slot", 0);
