@@ -20,7 +20,8 @@ namespace MemoGL {
             void clearColor(const RGBAColor& color) override;
             void draw();
 
-            std::shared_ptr<Shader> createShader(const std::string& vertex, const std::string& fragment);
+            std::shared_ptr<Shader> createShader(const std::string& vertex, const std::string& fragment) override;
+            std::shared_ptr<VertexArray> createVertexArray() override;
 
             void begin() override;
             void end() override;
@@ -38,11 +39,9 @@ namespace MemoGL {
             std::unique_ptr<IOpenGLVersion> getOpenGLVersion();
             void initializeGlew();
             void initializeTextures();
-            void initializeVertexBuffers();
             void initializeImGui();
 
             std::unique_ptr<IOpenGLVersion> openGLVersion = nullptr;
-            std::unique_ptr<OpenGLVertexArray> vao = nullptr;
             std::shared_ptr<OpenGLVertexBuffer> vbo = nullptr;
             std::unique_ptr<OpenGLIndexBuffer> ibo = nullptr;
             std::unique_ptr<OpenGLTexture> texture = nullptr;

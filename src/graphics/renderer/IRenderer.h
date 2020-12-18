@@ -2,6 +2,7 @@
 #include "graphics/context/IContext.h"
 #include "tools/ColorStructs.h"
 #include "graphics/entity/Shader.h"
+#include "graphics/entity/VertexArray.h"
 
 #include <memory>
 
@@ -16,6 +17,7 @@ namespace MemoGL {
             virtual void end() = 0;
 
             virtual std::shared_ptr<Shader> createShader(const std::string& vertex, const std::string& fragment) = 0;
+            virtual std::shared_ptr<VertexArray> createVertexArray() = 0;
 
             //TODO ImGui should be a separate renderer
             virtual void imGuiBegin() = 0;

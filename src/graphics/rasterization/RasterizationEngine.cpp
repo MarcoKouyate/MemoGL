@@ -8,7 +8,8 @@ namespace MemoGL {
         renderer = pRenderer;
         std::cout << "Rasterization graphics engine initialized." << std::endl;
         std::shared_ptr<Shader> shader = renderer->createShader("res/shaders/texture2d.vert", "res/shaders/texture2d.frag");
-        std::shared_ptr<Object> entity = std::make_shared<Object>(shader);
+        std::shared_ptr<VertexArray> vertices = renderer->createVertexArray();
+        std::shared_ptr<Object> entity = std::make_shared<Object>(shader, vertices);
         demo.addChild(entity);
     }
 

@@ -5,12 +5,13 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "Entity.h"
+#include "VertexArray.h"
 
 
 namespace MemoGL {
 	class Object : public Entity {
 		public:
-			Object(std::shared_ptr<Shader> shader);
+			Object(std::shared_ptr<Shader> shader, std::shared_ptr<VertexArray> vertices);
 			~Object() override;
 
 			void render(IRenderer& renderer) override;
@@ -19,6 +20,7 @@ namespace MemoGL {
 
 		private:
 			std::shared_ptr<Shader> shader = nullptr;
+			std::shared_ptr<VertexArray> vertices = nullptr;
 
 			glm::mat4 proj;
 			glm::mat4 view;

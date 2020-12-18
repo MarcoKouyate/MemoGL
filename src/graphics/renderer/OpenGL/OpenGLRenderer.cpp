@@ -16,7 +16,6 @@ namespace MemoGL {
         initializeWindow();
         initializeGlew();
         initializeTextures();
-        initializeVertexBuffers();
         initializeImGui();
     }
 
@@ -68,7 +67,7 @@ namespace MemoGL {
         texture->bind();
     }
 
-    void OpenGLRenderer::initializeVertexBuffers() {
+    std::shared_ptr<VertexArray> OpenGLRenderer::createVertexArray() {
         float positions[] = {
             -0.5f, -0.5f, 0.0f, 0.0f,
              0.5f, -0.5f, 1.0f, 0.0f,
@@ -81,7 +80,7 @@ namespace MemoGL {
             2, 3, 0
         };
 
-        vao = std::make_unique<OpenGLVertexArray>();
+        std::shared_ptr<OpenGLVertexArray> vao = std::make_shared<OpenGLVertexArray>();
         vbo = std::make_shared<OpenGLVertexBuffer>(positions, 4 * 4 * sizeof(float));
         ibo = std::make_unique<OpenGLIndexBuffer>(indices, 6);
 
@@ -93,6 +92,8 @@ namespace MemoGL {
 
         vao->bind();
         ibo->bind();
+
+        return vao;
     }
 
 
