@@ -9,7 +9,8 @@ namespace MemoGL {
     }
 
     void MenuDemo::render(IRenderer& renderer) {
-
+        renderer.clearColor({ 0.0f, 0.0f, 0.0f, 0.0f });
+        renderChildren(renderer);
     }
 
     void MenuDemo::imgui() {
@@ -19,6 +20,8 @@ namespace MemoGL {
                 break;
             }
         }
+
+        imguiChildren();
     }
 
     MenuDemo::MenuDemo(std::shared_ptr<Demo>& currentDemo) : currentDemo(currentDemo) {

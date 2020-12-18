@@ -30,6 +30,9 @@ namespace MemoGL {
 
             renderer->imGuiBegin();
             demo->imgui();
+            if (ImGui::Button("< home")) {
+                demo = std::make_shared<MenuDemo>(demo);
+            }
             renderer->imGuiEnd();
             renderer->end();
         }
