@@ -2,13 +2,14 @@
 #include <string>
 #include <unordered_map>
 #include "glm/glm.hpp"
+#include "graphics/entity/Shader.h"
 
 namespace MemoGL {
-	class OpenGLShader
+	class OpenGLShader : public Shader
 	{
 	public:
 		OpenGLShader(const std::string& vertexFilePath, const std::string& fragmentFilePath);
-		~OpenGLShader();
+		~OpenGLShader() override;
 
 		void bind() const;
 		void unbind() const;

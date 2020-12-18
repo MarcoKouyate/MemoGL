@@ -7,6 +7,9 @@ namespace MemoGL {
     RasterizationEngine::RasterizationEngine(std::shared_ptr<IRenderer> pRenderer) {
         renderer = pRenderer;
         std::cout << "Rasterization graphics engine initialized." << std::endl;
+        std::shared_ptr<Shader> shader = renderer->createShader("res/shaders/texture2d.vert", "res/shaders/texture2d.frag");
+        std::shared_ptr<Object> entity = std::make_shared<Object>(shader);
+        demo.addChild(entity);
     }
 
     RasterizationEngine::~RasterizationEngine() {

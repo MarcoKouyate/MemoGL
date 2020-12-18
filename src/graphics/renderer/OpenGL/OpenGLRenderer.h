@@ -11,12 +11,16 @@
 #include <memory.h>
 
 #include "imgui/OpenGLImGui.h"
-#include "graphics/entity/demos/ClearColorDemo.h"
+
+#include "graphics/entity/Object.h"
 
 namespace MemoGL {
     class OpenGLRenderer : public IRenderer {
         public:
             void clearColor(const RGBAColor& color) override;
+            void draw();
+
+            std::shared_ptr<Shader> createShader(const std::string& vertex, const std::string& fragment);
 
             void begin() override;
             void end() override;
@@ -33,7 +37,6 @@ namespace MemoGL {
             void initializeWindow();
             std::unique_ptr<IOpenGLVersion> getOpenGLVersion();
             void initializeGlew();
-            void initializeShaders();
             void initializeTextures();
             void initializeVertexBuffers();
             void initializeImGui();
@@ -43,16 +46,8 @@ namespace MemoGL {
             std::shared_ptr<OpenGLVertexBuffer> vbo = nullptr;
             std::unique_ptr<OpenGLIndexBuffer> ibo = nullptr;
             std::unique_ptr<OpenGLTexture> texture = nullptr;
-            std::unique_ptr<OpenGLShader> shader = nullptr;
             std::unique_ptr<OpenGLImGui> imgui = nullptr;
 
-            glm::mat4 proj;
-            glm::mat4 view;
-            glm::mat4 model;
-            glm::vec3 translationA;
-            glm::vec3 translationB;
 
-            float camera_position_x = 0;
-            float camera_position_y = 0;
     };
 }
