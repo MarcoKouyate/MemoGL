@@ -1,5 +1,6 @@
 #include "GameEngine.h"
 #include "graphics/rasterization/RasterizationEngine.h"
+#include "graphics/entity/SceneManager.h"
 #include <stdexcept>
 #include <iostream>
 
@@ -19,6 +20,9 @@ namespace MemoGL {
         }
 
         std::shared_ptr<IContext> context = graphicsEngine->getRenderer()->getContext();
+
+        SceneManager* sceneManager = SceneManager::getInstance();
+        sceneManager->load(std::make_shared<MenuDemo>());
 
         double lag = 0.0;
         double previous = context->getTime();
@@ -41,7 +45,7 @@ namespace MemoGL {
             }
 
             // Rendering
-            graphicsEngine->render((float)lag / SECONDS_PER_UPDATE);
+            graphicsEngine->render(sceneManager->getCurrentScene(),(float)lag / SECONDS_PER_UPDATE);
         }
     }
 }

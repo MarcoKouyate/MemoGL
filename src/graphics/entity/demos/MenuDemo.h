@@ -1,5 +1,6 @@
 #pragma once
 #include "../Demo.h"
+#include "../SceneManager.h"
 #include <vector>
 #include <string>
 #include <functional>
@@ -7,7 +8,7 @@
 namespace MemoGL {
     class MenuDemo : public Demo {
         public: 
-            MenuDemo(std::shared_ptr<Demo>& currentDemo);
+            MenuDemo();
             ~MenuDemo() override;
 
             void update(float deltatime) override;
@@ -18,11 +19,10 @@ namespace MemoGL {
             void registerDemo(const std::string& name) {
 
                     demos.push_back(
-                        std::make_pair(name, []() { return std::make_shared<T>(); }));
+                        std::make_pair(name, []() { SceneManager::getInstance()->load(std::make_shared<T>()); }));
             }
 
         private:
-            std::shared_ptr<Demo>& currentDemo;
-            std::vector<std::pair<std::string, std::function<std::shared_ptr<Demo>()>>> demos;
+            std::vector<std::pair<std::string, std::function<void()>>> demos;
     };
 }

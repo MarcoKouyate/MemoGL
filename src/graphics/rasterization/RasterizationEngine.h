@@ -9,7 +9,7 @@
 namespace MemoGL {
     class RasterizationEngine : public IGraphicsEngine{
         public:
-            void render(float lag) override;
+            void render(std::shared_ptr<Demo> scene, float lag) override;
             ~RasterizationEngine();
 
             static IGraphicsEngine* getInstance() {
@@ -24,7 +24,6 @@ namespace MemoGL {
             RasterizationEngine();
             void createScene();
             
-            std::shared_ptr<Demo> demo = nullptr;
             static IGraphicsEngine* instance;
     };
 }

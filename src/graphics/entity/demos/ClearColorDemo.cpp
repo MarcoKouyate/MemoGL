@@ -2,6 +2,7 @@
 #include "GL/glew.h"
 #include "graphics/renderer/OpenGL/OpenGLError.h"
 #include "imgui.h"
+#include "MenuDemo.h"
 
 namespace MemoGL {
 	ClearColorDemo::ClearColorDemo() :
@@ -25,6 +26,11 @@ namespace MemoGL {
 
 	void ClearColorDemo::imgui() {
 		ImGui::ColorEdit4("Clear Color", clearColor);
+
+		if (ImGui::Button("< home")) {
+			SceneManager::getInstance()->load(std::make_shared<MenuDemo>());
+		}
+
 		imguiChildren();
 	}
 }

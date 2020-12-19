@@ -7,7 +7,7 @@ namespace MemoGL {
 
     IGraphicsEngine* RasterizationEngine::instance = nullptr;
 
-    RasterizationEngine::RasterizationEngine() : demo(nullptr) {
+    RasterizationEngine::RasterizationEngine() {
         renderer = std::make_shared<OpenGLRenderer>();
         std::cout << "Rasterization graphics engine initialized." << std::endl;
 
@@ -19,23 +19,19 @@ namespace MemoGL {
     }
 
     void RasterizationEngine::createScene() {
-        demo = std::make_shared<MenuDemo>(demo);
         //std::shared_ptr<Shader> shader = renderer->createShader("res/shaders/texture2d.vert", "res/shaders/texture2d.frag");
         //std::shared_ptr<VertexArray> vertices = renderer->createVertexArray();
         //std::shared_ptr<Object> entity = std::make_shared<Object>(shader, vertices);
         //demo->addChild(entity);
     }
         
-    void RasterizationEngine::render(float lag) {
+    void RasterizationEngine::render(std::shared_ptr<Demo> scene,  float lag) {
         if (renderer) {
             renderer->begin();
-            demo->render(*renderer);
+            scene->render(*renderer);
 
             renderer->imGuiBegin();
-            demo->imgui();
-            if (ImGui::Button("< home")) {
-                demo = std::make_shared<MenuDemo>(demo);
-            }
+            scene->imgui();
             renderer->imGuiEnd();
             renderer->end();
         }

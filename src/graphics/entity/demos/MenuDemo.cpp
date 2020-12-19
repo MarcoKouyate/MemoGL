@@ -16,7 +16,7 @@ namespace MemoGL {
     void MenuDemo::imgui() {
         for (auto& demo : demos) {
             if (ImGui::Button(demo.first.c_str())) {
-                currentDemo = demo.second();
+                demo.second();
                 break;
             }
         }
@@ -24,7 +24,7 @@ namespace MemoGL {
         imguiChildren();
     }
 
-    MenuDemo::MenuDemo(std::shared_ptr<Demo>& currentDemo) : currentDemo(currentDemo) {
+    MenuDemo::MenuDemo() {
         registerDemo<ClearColorDemo>("Clear Color");
         registerDemo<BasicTextureDemo>("BasicTexture");
     }
