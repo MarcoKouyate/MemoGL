@@ -4,7 +4,7 @@
 namespace MemoGL {
 
     void Object::render(IRenderer& renderer) {
-        renderChildren(renderer);
+
 
         if (shader) {
             shader->bind();
@@ -23,6 +23,8 @@ namespace MemoGL {
         if (shader) {
             shader->unbind();
         }
+
+        renderChildren(renderer);
     }
 
     void Object::update(float deltatime) {

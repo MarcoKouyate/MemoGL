@@ -69,10 +69,10 @@ namespace MemoGL {
 
     std::shared_ptr<VertexArray> OpenGLRenderer::createVertexArray() {
         float positions[] = {
-            -0.5f, -0.5f, 0.0f, 0.0f,
-             0.5f, -0.5f, 1.0f, 0.0f,
-             0.5f,  0.5f, 1.0f, 1.0f,
-            -0.5f,  0.5f, 0.0f, 1.0f
+            -0.5f, -0.5f, 0.0f, 0.0f,  1.f, 0.f, 0.f,
+             0.5f, -0.5f, 1.0f, 0.0f,  0.f, 1.f, 0.f,
+             0.5f,  0.5f, 1.0f, 1.0f,  0.f, 0.f, 1.f,
+            -0.5f,  0.5f, 0.0f, 1.0f,  1.f, 1.f, 1.f
         };
 
         unsigned int indices[] = {
@@ -81,12 +81,13 @@ namespace MemoGL {
         };
 
         std::shared_ptr<OpenGLVertexArray> vao = std::make_shared<OpenGLVertexArray>();
-        vbo = std::make_shared<OpenGLVertexBuffer>(positions, 4 * 4 * sizeof(float));
+        vbo = std::make_shared<OpenGLVertexBuffer>(positions, 4 * 7 * sizeof(float));
         ibo = std::make_unique<OpenGLIndexBuffer>(indices, 6);
 
         OpenGLVertexLayout layout;
         layout.push<float>(2);
         layout.push<float>(2);
+        layout.push<float>(3);
         
         vao->addBuffer(vbo, layout);
 
