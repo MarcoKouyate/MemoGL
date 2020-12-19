@@ -1,6 +1,6 @@
 #pragma once
 #include "renderer/IRenderer.h"
-#include "graphics/entity/Demo.h"
+#include "entity/Demo.h"
 
 namespace MemoGL {
     class IGraphicsEngine {

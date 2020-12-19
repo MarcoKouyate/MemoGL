@@ -1,11 +1,12 @@
 #pragma once
-#include "Shader.h"
+#include "graphics/buffer/Shader.h"
+#include "graphics/buffer/VertexArray.h"
 #include <memory>
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "Entity.h"
-#include "VertexArray.h"
+
 
 
 namespace MemoGL {

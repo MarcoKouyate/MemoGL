@@ -2,7 +2,7 @@
 #include <string>
 #include <unordered_map>
 #include "glm/glm.hpp"
-#include "graphics/entity/Shader.h"
+#include "graphics/buffer/Shader.h"
 
 namespace MemoGL {
 	class OpenGLShader : public Shader

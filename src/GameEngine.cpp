@@ -1,6 +1,6 @@
 #include "GameEngine.h"
 #include "graphics/rasterization/RasterizationEngine.h"
-#include "graphics/entity/SceneManager.h"
+#include "entity/SceneManager.h"
 #include <stdexcept>
 #include <iostream>
 

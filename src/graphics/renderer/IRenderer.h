@@ -1,8 +1,8 @@
 #pragma once
 #include "graphics/context/IContext.h"
 #include "tools/ColorStructs.h"
-#include "graphics/entity/Shader.h"
-#include "graphics/entity/VertexArray.h"
+#include "graphics/buffer/Shader.h"
+#include "graphics/buffer/VertexArray.h"
 
 #include <memory>
 

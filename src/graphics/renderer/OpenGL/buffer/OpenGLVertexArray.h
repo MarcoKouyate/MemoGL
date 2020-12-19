@@ -1,7 +1,7 @@
 #pragma once
 #include "OpenGLVertexBuffer.h"
 #include "OpenGLVertexLayout.h"
-#include "graphics/entity/VertexArray.h"
+#include "graphics/buffer/VertexArray.h"
 #include <memory>
 
 namespace MemoGL {

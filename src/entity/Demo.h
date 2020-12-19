@@ -1,5 +1,5 @@
 #pragma once
-#include "graphics/entity/Entity.h"
+#include "entity/Entity.h"
 
 
 

@@ -12,7 +12,7 @@
 
 #include "imgui/OpenGLImGui.h"
 
-#include "graphics/entity/Object.h"
+#include "entity/Object.h"
 
 namespace MemoGL {
     class OpenGLRenderer : public IRenderer {
