@@ -7,7 +7,11 @@ namespace MemoGL {
         public:
             void run() override;
 
-            GameEngine(std::shared_ptr<IGraphicsEngine> pGraphicsEngine);
+            GameEngine();
             ~GameEngine();
+        
+        private:
+            IGraphicsEngine* graphicsEngine;
+
     };
 }

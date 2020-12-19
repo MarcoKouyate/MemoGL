@@ -11,11 +11,7 @@ namespace MemoGL{
 
         
         try {
-            std::shared_ptr<IRenderer> renderer = std::make_shared<OpenGLRenderer>();
-            std::shared_ptr<IGraphicsEngine> graphicsEngine = std::make_shared<RasterizationEngine>(renderer);
-
-            GameEngine gameEngine(graphicsEngine);
-
+            GameEngine gameEngine;
             gameEngine.run();
         }
 

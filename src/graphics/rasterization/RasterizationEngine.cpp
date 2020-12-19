@@ -4,8 +4,11 @@
 #include <stdexcept>
 
 namespace MemoGL {
-    RasterizationEngine::RasterizationEngine(std::shared_ptr<IRenderer> pRenderer) : demo(nullptr) {
-        renderer = pRenderer;
+
+    IGraphicsEngine* RasterizationEngine::instance = nullptr;
+
+    RasterizationEngine::RasterizationEngine() : demo(nullptr) {
+        renderer = std::make_shared<OpenGLRenderer>();
         std::cout << "Rasterization graphics engine initialized." << std::endl;
 
         createScene();

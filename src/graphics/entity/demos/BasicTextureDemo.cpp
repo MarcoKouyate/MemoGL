@@ -3,7 +3,7 @@
 #include "imgui.h"
 
 namespace MemoGL {
-    BasicTextureDemo::BasicTextureDemo() {
+    BasicTextureDemo::BasicTextureDemo() : clearColor{ 0.1f, 0.1f, 0.1f, 1.0f } {
 
     }
 
@@ -17,13 +17,16 @@ namespace MemoGL {
 
 
     void BasicTextureDemo::render(IRenderer& renderer) {
-        renderer.clearColor({ 0.5f, 0.5f, 0.3f, 1.0f });
+        renderer.clearColor({ clearColor[0], clearColor[1], clearColor[2], clearColor[3] });
         renderChildren(renderer);
     }
 
 
     void BasicTextureDemo::imgui() {
+        ImGui::Begin("Basic Texture Demo");
         ImGui::Text("Hello World");
+        ImGui::ColorEdit4("Clear Color", clearColor);
+        ImGui::End();
         imguiChildren();
     }
 }

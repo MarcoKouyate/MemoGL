@@ -4,9 +4,9 @@
 #include <iostream>
 
 namespace MemoGL {
-    GameEngine::GameEngine(std::shared_ptr<IGraphicsEngine> pGraphicsEngine) {
-        graphicsEngine = pGraphicsEngine;
+    GameEngine::GameEngine() {
         std::cout << "Game Engine initialized." << std::endl;
+        graphicsEngine = RasterizationEngine::getInstance();
     }
 
     GameEngine::~GameEngine() {
