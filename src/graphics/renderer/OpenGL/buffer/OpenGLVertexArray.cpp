@@ -1,5 +1,6 @@
 #include "OpenGLVertexArray.h"
 #include "../OpenGLError.h"
+#include "graphics/buffer/Vertex2D.h"
 
 namespace MemoGL {
 	OpenGLVertexArray::OpenGLVertexArray() {
@@ -30,8 +31,9 @@ namespace MemoGL {
 		for (unsigned int i = 0; i < elements.size(); i++) {
 			const auto& element = elements[i];
 			GLCall(glEnableVertexAttribArray(i));
-			GLCall(glVertexAttribPointer(i, element.count, element.type, element.normalized, layout.getStride(), (const void*) offset));
+			GLCall(glVertexAttribPointer(i, element.count, element.type, element.normalized, sizeof(Vertex2D), (const void*) offset));
 			offset += element.count * VertexBufferElement::getSizeOfType(element.type);
+			//offsetof(Vertex2D, position) to get the offset of position
 		}
 
 		buffer->unbind();

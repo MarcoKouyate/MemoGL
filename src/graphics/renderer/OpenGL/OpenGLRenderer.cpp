@@ -1,13 +1,12 @@
 #include "OpenGLRenderer.h"
 #include "OpenGLError.h"
 
+#include "graphics/buffer/Vertex2D.h"
 #include "tools/File.h"
 #include "graphics/context/GLFW/GLFWContext.h"
 #include "glm/glm.hpp"
 
-
 #include <iostream>
-
 
 
 namespace MemoGL {
@@ -75,13 +74,21 @@ namespace MemoGL {
             -0.5f,  0.5f, 0.0f, 1.0f,  1.f, 1.f, 1.f
         };
 
+        Vertex2D vertices[] = {
+            Vertex2D(glm::vec2(-0.5, -0.5), glm::vec2(0, 0), glm::vec3(1, 0, 0)),
+            Vertex2D(glm::vec2( 0.5, -0.5), glm::vec2(1, 0), glm::vec3(0, 1, 0)),
+            Vertex2D(glm::vec2( 0.5,  0.5), glm::vec2(1, 1), glm::vec3(0, 0, 1)),
+            Vertex2D(glm::vec2(-0.5,  0.5), glm::vec2(0, 1), glm::vec3(1, 1, 1))
+        };
+
         unsigned int indices[] = {
             0, 1, 2,
             2, 3, 0
         };
 
         std::shared_ptr<OpenGLVertexArray> vao = std::make_shared<OpenGLVertexArray>();
-        vbo = std::make_shared<OpenGLVertexBuffer>(positions, 4 * 7 * sizeof(float));
+        //vbo = std::make_shared<OpenGLVertexBuffer>(positions, 4 * 7 * sizeof(float));
+        vbo = std::make_shared<OpenGLVertexBuffer>(positions, 4 * sizeof(Vertex2D));
         ibo = std::make_unique<OpenGLIndexBuffer>(indices, 6);
 
         OpenGLVertexLayout layout;
