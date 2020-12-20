@@ -1,5 +1,6 @@
 #pragma once
 #include "GL/glew.h"
+#include <vector>
 
 namespace MemoGL {
 	class OpenGLIndexBuffer {
@@ -7,7 +8,7 @@ namespace MemoGL {
 			void bind() const;
 			void unbind() const;
 
-			void push(const unsigned int* data, unsigned int count);
+			void push(std::vector<unsigned int> indices);
 
 			inline unsigned int getCount() const { return count; }
 

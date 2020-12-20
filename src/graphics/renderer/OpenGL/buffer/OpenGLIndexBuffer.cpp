@@ -12,11 +12,11 @@ namespace MemoGL {
         GLCall(glDeleteBuffers(1, &id));
     }
 
-    void OpenGLIndexBuffer::push(const unsigned int* data, unsigned int count) {
+    void OpenGLIndexBuffer::push(std::vector<unsigned int> indices) {
         ASSERT(sizeof(unsigned int) == sizeof(GLuint));
-
+        count = indices.size();
         bind();
-        GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(unsigned int), data, GL_STATIC_DRAW));
+        GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(unsigned int), &indices.front(), GL_STATIC_DRAW));
         unbind();
     }
 

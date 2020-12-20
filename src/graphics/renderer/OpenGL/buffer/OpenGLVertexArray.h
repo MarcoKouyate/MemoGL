@@ -11,7 +11,7 @@ namespace MemoGL {
             OpenGLVertexArray();
             ~OpenGLVertexArray();
 
-            void push(std::vector<Vertex2D> vertices, const unsigned int* indices, unsigned int count);
+            void push(std::vector<Vertex2D> vertices, std::vector<unsigned int> indices);
 
             void bind() const override;
             void unbind() const override;
@@ -19,5 +19,9 @@ namespace MemoGL {
         private:
             GLuint id;
             OpenGLIndexBuffer ibo;
+
+            const GLuint VERTEX_POSITION_ATTRIBUTE = 0;
+            const GLuint VERTEX_TEXCOORDS_ATTRIBUTE = 1;
+            const GLuint VERTEX_COLOR_ATTRIBUTE = 2;
     };
 }

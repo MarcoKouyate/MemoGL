@@ -74,14 +74,13 @@ namespace MemoGL {
             Vertex2D(glm::vec2(-0.5,  0.5), glm::vec2(0, 1), glm::vec3(1, 1, 1))
         };
 
-        unsigned int indices[] = {
+        std::vector<unsigned int> indices = {
             0, 1, 2,
             2, 3, 0
         };
 
         std::shared_ptr<OpenGLVertexArray> vao = std::make_shared<OpenGLVertexArray>();
-        //vbo = std::make_shared<OpenGLVertexBuffer>(positions, 4 * 7 * sizeof(float));
-        vao->push(vertices, indices, 6);
+        vao->push(vertices, indices);
         
         vao->bind();
         return vao;
