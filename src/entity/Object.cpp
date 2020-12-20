@@ -5,22 +5,18 @@ namespace MemoGL {
 
     void Object::render(IRenderer& renderer) {
 
+        if (!vao) {
+            vao = renderer.createVertexArray();
+            vao->push(vertices, indices);
+        }
 
-        if (shader) {
+        if (vao && shader) {
             shader->bind();
-        }
-            
-        if (vertices) {
-            vertices->bind();
-        }
-            
-        renderer.draw();
+            vao->bind();
 
-        if (vertices) {
-            vertices->unbind();
-        }
+            renderer.draw();
 
-        if (shader) {
+            vao->unbind();
             shader->unbind();
         }
 
@@ -36,9 +32,20 @@ namespace MemoGL {
         imguiChildren();
     }
 
-    Object::Object(std::shared_ptr<Shader> shader, std::shared_ptr<VertexArray> vertices) : 
-        shader(shader), vertices(vertices) 
+    Object::Object(std::shared_ptr<Shader> shader) : 
+        shader(shader), vao(nullptr)
     {
+        vertices = {
+            Vertex2D(glm::vec2(-0.5, -0.5), glm::vec2(0, 0), glm::vec3(1, 0, 0)),
+            Vertex2D(glm::vec2(0.5, -0.5), glm::vec2(1, 0), glm::vec3(0, 1, 0)),
+            Vertex2D(glm::vec2(0.5, 0.5), glm::vec2(1, 1), glm::vec3(0, 0, 1)),
+            Vertex2D(glm::vec2(-0.5, 0.5), glm::vec2(0, 1), glm::vec3(1, 1, 1))
+        };
+
+        indices = {
+            0, 1, 2,
+            2, 3, 0
+        };
 
         proj = glm::ortho(-2.0f, 2.0f, -1.125f, 1.125f, -1.0f, 1.0f);
         view = glm::translate(glm::mat4(1.0f), glm::vec3(camera_position_x, camera_position_y, 0));

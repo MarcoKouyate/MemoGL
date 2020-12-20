@@ -67,23 +67,7 @@ namespace MemoGL {
     }
 
     std::shared_ptr<VertexArray> OpenGLRenderer::createVertexArray() {
-        std::vector<Vertex2D> vertices = {
-            Vertex2D(glm::vec2(-0.5, -0.5), glm::vec2(0, 0), glm::vec3(1, 0, 0)),
-            Vertex2D(glm::vec2( 0.5, -0.5), glm::vec2(1, 0), glm::vec3(0, 1, 0)),
-            Vertex2D(glm::vec2( 0.5,  0.5), glm::vec2(1, 1), glm::vec3(0, 0, 1)),
-            Vertex2D(glm::vec2(-0.5,  0.5), glm::vec2(0, 1), glm::vec3(1, 1, 1))
-        };
-
-        std::vector<unsigned int> indices = {
-            0, 1, 2,
-            2, 3, 0
-        };
-
-        std::shared_ptr<OpenGLVertexArray> vao = std::make_shared<OpenGLVertexArray>();
-        vao->push(vertices, indices);
-        
-        vao->bind();
-        return vao;
+        return std::make_shared<OpenGLVertexArray>();
     }
 
 

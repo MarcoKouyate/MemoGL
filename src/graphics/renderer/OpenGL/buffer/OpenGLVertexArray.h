@@ -11,7 +11,7 @@ namespace MemoGL {
             OpenGLVertexArray();
             ~OpenGLVertexArray();
 
-            void push(std::vector<Vertex2D> vertices, std::vector<unsigned int> indices);
+            void push(std::vector<Vertex2D> vertices, std::vector<unsigned int> indices) override;
 
             void bind() const override;
             void unbind() const override;
