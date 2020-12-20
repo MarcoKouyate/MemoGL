@@ -7,9 +7,11 @@ namespace MemoGL {
 			void bind() const;
 			void unbind() const;
 
+			void push(const unsigned int* data, unsigned int count);
+
 			inline unsigned int getCount() const { return count; }
 
-			OpenGLIndexBuffer(const unsigned int* data, unsigned int count);
+			OpenGLIndexBuffer();
 			~OpenGLIndexBuffer();
 
 		private:

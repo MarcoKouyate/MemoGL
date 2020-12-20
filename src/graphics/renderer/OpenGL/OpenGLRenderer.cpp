@@ -67,14 +67,7 @@ namespace MemoGL {
     }
 
     std::shared_ptr<VertexArray> OpenGLRenderer::createVertexArray() {
-        float positions[] = {
-            -0.5f, -0.5f, 0.0f, 0.0f,  1.f, 0.f, 0.f,
-             0.5f, -0.5f, 1.0f, 0.0f,  0.f, 1.f, 0.f,
-             0.5f,  0.5f, 1.0f, 1.0f,  0.f, 0.f, 1.f,
-            -0.5f,  0.5f, 0.0f, 1.0f,  1.f, 1.f, 1.f
-        };
-
-        Vertex2D vertices[] = {
+        std::vector<Vertex2D> vertices = {
             Vertex2D(glm::vec2(-0.5, -0.5), glm::vec2(0, 0), glm::vec3(1, 0, 0)),
             Vertex2D(glm::vec2( 0.5, -0.5), glm::vec2(1, 0), glm::vec3(0, 1, 0)),
             Vertex2D(glm::vec2( 0.5,  0.5), glm::vec2(1, 1), glm::vec3(0, 0, 1)),
@@ -88,19 +81,9 @@ namespace MemoGL {
 
         std::shared_ptr<OpenGLVertexArray> vao = std::make_shared<OpenGLVertexArray>();
         //vbo = std::make_shared<OpenGLVertexBuffer>(positions, 4 * 7 * sizeof(float));
-        vbo = std::make_shared<OpenGLVertexBuffer>(positions, 4 * sizeof(Vertex2D));
-        ibo = std::make_unique<OpenGLIndexBuffer>(indices, 6);
-
-        OpenGLVertexLayout layout;
-        layout.push<float>(2);
-        layout.push<float>(2);
-        layout.push<float>(3);
+        vao->push(vertices, indices, 6);
         
-        vao->addBuffer(vbo, layout);
-
         vao->bind();
-        ibo->bind();
-
         return vao;
     }
 

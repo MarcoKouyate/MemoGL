@@ -42,8 +42,6 @@ namespace MemoGL {
             void initializeImGui();
 
             std::unique_ptr<IOpenGLVersion> openGLVersion = nullptr;
-            std::shared_ptr<OpenGLVertexBuffer> vbo = nullptr;
-            std::unique_ptr<OpenGLIndexBuffer> ibo = nullptr;
             std::unique_ptr<OpenGLTexture> texture = nullptr;
             std::unique_ptr<OpenGLImGui> imgui = nullptr;
 

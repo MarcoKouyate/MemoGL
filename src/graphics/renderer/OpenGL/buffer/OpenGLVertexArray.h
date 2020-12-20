@@ -1,7 +1,8 @@
 #pragma once
 #include "OpenGLVertexBuffer.h"
-#include "OpenGLVertexLayout.h"
 #include "graphics/buffer/VertexArray.h"
+#include "graphics/buffer/Vertex2D.h"
+#include "OpenGLIndexBuffer.h"
 #include <memory>
 
 namespace MemoGL {
@@ -10,12 +11,13 @@ namespace MemoGL {
             OpenGLVertexArray();
             ~OpenGLVertexArray();
 
+            void push(std::vector<Vertex2D> vertices, const unsigned int* indices, unsigned int count);
+
             void bind() const override;
             void unbind() const override;
-            void addBuffer(std::shared_ptr<OpenGLVertexBuffer> buffer, const OpenGLVertexLayout& layout);
 
         private:
             GLuint id;
-
+            OpenGLIndexBuffer ibo;
     };
 }
