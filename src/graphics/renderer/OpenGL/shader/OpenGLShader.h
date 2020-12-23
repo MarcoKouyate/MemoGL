@@ -8,8 +8,10 @@ namespace MemoGL {
 	class OpenGLShader : public Shader
 	{
 	public:
-		OpenGLShader(const std::string& vertexFilePath, const std::string& fragmentFilePath);
+		OpenGLShader();
 		~OpenGLShader() override;
+
+		void init(const std::string& vertexFilePath, const std::string& fragmentFilePath) override;
 
 		void bind() const;
 		void unbind() const;

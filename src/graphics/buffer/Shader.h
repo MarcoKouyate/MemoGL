@@ -7,6 +7,9 @@ namespace MemoGL{
     class Shader {
         public:
           virtual ~Shader() = default;
+
+          virtual void init(const std::string& vertexFilePath, const std::string& fragmentFilePath) = 0;
+
           virtual void bind() const = 0;
           virtual void unbind() const = 0;
 

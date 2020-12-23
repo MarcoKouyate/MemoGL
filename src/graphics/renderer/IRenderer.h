@@ -16,7 +16,7 @@ namespace MemoGL {
             virtual void begin() = 0;
             virtual void end() = 0;
 
-            virtual std::shared_ptr<Shader> createShader(const std::string& vertex, const std::string& fragment) = 0;
+            virtual std::shared_ptr<Shader> createShader() = 0;
             virtual std::shared_ptr<VertexArray> createVertexArray() = 0;
 
             //TODO ImGui should be a separate renderer

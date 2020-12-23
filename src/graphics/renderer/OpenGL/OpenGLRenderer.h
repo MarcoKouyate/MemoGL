@@ -20,7 +20,7 @@ namespace MemoGL {
             void clearColor(const RGBAColor& color) override;
             void draw();
 
-            std::shared_ptr<Shader> createShader(const std::string& vertex, const std::string& fragment) override;
+            std::shared_ptr<Shader> createShader() override;
             std::shared_ptr<VertexArray> createVertexArray() override;
 
             void begin() override;

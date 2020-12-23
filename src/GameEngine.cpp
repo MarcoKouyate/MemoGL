@@ -21,11 +21,8 @@ namespace MemoGL {
 
         std::shared_ptr<IContext> context = graphicsEngine->getRenderer()->getContext();
 
-        std::shared_ptr<Shader> colorShader = graphicsEngine->getRenderer()->createShader("res/shaders/vertexcolor.vert", "res/shaders/vertexcolor.frag");
-        std::shared_ptr<Shader> textureShader = graphicsEngine->getRenderer()->createShader("res/shaders/texture2d.vert", "res/shaders/texture2d.frag");
-        std::shared_ptr<VertexArray> vertices = graphicsEngine->getRenderer()->createVertexArray();
-        std::shared_ptr<Object> colorSprite = std::make_shared<Object>(colorShader);
-        std::shared_ptr<Object> textureSprite = std::make_shared<Object>(textureShader);
+        std::shared_ptr<Object> colorSprite = std::make_shared<Object>();
+        std::shared_ptr<Object> textureSprite = std::make_shared<Object>();
         std::shared_ptr<Demo> demo = std::make_shared<MenuDemo>();
 
         colorSprite->addChild(textureSprite);

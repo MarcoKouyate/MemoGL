@@ -13,7 +13,7 @@
 namespace MemoGL {
 	class Object : public Entity {
 		public:
-			Object(std::shared_ptr<Shader> shader);
+			Object();
 			~Object() override;
 
 			void render(IRenderer& renderer) override;
@@ -30,6 +30,8 @@ namespace MemoGL {
 			glm::mat4 proj;
 			glm::mat4 view;
 			glm::mat4 model;
+			glm::mat4 mvp;
+
 			glm::vec3 translationA;
 			glm::vec3 translationB;
 

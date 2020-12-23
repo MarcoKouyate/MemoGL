@@ -75,9 +75,8 @@ namespace MemoGL {
         imgui = std::make_unique<OpenGLImGui>(context, "#version 330", true);
     }
 
-
-    std::shared_ptr<Shader> OpenGLRenderer::createShader(const std::string& vertex, const std::string& fragment) {
-        return std::make_shared<OpenGLShader>(vertex, fragment);
+    std::shared_ptr<Shader> OpenGLRenderer::createShader() {
+        return std::make_shared<OpenGLShader>();
     }
 
     void OpenGLRenderer::draw() {

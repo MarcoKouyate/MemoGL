@@ -3,14 +3,16 @@
 #include "tools/File.h"
 
 namespace MemoGL {
-    OpenGLShader::OpenGLShader(const std::string& vertexFilePath, const std::string& fragmentFilePath) :
+    OpenGLShader::OpenGLShader() :
 		id(0)
-	{
-		id = createShaders(vertexFilePath, fragmentFilePath);
-	}
+	{}
 
     OpenGLShader::~OpenGLShader() {
         GLCall(glDeleteProgram(id));
+    }
+
+    void OpenGLShader::init(const std::string& vertexFilePath, const std::string& fragmentFilePath) {
+        id = createShaders(vertexFilePath, fragmentFilePath);
     }
 
     unsigned int OpenGLShader::createShaders(const std::string& vertexShader, const std::string& fragmentShader) {
