@@ -1,6 +1,6 @@
 #include "OpenGL4.h" 
 #include "../OpenGLError.h"
-
+#include "tools/Log.h"
 
 
 
@@ -14,48 +14,58 @@ namespace MemoGL {
         const void* userParam) {
 
 #ifdef _DEBUG
-        std::cout << std::endl;
-        std::cout << "--------------------- OpenGL 4.X Error start----------------" << std::endl;
-        std::cout << "[type] ";
+        std::string typeString;
+        std::string severityString;
+
         switch (type) {
         case GL_DEBUG_TYPE_ERROR:
-            std::cout << "ERROR";
+            typeString = "ERROR";
             break;
         case GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR:
-            std::cout << "DEPRECATED_BEHAVIOR";
+            typeString = "DEPRECATED_BEHAVIOR";
             break;
         case GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR:
-            std::cout << "UNDEFINED_BEHAVIOR";
+            typeString = "UNDEFINED_BEHAVIOR";
             break;
         case GL_DEBUG_TYPE_PORTABILITY:
-            std::cout << "PORTABILITY";
+            typeString = "PORTABILITY";
             break;
         case GL_DEBUG_TYPE_PERFORMANCE:
-            std::cout << "PERFORMANCE";
+            typeString = "PERFORMANCE";
             break;
         case GL_DEBUG_TYPE_OTHER:
-            std::cout << "OTHER";
+            typeString = "OTHER";
             break;
         }
-        std::cout << std::endl;
 
-        std::cout << "[id] " << id << std::endl;
-        std::cout << "[severity] ";
         switch (severity) {
         case GL_DEBUG_SEVERITY_LOW:
-            std::cout << "LOW";
+            severityString = "LOW";
             break;
         case GL_DEBUG_SEVERITY_MEDIUM:
-            std::cout << "MEDIUM";
+            severityString = "MEDIUM";
             break;
         case GL_DEBUG_SEVERITY_HIGH:
-            std::cout << "HIGH";
+            severityString = "HIGH";
             break;
+        default:
+            severityString = "NONE";
         }
-        std::cout << std::endl;
-        std::cout << std::endl;
-        std::cout << "[message] " << message << std::endl;
-        std::cout << "------------------------------------------------------------" << std::endl;
+
+        std::string logMessage = "--------------------- OpenGL 4.X Error start----------------\n"  
+                                 "[type] " + typeString + " [id] {0} [severity] " +  severityString + "\n\n"
+                                 "[message] " + message + "\n"
+                                 "------------------------------------------------------------";
+        switch (severity) {
+            case GL_DEBUG_SEVERITY_HIGH:
+                MEMOGL_LOG_ERROR(logMessage.c_str(), id);
+                break;
+            case GL_DEBUG_SEVERITY_MEDIUM:
+            case GL_DEBUG_SEVERITY_LOW:
+                MEMOGL_LOG_WARNING(logMessage.c_str(), id);
+                break;
+            //default: MEMOGL_LOG_TRACE(logMessage.c_str(), id);
+        }
 #endif
     }
 
@@ -67,7 +77,7 @@ namespace MemoGL {
 
 	void OpenGL4::initErrorCalls() {
         if (glDebugMessageCallback) {
-            std::cout << "Register OpenGL debug callback " << std::endl;
+            MEMOGL_LOG_TRACE("Register OpenGL debug callback");
             glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
             glDebugMessageCallback(openglCallbackFunction, nullptr);
             GLuint unusedIds = 0;
@@ -79,6 +89,6 @@ namespace MemoGL {
                 true);
         }
         else
-            std::cout << "glDebugMessageCallback not available" << std::endl;
+           MEMOGL_LOG_TRACE("glDebugMessageCallback not available");
 	}
 }

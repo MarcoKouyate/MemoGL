@@ -2,16 +2,16 @@
 #include "graphics/rasterization/RasterizationEngine.h"
 #include "entity/SceneManager.h"
 #include <stdexcept>
-#include <iostream>
+#include "tools/Log.h"
 
 namespace MemoGL {
     GameEngine::GameEngine() {
-        std::cout << "Game Engine initialized." << std::endl;
+        MEMOGL_LOG_TRACE("Game Engine initialized.")
         graphicsEngine = RasterizationEngine::getInstance();
     }
 
     GameEngine::~GameEngine() {
-        std::cout << "Game Engine has been deleted." << std::endl;
+        MEMOGL_LOG_TRACE("Game Engine has been deleted.");
     }
 
     void GameEngine::run() {

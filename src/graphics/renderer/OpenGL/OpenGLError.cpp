@@ -1,4 +1,6 @@
 #include "OpenGLError.h"
+#include "tools/Log.h"
+#include <sstream>
 
 
 
@@ -12,11 +14,10 @@ namespace MemoGL {
     bool glLogErrors(const char* functionName, const char* file, int line)
     {
         while (GLenum error = glGetError()) {
-            std::cout << std::endl;
-            std::cout << "------------------------------------------------------------" << std::endl;
-            std::cout << "[Error] (0x" << std::hex << error << "): ";
-            std::cout << functionName << " " << file << ":" << std::dec << line << std::endl;
-            std::cout << "------------------------------------------------------------" << std::endl;
+            std::stringstream s;
+            s << "(0x" << std::hex << error << "): ";
+            s << functionName << " " << file << ":" << std::dec << line << std::endl;
+            MEMOGL_LOG_ERROR(s.str());
             return false;
         }
 

@@ -1,6 +1,7 @@
 #include "OpenGLTexture.h"
 #include "../OpenGLError.h"
 #include "stb_image.h"
+#include "tools/Log.h"
 
 namespace MemoGL {
     OpenGLTexture::OpenGLTexture(const std::string& filepath) :
@@ -25,7 +26,7 @@ namespace MemoGL {
             stbi_image_free(localBuffer);
         }
         else {
-            std::cout << "no data found for texture: " << filepath << std::endl;
+            MEMOGL_LOG_ERROR("no data found for texture: {0}", filepath);
         }
     }
 

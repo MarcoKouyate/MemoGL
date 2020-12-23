@@ -1,6 +1,5 @@
 #pragma once
 #include "IOpenGLVersion.h"
-#include <iostream>
 
 
 namespace MemoGL {

@@ -1,5 +1,6 @@
 #include "OpenGLVertexBuffer.h"
 #include "../OpenGLError.h"
+#include "tools/Log.h"
 
 namespace MemoGL {
 	void OpenGLVertexBuffer::push(std::vector<Vertex2D> vertices) {
@@ -13,7 +14,7 @@ namespace MemoGL {
 		GLCall(glGenBuffers(1, &id));
 	}
 	OpenGLVertexBuffer::~OpenGLVertexBuffer() {
-		std::cout << "Buffer deleted" << std::endl;
+		MEMOGL_LOG_TRACE("Buffer deleted");
 		GLCall(glDeleteBuffers(1, &id));
 	}
 	void OpenGLVertexBuffer::bind() const

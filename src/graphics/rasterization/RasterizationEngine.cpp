@@ -1,6 +1,6 @@
 #include "RasterizationEngine.h"
 
-#include <iostream>
+#include "tools/Log.h"
 #include <stdexcept>
 
 namespace MemoGL {
@@ -9,13 +9,13 @@ namespace MemoGL {
 
     RasterizationEngine::RasterizationEngine() {
         renderer = std::make_shared<OpenGLRenderer>();
-        std::cout << "Rasterization graphics engine initialized." << std::endl;
+        MEMOGL_LOG_TRACE("Rasterization graphics engine initialized.");
 
         createScene();
     }
 
     RasterizationEngine::~RasterizationEngine() {
-        std::cout << "Rasterization graphics engine has been released." << std::endl;
+        MEMOGL_LOG_TRACE("Rasterization graphics engine has been released.");
     }
 
     void RasterizationEngine::createScene() {

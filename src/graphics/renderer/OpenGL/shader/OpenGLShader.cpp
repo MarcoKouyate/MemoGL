@@ -92,7 +92,7 @@ namespace MemoGL {
         int location = GLCallR(glGetUniformLocation(id, name.c_str()));
 
         if (location == -1) {
-            MEMOGL_LOG_ERROR("[Warning] uniform {0} doesn't exist.", name);
+            MEMOGL_LOG_WARNING("uniform {0} doesn't exist.", name);
         }
 
         uniformLocationsCache[name] = location;

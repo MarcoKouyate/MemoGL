@@ -6,7 +6,7 @@
 #include "graphics/context/GLFW/GLFWContext.h"
 #include "glm/glm.hpp"
 
-#include <iostream>
+#include "tools/Log.h"
 
 
 namespace MemoGL {
@@ -107,13 +107,13 @@ namespace MemoGL {
 
     // CONSTRUCTORS 
     OpenGLRenderer::OpenGLRenderer() {
-        std::cout << "Initializing OpenGL renderer..." << std::endl;
+        MEMOGL_LOG_TRACE("Initializing OpenGL renderer...");
         context = std::make_shared<GLFWContext>();
         init();
-        std::cout << "OpenGL " << GLCallR(glGetString(GL_VERSION)) << " renderer initialized." << std::endl;
+        MEMOGL_LOG_TRACE("OpenGL {0} renderer initialized.", GLCallR(glGetString(GL_VERSION)));
     }
 
     OpenGLRenderer::~OpenGLRenderer() {
-        std::cout << "OpenGL renderer has been released." << std::endl;
+        MEMOGL_LOG_TRACE("OpenGL renderer has been released.");
     }
 }

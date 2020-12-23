@@ -1,6 +1,5 @@
 #pragma once
 #include "GL/glew.h"
-#include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
 

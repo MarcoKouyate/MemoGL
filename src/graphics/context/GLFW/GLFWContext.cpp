@@ -1,12 +1,12 @@
 #include "GLFWContext.h"
 #include <stdexcept>
-#include <iostream>
+#include "tools/Log.h"
 
 
 namespace MemoGL {
 
     void ErrorCallback(int error, const char* description) {
-        std::cerr << "[GLFW Error] " << description << std::endl;
+        MEMOGL_LOG_ERROR(description);
     }
 
     bool GLFWContext::isRunning() {
@@ -19,7 +19,7 @@ namespace MemoGL {
 
     void GLFWContext::close() {
         glfwTerminate();
-        std::cout << "GLFW context has been closed." << std::endl;
+        MEMOGL_LOG_TRACE("GLFW context has been closed.");
     }
 
     double GLFWContext::getTime() {
@@ -32,7 +32,7 @@ namespace MemoGL {
 
 
     void GLFWContext::init(ContextSettings* properties) {
-        std::cout << "Initializing GLFW context..." << std::endl;
+        MEMOGL_LOG_TRACE("Initializing GLFW context...");
 
         if (!glfwInit()) {
             throw std::runtime_error("Failed to initialize GLFW");
@@ -50,7 +50,7 @@ namespace MemoGL {
             window = glfwCreateWindow(properties->window.width, properties->window.height, properties->window.name, nullptr, nullptr);
         }
         else {
-            std::cout << " --> dummy GLFW context..." << std::endl;
+            MEMOGL_LOG_TRACE(" --> dummy GLFW context...");
             window = glfwCreateWindow(10, 10, "Dummy Context", nullptr, nullptr);
         }
 
@@ -62,7 +62,7 @@ namespace MemoGL {
         glfwMakeContextCurrent(window);
         glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
         
-        std::cout << "GLFW context initialized." << std::endl;
+        MEMOGL_LOG_TRACE("GLFW context initialized.");
     }
 
     int GLFWContext::getProfile(APIProfile profile) {
@@ -81,6 +81,6 @@ namespace MemoGL {
 
 	GLFWContext::~GLFWContext() {
         close();
-        std::cout << "GLFW Context has been deleted." << std::endl;
+        MEMOGL_LOG_TRACE("GLFW Context has been deleted.");
     }
 }
