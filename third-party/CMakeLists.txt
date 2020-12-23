@@ -4,8 +4,10 @@ add_subdirectory(glfw)
 add_subdirectory(glm)
 add_subdirectory(glew)
 add_subdirectory(gtest)
+add_subdirectory(spdlog)
 add_subdirectory_with_folder(${THIRD_PARTY_PROJECT_FOLDER} imgui)
 add_subdirectory_with_folder(${THIRD_PARTY_PROJECT_FOLDER} stb)
+
 
 #includes directories
 set(GLFW_INCLUDE_DIR ${GLFW_INCLUDE_DIR} PARENT_SCOPE)
@@ -13,6 +15,7 @@ set(GLEW_INCLUDE_DIR ${GLEW_INCLUDE_DIR} PARENT_SCOPE)
 set(GLM_INCLUDE_DIR ${GLM_INCLUDE_DIR} PARENT_SCOPE)
 set(GTEST_INCLUDE_DIR ${GTEST_INCLUDE_DIR} PARENT_SCOPE)
 set(GMOCK_INCLUDE_DIR ${GMOCK_INCLUDE_DIR} PARENT_SCOPE)
+set(SPDLOG_INCLUDE_DIR ${SPDLOG_INCLUDE_DIR} PARENT_SCOPE)
 set(IMGUI_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/imgui/imgui PARENT_SCOPE)
 set(STB_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/stb PARENT_SCOPE)
 

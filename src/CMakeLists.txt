@@ -43,5 +43,10 @@ target_link_libraries(${PROJECT_LIB} PRIVATE stb)
 target_include_directories(${PROJECT_LIB} PRIVATE ${IMGUI_INCLUDE_DIR})
 target_link_libraries(${PROJECT_LIB} PRIVATE imgui)
 
+#spdlog
+message(STATUS ${SPDLOG_INCLUDE_DIR})
+target_include_directories(${PROJECT_LIB} PRIVATE ${SPDLOG_INCLUDE_DIR})
+target_link_libraries(${PROJECT_LIB} PRIVATE spdlog)
+
 #testing
 add_subdirectory(test)

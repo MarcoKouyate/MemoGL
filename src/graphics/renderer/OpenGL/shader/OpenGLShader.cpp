@@ -1,6 +1,7 @@
 #include "OpenGLShader.h"
 #include "../OpenGLError.h"
 #include "tools/File.h"
+#include "tools/Log.h"
 
 namespace MemoGL {
     OpenGLShader::OpenGLShader() :
@@ -38,19 +39,23 @@ namespace MemoGL {
 
         int result;
         GLCall(glGetShaderiv(id, GL_COMPILE_STATUS, &result));
+        const char* typeString = (type == GL_VERTEX_SHADER ? "VERTEX" : "FRAGMENT");
+
         if (result == GL_FALSE) {
             int length;
             GLCall(glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length));
             char* message = (char*)alloca(length * sizeof(char));
             GLCall(glGetShaderInfoLog(id, length, &length, message));
 
-            std::cout << "Failed to compile " << (type == GL_VERTEX_SHADER ? "VERTEX" : "FRAGMENT") << " shader!" << std::endl;
+
+
+            MEMOGL_LOG_ERROR("Failed to compile {0} shader!", typeString);
             GLCall(glDeleteShader(id));
-            std::cout << message << std::endl;
+            MEMOGL_LOG_ERROR(message);
             return 0;
         }
 
-        std::cout << "Succeed to compile " << (type == GL_VERTEX_SHADER ? "VERTEX" : "FRAGMENT") << " shader!" << std::endl;
+        MEMOGL_LOG_TRACE("Succeed to compile {0} shader!", typeString);
         return id;
     }
 
@@ -87,7 +92,7 @@ namespace MemoGL {
         int location = GLCallR(glGetUniformLocation(id, name.c_str()));
 
         if (location == -1) {
-            std::cout << "[Warning] uniform '" + name + "' doesn't exist." <<std::endl;
+            MEMOGL_LOG_ERROR("[Warning] uniform {0} doesn't exist.", name);
         }
 
         uniformLocationsCache[name] = location;
