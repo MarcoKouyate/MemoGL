@@ -4,10 +4,11 @@
 
 ## How to build
 MemoGL is supported by Windows, MacOS and Linux. 
-1/ Install Git LFS (Large File Storage)
-2/ Clone this repository
-3/ Use cmake in order to build the project into a separate folder. 
+1. Install Git LFS (Large File Storage)
+2. Clone this repository
+3. Use cmake in order to build the project into a separate folder. 
 
+## Planning
 The project is still in early stage. The main steps will be 2D rendering and font rendering. 
 
 ## Where to find me
