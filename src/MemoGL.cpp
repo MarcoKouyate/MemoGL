@@ -2,12 +2,15 @@
 #include "GameEngine.h"
 #include "tools/Log.h"
 #include <memory>
+#include "events/KeyBoardEvents.h"
 
 namespace MemoGL{
 
     int main(int argc, char** argv) {
         //setting up modules
         try {
+            KeyReleasedEvent e(24);
+            MEMOGL_LOG_INFO(e);
             GameEngine gameEngine;
             gameEngine.run();
         }
