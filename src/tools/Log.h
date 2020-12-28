@@ -6,7 +6,7 @@
 namespace MemoGL {
     class Log {
         public:
-            static inline Log* Log::getInstance() {
+            static inline Log* getInstance() {
                 if (!instance) {
                     instance = new Log();
                 }
