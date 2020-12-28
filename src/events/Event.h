@@ -21,18 +21,19 @@ namespace MemoGL {
         WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved,
         AppTick, AppUpdate, AppRender,
         KeyPressed, KeyReleased, 
-        MousePressed, MouseButtonReleased, MouseMoved, MouseScrolled
+        MousePressed, MouseReleased, MouseMoved, MouseScrolled
     };
 
     // Bit field. Use it to assign multiple categories using one byte data
     enum EventCategory
     {
         None = 0,
-        Application =   BIT(0),
-        Input =         BIT(1),
-        Keyboard =      BIT(2),
-        Mouse =         BIT(3),
-        MouseButton =   BIT(4)
+        Application   = BIT(0),
+        Input         = BIT(1),
+        Keyboard      = BIT(2),
+        Mouse         = BIT(3),
+        MouseButton   = BIT(4),
+        Window        = BIT(5)
     };
 
     class Event {

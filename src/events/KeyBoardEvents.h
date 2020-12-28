@@ -5,7 +5,7 @@
 namespace MemoGL {
     class KeyEvent : public Event {
     public:
-        inline int GetKeyCode() const { return keyCode; }
+        inline int getKeyCode() const { return keyCode; }
 
         EVENT_CLASS_CATEGORY(Keyboard | Input);
 
