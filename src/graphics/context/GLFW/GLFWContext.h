@@ -4,13 +4,10 @@
 namespace MemoGL {
     class GLFWContext : public IContext {
         public:
-            void init(const ContextSettings& properties) override;
+            void init(const WindowSettings& properties);
+
             double getTime() override;
-            bool isRunning() override;
             void close() override;
-            
-            GLFWContext(const ContextSettings& properties);
-            ~GLFWContext() override;
 
             virtual void onUpdate() override;
 
@@ -21,10 +18,11 @@ namespace MemoGL {
             virtual void setEventCallBack(const EventCallBackFunction & callback) override;
             virtual void setVSync(bool enabled) override;
 
+            GLFWContext(const WindowSettings& properties);
+            ~GLFWContext() override;
+
 
         private:
-            int getProfile(APIProfile profile);
-
             static bool GLFW_initialized;
 
             struct  WindowData

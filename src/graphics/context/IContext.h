@@ -7,12 +7,6 @@
 
 
 namespace MemoGL {
-    struct Version {
-        unsigned int majorId;
-        unsigned int minorId;
-        
-        Version(unsigned int majorId = 0, unsigned int minorId = 0) : majorId(majorId), minorId(minorId) {};
-    };
 
     struct WindowSettings {
         unsigned int width;
@@ -22,25 +16,14 @@ namespace MemoGL {
         WindowSettings(unsigned int width = 1200, unsigned int height = 720, const char* name = "MemoGL") : width(width), height(height), name(name) {};
     };
 
-    enum class APIProfile { none = 0, compatibility, core };
-
-    struct ContextSettings {
-        Version version;
-        WindowSettings window;
-        bool debugMode = false;
-        APIProfile profile = APIProfile::none;
-    };
-
     class IContext {
         public:
             using EventCallBackFunction = std::function<void(Event&)>;
 
-            virtual void init(const ContextSettings& properties) = 0;
-            virtual double getTime() = 0;
-            virtual bool isRunning() = 0;
-            virtual void close() = 0;
-
             virtual ~IContext() = default;
+
+            virtual double getTime() = 0;
+            virtual void close() = 0;
 
             // loop 
             virtual void onUpdate() = 0;
@@ -54,14 +37,14 @@ namespace MemoGL {
             virtual void setEventCallBack(const EventCallBackFunction& callback) = 0;
             virtual void setVSync(bool enabled) = 0;
 
-            static IContext* create(const ContextSettings& properties); 
+            static IContext* create(const WindowSettings& properties); 
             //implement this method into a platform specific file and choose wich subclass to create
 
             GLFWwindow* getWindow() const {
                 return window;
             }
 
-            protected:
-                GLFWwindow* window = nullptr;
+        protected:
+            GLFWwindow* window = nullptr;
     };
 }

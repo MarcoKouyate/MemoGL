@@ -7,11 +7,7 @@
 namespace MemoGL {
     GameEngine::GameEngine() {
         MEMOGL_LOG_TRACE("Game Engine initialized.")
-        ContextSettings settings;
-        settings.debugMode = true;
-        settings.profile = APIProfile::core;
-        settings.version = Version(4, 4);
-        context = std::unique_ptr<IContext>(IContext::create(ContextSettings(settings)));
+        context = std::unique_ptr<IContext>(IContext::create(WindowSettings()));
         graphicsEngine = std::make_unique<RasterizationEngine>(*context);
     }
 

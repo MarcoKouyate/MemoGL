@@ -22,7 +22,6 @@ namespace MemoGL {
         openGLVersion = std::make_unique<OpenGL4>();
     }
 
-
     void OpenGLRenderer::initializeGlew() {
         glewExperimental = GL_TRUE;
 
