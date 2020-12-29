@@ -2,6 +2,9 @@
 #include <stdexcept>
 #include "tools/Log.h"
 
+#include "events/WindowEvents.h"
+#include "events/MouseEvents.h"
+#include "events/KeyBoardEvents.h"
 
 namespace MemoGL {
 
@@ -65,6 +68,77 @@ namespace MemoGL {
         glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
         glfwSetWindowUserPointer(window, &windowData);
         setVSync(true);
+
+
+        glfwSetWindowSizeCallback(window, [](GLFWwindow* window, int width, int height) {
+            WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+            data.width = width;
+            data.height = height;
+
+            WindowResizeEvent e(width, height);
+            data.eventCallback(e);
+        });
+
+
+        glfwSetWindowCloseCallback(window, [](GLFWwindow* window) {
+            WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+            WindowCloseEvent e;
+            data.eventCallback(e);
+        });
+
+        glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int modes) {
+            WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+            switch (action) {
+                case GLFW_PRESS: {
+                    KeyPressedEvent e(key, 0);
+                    data.eventCallback(e);
+                    break;
+                }
+
+                case GLFW_RELEASE: {
+                    KeyReleasedEvent e(key);
+                    data.eventCallback(e);
+                    break;
+                }
+
+                case GLFW_REPEAT: {
+                    KeyPressedEvent e(key, 1);
+                    data.eventCallback(e);
+                }
+            }
+        });
+
+
+        glfwSetMouseButtonCallback(window, [](GLFWwindow* window, int button, int action, int mods) {
+            WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+            switch (action) {
+                case GLFW_PRESS: {
+                    MousePressedEvent e(button);
+                    data.eventCallback(e);
+                    break;
+                }
+
+                case GLFW_RELEASE: {
+                    MouseReleasedEvent e(button);
+                    data.eventCallback(e);
+                    break;
+                }
+            }
+        });
+
+        glfwSetCursorPosCallback(window, [](GLFWwindow* window, double x, double y) {
+            WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+            MouseMovedEvent e(x, y);
+            data.eventCallback(e);
+        });
+
+        glfwSetScrollCallback(window, [](GLFWwindow* window, double xoffset, double yoffset) {
+            WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+            MouseScrollEvent e(yoffset);
+            data.eventCallback(e);
+        });
         
         MEMOGL_LOG_TRACE("GLFW context initialized.");
     }

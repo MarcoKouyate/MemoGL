@@ -13,7 +13,11 @@ namespace MemoGL {
         unsigned int height;
         const char* name;
 
-        WindowSettings(unsigned int width = 1200, unsigned int height = 720, const char* name = "MemoGL") : width(width), height(height), name(name) {};
+        WindowSettings(unsigned int width = 1200,
+                       unsigned int height = 720,
+                       const char* name = "MemoGL") : 
+            width(width), height(height), name(name) 
+        {};
     };
 
     class IContext {

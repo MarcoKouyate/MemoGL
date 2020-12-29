@@ -6,6 +6,7 @@ namespace MemoGL {
     class GameEngine {
         public:
             void run();
+            void onEvent(Event& e);
 
             GameEngine();
             ~GameEngine();

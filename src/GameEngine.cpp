@@ -5,9 +5,12 @@
 #include "tools/Log.h"
 
 namespace MemoGL {
+    #define EVENT_CALLBACK(x) std::bind(&x, this, std::placeholders::_1)
+
     GameEngine::GameEngine() {
         MEMOGL_LOG_TRACE("Game Engine initialized.")
         context = std::unique_ptr<IContext>(IContext::create(WindowSettings()));
+        context->setEventCallBack(EVENT_CALLBACK(GameEngine::onEvent));
         graphicsEngine = std::make_unique<RasterizationEngine>(*context);
     }
 
@@ -49,7 +52,13 @@ namespace MemoGL {
             }
 
             // Rendering
-            graphicsEngine->render(sceneManager->getCurrentScene(),(float)lag / SECONDS_PER_UPDATE);
+            graphicsEngine->render(sceneManager->getCurrentScene(), (float)lag / SECONDS_PER_UPDATE);
         }
+
+    }
+
+    void GameEngine::onEvent(Event& e) {
+        EventDispatcher dispatcher();
+        MEMOGL_LOG_INFO(e);
     }
 }

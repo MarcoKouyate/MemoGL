@@ -3,6 +3,7 @@
 
 #include <string>
 #include <functional>
+#include <sstream>
 
 namespace MemoGL {
 
@@ -72,7 +73,8 @@ namespace MemoGL {
             Event& targetEvent;
     };
 
-    //inline std::ostream& operator<<(std::ostream& os, const Event& e) {
-    //    return os << e.toString();
-    //}
+    inline std::ostream& operator<<(std::ostream& os, const MemoGL::Event& e) {
+        return os << e.toString();
+    }
 }
+
