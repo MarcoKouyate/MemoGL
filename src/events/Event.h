@@ -48,7 +48,6 @@ namespace MemoGL {
                 return getCategoryFlags() & category;
             }
 
-        protected:
             bool handled = false;
     };
 
@@ -62,7 +61,7 @@ namespace MemoGL {
             template <typename T>
             bool dispatch(EventFunction<T> func) {
                 if (targetEvent.getEventType() == T::getStaticType()) {
-                    targetEvent = func(*(T*)&targetEvent);
+                    targetEvent.handled = func(*(T*)&targetEvent);
                     return true;
                 }
 

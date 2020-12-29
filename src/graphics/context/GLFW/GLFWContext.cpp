@@ -14,8 +14,8 @@ namespace MemoGL {
         return new GLFWContext(properties);
     }
 
-    void ErrorCallback(int error, const char* description) {
-        MEMOGL_LOG_ERROR(description);
+    static void ErrorCallback(int error, const char* description) {
+        MEMOGL_LOG_ERROR("GLFW Error {0}: {1}", error, description);
     }
 
     void GLFWContext::close() {

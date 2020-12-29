@@ -3,6 +3,8 @@
 #include "entity/SceneManager.h"
 #include <stdexcept>
 #include "tools/Log.h"
+#include <functional>
+
 
 namespace MemoGL {
     #define EVENT_CALLBACK(x) std::bind(&x, this, std::placeholders::_1)
@@ -58,7 +60,14 @@ namespace MemoGL {
     }
 
     void GameEngine::onEvent(Event& e) {
-        EventDispatcher dispatcher();
-        MEMOGL_LOG_INFO(e);
+        EventDispatcher dispatcher(e);
+        dispatcher.dispatch<WindowCloseEvent>(EVENT_CALLBACK(GameEngine::onWindowClosed));
+
+        //MEMOGL_LOG_INFO(e);
+    }
+
+    bool GameEngine::onWindowClosed(WindowCloseEvent& e) {
+        isRunning = false;
+        return true;
     }
 }
