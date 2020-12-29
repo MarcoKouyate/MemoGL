@@ -1,5 +1,6 @@
 #pragma once
 #include "graphics/rasterization/RasterizationEngine.h"
+#include <memory>
 
 namespace MemoGL {
     class GameEngine {
@@ -10,7 +11,9 @@ namespace MemoGL {
             ~GameEngine();
         
         private:
-            IGraphicsEngine* graphicsEngine;
+            bool isRunning = true;
 
+            std::unique_ptr<IContext> context;
+            std::unique_ptr<IGraphicsEngine> graphicsEngine;
     };
 }

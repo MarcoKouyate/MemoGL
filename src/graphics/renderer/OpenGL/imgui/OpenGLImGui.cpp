@@ -1,7 +1,7 @@
 #include "OpenGLImGui.h"
 
 namespace MemoGL {
-	OpenGLImGui::OpenGLImGui(std::shared_ptr<IContext> context, const char* glslVersion, bool darkMode) : 
+	OpenGLImGui::OpenGLImGui(const IContext& context, const char* glslVersion, bool darkMode) :
             context(context)
     {
 		ImGui::CreateContext();
@@ -14,7 +14,7 @@ namespace MemoGL {
 			ImGui::StyleColorsClassic();
 		}
 
-		ImGui_ImplGlfw_InitForOpenGL(context->get(), darkMode);
+		ImGui_ImplGlfw_InitForOpenGL(context.getWindow(), darkMode);
 		ImGui_ImplOpenGL3_Init(glslVersion);
 	}
 
@@ -32,7 +32,7 @@ namespace MemoGL {
 
     void OpenGLImGui::end() {
         int display_w, display_h;
-        glfwGetFramebufferSize(context->get(), &display_w, &display_h);
+        glfwGetFramebufferSize(context.getWindow(), &display_w, &display_h);
         glViewport(0, 0, display_w, display_h);
 
         ImGui::Render();

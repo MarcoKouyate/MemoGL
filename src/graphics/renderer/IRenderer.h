@@ -13,8 +13,6 @@ namespace MemoGL {
 
             virtual void clearColor(const RGBAColor& color) = 0;
             virtual void draw() = 0;
-            virtual void begin() = 0;
-            virtual void end() = 0;
 
             virtual std::shared_ptr<Shader> createShader() = 0;
             virtual std::shared_ptr<VertexArray> createVertexArray() = 0;
@@ -22,12 +20,5 @@ namespace MemoGL {
             //TODO ImGui should be a separate renderer
             virtual void imGuiBegin() = 0;
             virtual void imGuiEnd() = 0;
-
-            std::shared_ptr<IContext> getContext() {
-                return context;
-            }
-
-        protected:
-            std::shared_ptr<IContext> context = nullptr;
     };
 }

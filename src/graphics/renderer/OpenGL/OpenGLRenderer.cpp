@@ -19,39 +19,14 @@ namespace MemoGL {
     }
 
     void OpenGLRenderer::initializeWindow() {
-        // an opengl context is required in order to query client opengl version
-        // which is why we create a dummy context and close it after getting the opengl version
-        context->init(nullptr);
-        openGLVersion = getOpenGLVersion();
-        context->close();
-
-        ContextSettings properties;
-        properties.window = WindowSettings(1280, 720, "MemoGL");
-        properties.profile = APIProfile::core;
-        
-        openGLVersion->changeSettings(properties);
-        context->init(&properties);
+        openGLVersion = std::make_unique<OpenGL4>();
     }
 
-    std::unique_ptr<IOpenGLVersion> OpenGLRenderer::getOpenGLVersion() {
-        int major;
-        int minor;
-        glGetIntegerv(GL_MAJOR_VERSION, &major);
-        glGetIntegerv(GL_MINOR_VERSION, &minor);
-
-        if (major >= 4 && minor >= 3) {
-            return std::make_unique<OpenGL4>();
-        }
-        else {
-            return std::make_unique<OpenGL3>();
-        }
-    }
 
     void OpenGLRenderer::initializeGlew() {
         glewExperimental = GL_TRUE;
 
         if (glewInit() != GLEW_OK) {
-            context->close();
             throw std::runtime_error("Failed to initialize GLEW");
         }
 
@@ -96,19 +71,10 @@ namespace MemoGL {
         imgui->end();
     }
 
-    void OpenGLRenderer::begin() {
-
-    }
-
-    void OpenGLRenderer::end() {
-        context->swapBuffers();
-    }
-
 
     // CONSTRUCTORS 
-    OpenGLRenderer::OpenGLRenderer() {
+    OpenGLRenderer::OpenGLRenderer(const IContext& context) : context(context) {
         MEMOGL_LOG_TRACE("Initializing OpenGL renderer...");
-        context = std::make_shared<GLFWContext>();
         init();
         MEMOGL_LOG_TRACE("OpenGL {0} renderer initialized.", GLCallR(glGetString(GL_VERSION)));
     }

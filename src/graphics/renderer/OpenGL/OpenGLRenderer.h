@@ -23,24 +23,22 @@ namespace MemoGL {
             std::shared_ptr<Shader> createShader() override;
             std::shared_ptr<VertexArray> createVertexArray() override;
 
-            void begin() override;
-            void end() override;
-
             void imGuiBegin() override;
             void imGuiEnd() override;
 
 
-            OpenGLRenderer();
+            OpenGLRenderer(const IContext& context);
             ~OpenGLRenderer();
 
         private:
             void init();
             void initializeWindow();
-            std::unique_ptr<IOpenGLVersion> getOpenGLVersion();
             void initializeGlew();
             void initializeTextures();
             void initializeImGui();
-
+            
+            
+            const IContext& context;
             std::unique_ptr<IOpenGLVersion> openGLVersion = nullptr;
             std::unique_ptr<OpenGLTexture> texture = nullptr;
             std::unique_ptr<OpenGLImGui> imgui = nullptr;

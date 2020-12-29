@@ -69,11 +69,6 @@ namespace MemoGL {
 #endif
     }
 
-    void OpenGL4::changeSettings(ContextSettings& settings) {
-        settings.debugMode = true;
-        settings.version.majorId = 4;
-        settings.version.minorId = 3;
-    }
 
 	void OpenGL4::initErrorCalls() {
         if (glDebugMessageCallback) {

@@ -10,20 +10,11 @@ namespace MemoGL {
     class RasterizationEngine : public IGraphicsEngine{
         public:
             void render(std::shared_ptr<Demo> scene, float lag) override;
-            ~RasterizationEngine();
-
-            static IGraphicsEngine* getInstance() {
-                if (!instance) {
-                    instance = new RasterizationEngine();
-                }
-
-                return instance;
-            }
+            
+            RasterizationEngine(const IContext& context);
+            virtual ~RasterizationEngine();
 
         private: 
-            RasterizationEngine();
             void createScene();
-            
-            static IGraphicsEngine* instance;
     };
 }

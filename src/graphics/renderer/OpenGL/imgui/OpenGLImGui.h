@@ -12,9 +12,9 @@ namespace MemoGL {
 			void begin();
 			void end();
 
-			OpenGLImGui(std::shared_ptr<IContext> context, const char* glslVersion, bool darkMode);
+			OpenGLImGui(const IContext& context, const char* glslVersion, bool darkMode);
 			~OpenGLImGui();
 
-			std::shared_ptr<IContext> context;
+			const IContext& context;
 	};
 }

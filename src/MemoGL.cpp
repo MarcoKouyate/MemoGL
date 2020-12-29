@@ -10,7 +10,7 @@ namespace MemoGL{
         //setting up modules
         try {
             KeyReleasedEvent e(24);
-            MEMOGL_LOG_INFO(e);
+            //MEMOGL_LOG_INFO(e);
             GameEngine gameEngine;
             gameEngine.run();
         }

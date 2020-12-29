@@ -5,7 +5,6 @@
 namespace MemoGL {
 	class OpenGL4 : public IOpenGLVersion {
 	public:
-		virtual void changeSettings(ContextSettings& settings) override;
 		virtual void initErrorCalls() override;
 	};
 

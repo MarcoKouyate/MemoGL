@@ -25,6 +25,14 @@ namespace MemoGL {
     };
 }
 
+
+#ifdef _MSC_VER
+#define BREAK() __debugbreak();
+#else 
+#include <signal.h>
+#define BREAK() raise(SIGINT);
+#endif
+
 // Core Log Macro
 #ifdef _DEBUG
     #define MEMOGL_LOG_TRACE(...)      ::MemoGL::Log::getInstance()->getCoreLogger()->trace(__VA_ARGS__);
@@ -32,10 +40,12 @@ namespace MemoGL {
     #define MEMOGL_LOG_WARNING(...)    ::MemoGL::Log::getInstance()->getCoreLogger()->warn(__VA_ARGS__);
     #define MEMOGL_LOG_ERROR(...)      ::MemoGL::Log::getInstance()->getCoreLogger()->error(__VA_ARGS__);
     #define MEMOGL_LOG_FATAL(...)      ::MemoGL::Log::getInstance()->getCoreLogger()->fatal(__VA_ARGS__);
+    #define MEMOGL_ASSERT(x, ...)      {if(!(x)) { MEMOGL_LOG_ERROR("Assertion Failed: {0}",__VA_ARGS__); BREAK()}}
 #else
     #define MEMOGL_LOG_TRACE(...)
     #define MEMOGL_LOG_INFO(...)
     #define MEMOGL_LOG_WARNING(...)
     #define MEMOGL_LOG_ERROR(...)
     #define MEMOGL_LOG_FATAL(...)
+    #define MEMOGL_ASSERT(x, ...)
 #endif
