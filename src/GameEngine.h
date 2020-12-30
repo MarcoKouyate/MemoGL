@@ -1,5 +1,4 @@
 #pragma once
-#include "pch.h"
 
 #include "graphics/rasterization/RasterizationEngine.h"
 #include "events/WindowEvents.h"

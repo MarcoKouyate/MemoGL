@@ -1,5 +1,4 @@
 #pragma once
-#include "pch.h"
 #include "spdlog/spdlog.h"
 #include "spdlog/fmt/ostr.h"
 

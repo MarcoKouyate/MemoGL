@@ -1,5 +1,4 @@
 #pragma once
-#include "pch.h"
 #include "GL/glew.h"
 #include "graphics/buffer/Vertex2D.h"
 

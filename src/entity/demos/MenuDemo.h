@@ -1,5 +1,4 @@
 #pragma once
-#include "pch.h"
 #include "../Demo.h"
 #include "../SceneManager.h"
 

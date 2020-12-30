@@ -1,5 +1,4 @@
 #pragma once
-#include "pch.h"
 #include "graphics/renderer/IRenderer.h"
 
 namespace MemoGL {

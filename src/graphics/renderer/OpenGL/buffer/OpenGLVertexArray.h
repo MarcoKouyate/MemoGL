@@ -1,5 +1,4 @@
 #pragma once
-#include "pch.h"
 #include "OpenGLVertexBuffer.h"
 #include "graphics/buffer/VertexArray.h"
 #include "graphics/buffer/Vertex2D.h"

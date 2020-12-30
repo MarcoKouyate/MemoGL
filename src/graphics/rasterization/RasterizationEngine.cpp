@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "RasterizationEngine.h"
 
 #include "tools/Log.h"

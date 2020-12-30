@@ -20,7 +20,7 @@ add_library(${PROJECT_LIB} STATIC
 )
 
 target_include_directories(${PROJECT_LIB} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-
+target_precompile_headers(${PROJECT_LIB} PRIVATE pch.h)
 
 
 #glfw

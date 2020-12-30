@@ -1,5 +1,3 @@
-#include "pch.h"
-
 #include "GLFWContext.h"
 #include "tools/Log.h"
 

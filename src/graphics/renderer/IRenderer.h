@@ -1,5 +1,4 @@
 #pragma once
-#include "pch.h"
 #include "graphics/context/IContext.h"
 #include "tools/ColorStructs.h"
 #include "graphics/buffer/Shader.h"

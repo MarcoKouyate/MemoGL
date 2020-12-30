@@ -1,5 +1,4 @@
 #pragma once
-#include "pch.h"
 #include "graphics/context/IContext.h"
 
 #include "imgui_impl_opengl3.h"
