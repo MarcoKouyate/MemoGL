@@ -1,6 +1,5 @@
+#include "pch.h"
 #include "File.h"
-#include <fstream>
-#include <sstream>
 
 namespace MemoGL {
     std::string readFile(const std::string& filepath) {

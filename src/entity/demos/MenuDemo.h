@@ -1,9 +1,8 @@
 #pragma once
+#include "pch.h"
 #include "../Demo.h"
 #include "../SceneManager.h"
-#include <vector>
-#include <string>
-#include <functional>
+
 
 namespace MemoGL {
     class MenuDemo : public Demo {

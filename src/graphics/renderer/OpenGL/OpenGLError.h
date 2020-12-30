@@ -1,7 +1,7 @@
 #pragma once
+#include "pch.h"
 #include "GL/glew.h"
-#include <stdio.h>
-#include <stdlib.h>
+
 
 //Macros for glGetError()
 

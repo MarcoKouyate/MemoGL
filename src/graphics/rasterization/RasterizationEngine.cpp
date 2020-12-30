@@ -1,7 +1,8 @@
+#include "pch.h"
 #include "RasterizationEngine.h"
 
 #include "tools/Log.h"
-#include <stdexcept>
+
 
 namespace MemoGL {
     RasterizationEngine::RasterizationEngine(const IContext& context) {

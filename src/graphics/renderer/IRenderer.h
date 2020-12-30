@@ -1,10 +1,10 @@
 #pragma once
+#include "pch.h"
 #include "graphics/context/IContext.h"
 #include "tools/ColorStructs.h"
 #include "graphics/buffer/Shader.h"
 #include "graphics/buffer/VertexArray.h"
 
-#include <memory>
 
 namespace MemoGL {
     class IRenderer {

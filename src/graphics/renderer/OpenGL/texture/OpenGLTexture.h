@@ -1,5 +1,5 @@
 #pragma once
-#include <string>
+#include "pch.h"
 
 namespace MemoGL {
     class OpenGLTexture {

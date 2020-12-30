@@ -1,9 +1,8 @@
 #include "GameEngine.h"
 #include "graphics/rasterization/RasterizationEngine.h"
 #include "entity/SceneManager.h"
-#include <stdexcept>
 #include "tools/Log.h"
-#include <functional>
+
 
 
 namespace MemoGL {

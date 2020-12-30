@@ -1,9 +1,8 @@
 #pragma once
+
+#include "pch.h"
 #include "tools/CommonMacros.h"
 
-#include <string>
-#include <functional>
-#include <sstream>
 
 namespace MemoGL {
 

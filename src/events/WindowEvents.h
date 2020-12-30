@@ -1,6 +1,7 @@
 #pragma once
+#include "pch.h"
 #include "Event.h"
-#include <sstream>
+
 
 namespace MemoGL {
     class WindowResizeEvent : public Event {

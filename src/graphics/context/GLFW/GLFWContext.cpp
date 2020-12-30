@@ -1,5 +1,6 @@
+#include "pch.h"
+
 #include "GLFWContext.h"
-#include <stdexcept>
 #include "tools/Log.h"
 
 #include "events/WindowEvents.h"

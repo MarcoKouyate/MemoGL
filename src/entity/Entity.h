@@ -1,7 +1,6 @@
 #pragma once
+#include "pch.h"
 #include "graphics/renderer/IRenderer.h"
-#include <vector>
-#include <memory>
 
 namespace MemoGL {
     class Entity

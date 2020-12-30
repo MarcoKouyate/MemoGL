@@ -1,6 +1,6 @@
 #pragma once
+#include "pch.h"
 #include "GL/glew.h"
-#include <vector>
 
 namespace MemoGL {
 	class OpenGLIndexBuffer {

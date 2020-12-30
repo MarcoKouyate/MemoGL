@@ -1,6 +1,7 @@
 #pragma once
+#include "pch.h"
+
 #include "graphics/rasterization/RasterizationEngine.h"
-#include <memory>
 #include "events/WindowEvents.h"
 
 namespace MemoGL {

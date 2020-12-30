@@ -7,8 +7,7 @@
 #include "texture/OpenGLTexture.h"
 #include "shader/OpenGLShader.h"
 
-#include <string>
-#include <memory.h>
+#include "pch.h"
 
 #include "imgui/OpenGLImGui.h"
 

@@ -1,7 +1,6 @@
-
+#include "pch.h"
 #include "GameEngine.h"
 #include "tools/Log.h"
-#include <memory>
 #include "events/KeyBoardEvents.h"
 
 namespace MemoGL{

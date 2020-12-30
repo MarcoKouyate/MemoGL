@@ -1,8 +1,8 @@
 #pragma once
+#include "pch.h"
 #include "graphics/buffer/Shader.h"
 #include "graphics/buffer/VertexArray.h"
 #include "graphics/buffer/Vertex2D.h"
-#include <memory>
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
