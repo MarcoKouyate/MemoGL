@@ -49,6 +49,10 @@ namespace MemoGL {
 
             while (lag >= SECONDS_PER_UPDATE) {
                 // Game logic
+                for (auto& layer : layerStack) {
+                    layer->onUpdate();
+                }
+
                 lag -= SECONDS_PER_UPDATE;
             }
 
@@ -57,12 +61,28 @@ namespace MemoGL {
         }
 
     }
+    
+    void GameEngine::pushLayer(Layer* layer) {
+        layerStack.pushLayer(layer);
+    }
+
+    void GameEngine::pushOverlay(Layer* overlay) {
+        layerStack.pushOverlay(overlay);
+    }
 
     void GameEngine::onEvent(Event& e) {
         EventDispatcher dispatcher(e);
         dispatcher.dispatch<WindowCloseEvent>(EVENT_CALLBACK(GameEngine::onWindowClosed));
+        propagateEventToLayers(e);
+    }
 
-        //MEMOGL_LOG_INFO(e);
+    void GameEngine::propagateEventToLayers(Event& e) {
+        for (auto it = layerStack.rbegin(); it != layerStack.rend(); ++it) {
+            (*it)->onEvent(e);
+            if (e.handled) {
+                break;
+            }
+        }
     }
 
     bool GameEngine::onWindowClosed(WindowCloseEvent& e) {

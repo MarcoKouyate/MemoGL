@@ -1,4 +1,5 @@
 #include "GameEngine.h"
+#include "layers/ExampleLayer.h"
 #include "tools/Log.h"
 #include "events/KeyBoardEvents.h"
 
@@ -10,6 +11,7 @@ namespace MemoGL{
             KeyReleasedEvent e(24);
             //MEMOGL_LOG_INFO(e);
             GameEngine gameEngine;
+            gameEngine.pushLayer(new ExampleLayer);
             gameEngine.run();
         }
 
