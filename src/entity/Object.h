@@ -7,34 +7,34 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "Entity.h"
 
-
-
 namespace MemoGL {
-	class Object : public Entity {
-		public:
-			Object();
-			~Object() override;
+    class Object : public Entity {
+        public:
+            void render(IRenderer& renderer) override;
+            void update(float deltatime) override;
+            void imgui() override;
 
-			void render(IRenderer& renderer) override;
-			void update(float deltatime);
-			void imgui();
+        protected:
+            Object();
 
-		private:
-			std::shared_ptr<Shader> shader = nullptr;
-			std::shared_ptr<VertexArray> vao = nullptr;
+            std::shared_ptr<Shader> shader = nullptr;
+            std::shared_ptr<VertexArray> vao = nullptr;
 
-			std::vector<Vertex2D> vertices;
-			std::vector<unsigned int> indices;
+            std::vector<Vertex2D> vertices;
+            std::vector<unsigned int> indices;
 
-			glm::mat4 proj;
-			glm::mat4 view;
-			glm::mat4 model;
-			glm::mat4 mvp;
+            glm::mat4 proj;
+            glm::mat4 view;
+            glm::mat4 model;
+            glm::mat4 mvp;
 
-			glm::vec3 translationA;
-			glm::vec3 translationB;
+            glm::vec3 translationA;
+            glm::vec3 translationB;
 
-			float camera_position_x = 0;
-			float camera_position_y = 0;
-	};
+            float camera_position_x = 0;
+            float camera_position_y = 0;
+
+            std::string vertexShader;
+            std::string fragmentShader;
+    };
 }

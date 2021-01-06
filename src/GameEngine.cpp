@@ -2,6 +2,8 @@
 #include "graphics/rasterization/RasterizationEngine.h"
 #include "entity/SceneManager.h"
 #include "tools/Log.h"
+#include "entity/sprite/Sprite.h"
+#include "entity/shapes/ColorRectangle.h"
 
 
 
@@ -24,8 +26,8 @@ namespace MemoGL {
             throw std::runtime_error("Game Engine tried to run without graphics engine.");
         }
 
-        std::shared_ptr<Object> colorSprite = std::make_shared<Object>();
-        std::shared_ptr<Object> textureSprite = std::make_shared<Object>();
+        std::shared_ptr<ColorRectangle> colorSprite = std::make_shared<ColorRectangle>();
+        std::shared_ptr<Sprite> textureSprite = std::make_shared<Sprite>();
         std::shared_ptr<Demo> demo = std::make_shared<MenuDemo>();
 
         colorSprite->addChild(textureSprite);

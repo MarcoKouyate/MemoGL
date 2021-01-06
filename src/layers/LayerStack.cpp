@@ -36,6 +36,7 @@ namespace MemoGL {
 
     void LayerStack::clear() {
         for (auto layer : layers) {
+            layer->onDetach();
             delete layer;
         }
 
