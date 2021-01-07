@@ -12,8 +12,5 @@ namespace MemoGL {
             
             RasterizationEngine(const IContext& context);
             virtual ~RasterizationEngine();
-
-        private: 
-            void createScene();
     };
 }

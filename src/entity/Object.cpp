@@ -44,9 +44,4 @@ namespace MemoGL {
 
         renderChildren(renderer);
     }
-
-    void Object::imgui() {
-        ImGui::Text("Hello from object");
-        imguiChildren();
-    }
 }

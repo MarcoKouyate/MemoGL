@@ -6,9 +6,9 @@ namespace MemoGL {
     {
     public:
         virtual ~Entity() = default;
-        virtual void update(float deltatime) = 0;
-        virtual void render(IRenderer& renderer) = 0;
-        virtual void imgui() = 0;
+        virtual void update(float deltatime) {}
+        virtual void render(IRenderer& renderer) { renderChildren(renderer); };
+        virtual void imgui() { imguiChildren(); };
 
         void addChild(std::shared_ptr<Entity> entity) {
             if (entity) {

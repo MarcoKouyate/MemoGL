@@ -2,6 +2,7 @@
 #include "imgui.h"
 #include "ClearColorDemo.h"
 #include "BasicTextureDemo.h"
+#include "BasicSceneDemo.h"
 
 namespace MemoGL {
     void MenuDemo::update(float deltatime) {
@@ -26,7 +27,8 @@ namespace MemoGL {
 
     MenuDemo::MenuDemo() {
         registerDemo<ClearColorDemo>("Clear Color");
-        registerDemo<BasicTextureDemo>("BasicTexture");
+        registerDemo<BasicTextureDemo>("Basic Texture");
+        registerDemo<BasicSceneDemo>("Basic Scene Demo");
     }
 
     MenuDemo::~MenuDemo() {

@@ -12,7 +12,6 @@ namespace MemoGL {
         public:
             void render(IRenderer& renderer) override;
             void update(float deltatime) override;
-            void imgui() override;
 
         protected:
             Object();

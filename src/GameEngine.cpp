@@ -26,12 +26,8 @@ namespace MemoGL {
             throw std::runtime_error("Game Engine tried to run without graphics engine.");
         }
 
-        std::shared_ptr<ColorRectangle> colorSprite = std::make_shared<ColorRectangle>();
-        std::shared_ptr<Sprite> textureSprite = std::make_shared<Sprite>();
-        std::shared_ptr<Scene> demo = std::make_shared<MenuDemo>();
 
-        colorSprite->addChild(textureSprite);
-        demo->addChild(colorSprite);
+        std::shared_ptr<Scene> demo = std::make_shared<MenuDemo>();
 
         SceneManager* sceneManager = SceneManager::getInstance();
         sceneManager->load(demo);
