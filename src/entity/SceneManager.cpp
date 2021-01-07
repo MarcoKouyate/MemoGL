@@ -10,11 +10,11 @@ namespace MemoGL {
 		return instance;
 	}
 
-	std::shared_ptr<Demo> SceneManager::getCurrentScene() {
+	std::shared_ptr<Scene> SceneManager::getCurrentScene() {
 		return currentScene;
 	}
 
-	void SceneManager::load(std::shared_ptr<Demo> newScene) {
+	void SceneManager::load(std::shared_ptr<Scene> newScene) {
 		currentScene = newScene;
 	}
 

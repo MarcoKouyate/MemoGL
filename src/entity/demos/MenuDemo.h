@@ -1,10 +1,10 @@
 #pragma once
-#include "../Demo.h"
+#include "../Scene.h"
 #include "../SceneManager.h"
 
 
 namespace MemoGL {
-    class MenuDemo : public Demo {
+    class MenuDemo : public Scene {
         public: 
             MenuDemo();
             ~MenuDemo() override;

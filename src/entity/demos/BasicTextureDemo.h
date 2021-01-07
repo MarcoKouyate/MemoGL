@@ -1,9 +1,9 @@
 #pragma once
-#include "../Demo.h"
+#include "../Scene.h"
 #include "../Object.h"
 
 namespace MemoGL {
-    class BasicTextureDemo : public Demo {
+    class BasicTextureDemo : public Scene {
         public:
             BasicTextureDemo();
             ~BasicTextureDemo() override;

@@ -1,11 +1,9 @@
 #pragma once
 #include "entity/Entity.h"
 
-
-
 namespace MemoGL {
-	class Demo : public Entity {
+	class Scene : public Entity {
 	public:
-		virtual ~Demo() = default;
+		virtual ~Scene() = default;
 	};
 }

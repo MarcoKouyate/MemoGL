@@ -20,7 +20,7 @@ namespace MemoGL {
         //demo->addChild(entity);
     }
         
-    void RasterizationEngine::render(std::shared_ptr<Demo> scene,  float lag) {
+    void RasterizationEngine::render(std::shared_ptr<Scene> scene,  float lag) {
         if (renderer) {
             scene->render(*renderer);
 

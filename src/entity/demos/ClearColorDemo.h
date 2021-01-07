@@ -1,9 +1,9 @@
 #pragma once
-#include "../Demo.h"
+#include "../Scene.h"
 
 
 namespace MemoGL {
-	class ClearColorDemo : public Demo{
+	class ClearColorDemo : public Scene{
 	public:
 		ClearColorDemo();
 		~ClearColorDemo() override;

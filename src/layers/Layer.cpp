@@ -9,6 +9,8 @@ namespace MemoGL {
 
     void Layer::onEvent(Event& e) {}
 
+    void Layer::onImGui() {}
+
     Layer::Layer(const std::string& debugName) : 
         debugName(debugName), isEnabled(true) {}
 

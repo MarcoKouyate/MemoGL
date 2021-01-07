@@ -4,7 +4,7 @@
 #include "tools/Log.h"
 #include "entity/sprite/Sprite.h"
 #include "entity/shapes/ColorRectangle.h"
-
+#include "entity/demos/MenuDemo.h"
 
 
 namespace MemoGL {
@@ -28,7 +28,7 @@ namespace MemoGL {
 
         std::shared_ptr<ColorRectangle> colorSprite = std::make_shared<ColorRectangle>();
         std::shared_ptr<Sprite> textureSprite = std::make_shared<Sprite>();
-        std::shared_ptr<Demo> demo = std::make_shared<MenuDemo>();
+        std::shared_ptr<Scene> demo = std::make_shared<MenuDemo>();
 
         colorSprite->addChild(textureSprite);
         demo->addChild(colorSprite);
