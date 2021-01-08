@@ -59,6 +59,7 @@ namespace MemoGL {
                 for (auto& layer : layerStack) {
                     layer->onUpdate();
                 }
+                sceneManager->getCurrentScene()->update(lag);
 
                 lag -= SECONDS_PER_UPDATE;
             }

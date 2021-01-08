@@ -2,6 +2,9 @@
 
 #include "tools/CommonMacros.h"
 
+#include "KeyCodes.h"
+#include "MouseCodes.h"
+#include "GamepadCodes.h"
 
 namespace MemoGL {
 

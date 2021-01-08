@@ -1,6 +1,10 @@
 #pragma once
 #include "glm.hpp"
 
+#include "../KeyCodes.h"
+#include "../MouseCodes.h"
+#include "../GamepadCodes.h"
+
 namespace MemoGL {
     class Input {
         public:

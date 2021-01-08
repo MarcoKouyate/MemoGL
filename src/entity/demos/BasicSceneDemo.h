@@ -6,6 +6,7 @@ namespace MemoGL {
             BasicSceneDemo();
             virtual ~BasicSceneDemo() override = default;
             void imgui() override;
+            void update(float deltatime) override;
 
         private:
             bool show_demo_window;
