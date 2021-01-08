@@ -12,11 +12,19 @@ namespace MemoGL {
 
             void pushLayer(Layer* layer);
             void pushOverlay(Layer* overlay);
-
-            GameEngine();
+            
             ~GameEngine();
+
+            virtual inline const IContext& getContext() const {
+                return *context;
+            }
+
+            static GameEngine* get();
         
         private:
+            GameEngine();
+            static GameEngine* instance;
+
             bool onWindowClosed(WindowCloseEvent& e);
             void propagateEventToLayers(Event& e);
 

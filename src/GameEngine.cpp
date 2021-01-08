@@ -5,10 +5,19 @@
 #include "entity/sprite/Sprite.h"
 #include "entity/shapes/ColorRectangle.h"
 #include "entity/demos/MenuDemo.h"
-
+#include "events/inputs/Input.h"
 
 namespace MemoGL {
     #define EVENT_CALLBACK(x) std::bind(&x, this, std::placeholders::_1)
+
+    GameEngine* GameEngine::instance = nullptr;
+
+    GameEngine* GameEngine::get() {
+        if (!instance) {
+            instance = new GameEngine;
+        }
+        return instance;
+    }
 
     GameEngine::GameEngine() {
         MEMOGL_LOG_TRACE("Game Engine initialized.")

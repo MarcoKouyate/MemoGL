@@ -21,9 +21,13 @@ namespace MemoGL {
             GLFWContext(const WindowSettings& properties);
             ~GLFWContext() override;
 
+            void* getNativeWindow() const override {
+                return window;
+            }
 
         private:
             static bool GLFW_initialized;
+            GLFWwindow* window = nullptr;
 
             struct  WindowData
             {

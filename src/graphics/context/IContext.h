@@ -44,11 +44,6 @@ namespace MemoGL {
             static IContext* create(const WindowSettings& properties); 
             //implement this method into a platform specific file and choose wich subclass to create
 
-            GLFWwindow* getWindow() const {
-                return window;
-            }
-
-        protected:
-            GLFWwindow* window = nullptr;
+            virtual void* getNativeWindow() const = 0;
     };
 }

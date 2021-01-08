@@ -9,9 +9,7 @@ namespace MemoGL{
         //setting up modules
         try {
             KeyReleasedEvent e(24);
-            GameEngine gameEngine;
-            //gameEngine.pushLayer(new ExampleLayer);
-            gameEngine.run();
+            GameEngine::get()->run();
         }
 
         catch (std::runtime_error& error) {

@@ -28,7 +28,7 @@ namespace MemoGL {
             style.Colors[ImGuiCol_WindowBg].w = 1.0f;
         }
 
-		ImGui_ImplGlfw_InitForOpenGL(context.getWindow(), darkMode);
+		ImGui_ImplGlfw_InitForOpenGL(static_cast<GLFWwindow*>(context.getNativeWindow()), darkMode);
 		ImGui_ImplOpenGL3_Init(glslVersion);
 	}
 
@@ -46,7 +46,7 @@ namespace MemoGL {
 
     void OpenGLImGui::end() {
         int display_w, display_h;
-        glfwGetFramebufferSize(context.getWindow(), &display_w, &display_h);
+        glfwGetFramebufferSize(static_cast<GLFWwindow*>(context.getNativeWindow()), &display_w, &display_h);
         glViewport(0, 0, display_w, display_h);
 
         ImGui::Render();
