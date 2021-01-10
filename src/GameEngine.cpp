@@ -59,13 +59,13 @@ namespace MemoGL {
                 for (auto& layer : layerStack) {
                     layer->onUpdate();
                 }
-                sceneManager->getCurrentScene()->update(lag);
+                sceneManager->getCurrentScene()->update((float) lag);
 
                 lag -= SECONDS_PER_UPDATE;
             }
 
             // Rendering
-            graphicsEngine->render(sceneManager->getCurrentScene(), (float)lag / SECONDS_PER_UPDATE);
+            graphicsEngine->render(sceneManager->getCurrentScene(), (float)(lag / SECONDS_PER_UPDATE));
         }
 
     }

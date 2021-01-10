@@ -129,13 +129,13 @@ namespace MemoGL {
 
         glfwSetCursorPosCallback(window, [](GLFWwindow* window, double x, double y) {
             WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-            MouseMovedEvent e(x, y);
+            MouseMovedEvent e((float)x, (float)y);
             data.eventCallback(e);
         });
 
         glfwSetScrollCallback(window, [](GLFWwindow* window, double xoffset, double yoffset) {
             WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-            MouseScrollEvent e(yoffset);
+            MouseScrollEvent e((float)yoffset);
             data.eventCallback(e);
         });
         

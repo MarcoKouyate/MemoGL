@@ -9,13 +9,13 @@ namespace MemoGL {
 
 			void push(std::vector<unsigned int> indices);
 
-			inline unsigned int getCount() const { return count; }
+			inline size_t getCount() const { return count; }
 
 			OpenGLIndexBuffer();
 			~OpenGLIndexBuffer();
 
 		private:
 			unsigned int id;
-			unsigned int count;
+			size_t count;
 	};
 }
