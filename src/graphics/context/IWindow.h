@@ -20,11 +20,11 @@ namespace MemoGL {
         {};
     };
 
-    class IContext {
+    class IWindow {
         public:
             using EventCallBackFunction = std::function<void(Event&)>;
 
-            virtual ~IContext() = default;
+            virtual ~IWindow() = default;
 
             virtual double getTime() = 0;
             virtual void close() = 0;
@@ -41,7 +41,7 @@ namespace MemoGL {
             virtual void setEventCallBack(const EventCallBackFunction& callback) = 0;
             virtual void setVSync(bool enabled) = 0;
 
-            static IContext* create(const WindowSettings& properties); 
+            static IWindow* create(const WindowSettings& properties); 
             //implement this method into a platform specific file and choose wich subclass to create
 
             virtual void* getNativeWindow() const = 0;

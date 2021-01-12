@@ -1,4 +1,4 @@
-#include "GLFWContext.h"
+#include "WindowGLFW.h"
 #include "tools/Log.h"
 
 #include "events/WindowEvents.h"
@@ -7,34 +7,34 @@
 
 namespace MemoGL {
 
-    bool GLFWContext::GLFW_initialized = false;
+    bool WindowGLFW::GLFW_initialized = false;
 
-    IContext* IContext::create(const WindowSettings& properties) {
-        return new GLFWContext(properties);
+    IWindow* IWindow::create(const WindowSettings& properties) {
+        return new WindowGLFW(properties);
     }
 
     static void ErrorCallback(int error, const char* description) {
         MEMOGL_LOG_ERROR("GLFW Error {0}: {1}", error, description);
     }
 
-    void GLFWContext::close() {
+    void WindowGLFW::close() {
         glfwDestroyWindow(window);
         //TODO: Terminate glfw at system shutdown;
         //glfwTerminate();
         MEMOGL_LOG_TRACE("GLFW context has been closed.");
     }
 
-    double GLFWContext::getTime() {
+    double WindowGLFW::getTime() {
         return glfwGetTime();
     }
 
-    void GLFWContext::onUpdate() {
+    void WindowGLFW::onUpdate() {
         glfwPollEvents();
         glfwSwapBuffers(window);
     }
 
     // Init
-    void GLFWContext::init(const WindowSettings& properties) {
+    void WindowGLFW::init(const WindowSettings& properties) {
         windowData.title = properties.name;
         windowData.width = properties.width;
         windowData.height = properties.height;
@@ -144,20 +144,20 @@ namespace MemoGL {
 
 
     // getters
-    unsigned int GLFWContext::getWidth() const {
+    unsigned int WindowGLFW::getWidth() const {
         return windowData.width;
     }
-    unsigned int GLFWContext::getHeight() const {
+    unsigned int WindowGLFW::getHeight() const {
         return windowData.height;
     }
 
-    bool GLFWContext::isVSync() const {
+    bool WindowGLFW::isVSync() const {
         return windowData.vSync;
     }
 
 
     // setters
-    void GLFWContext::setVSync(bool enabled) {
+    void WindowGLFW::setVSync(bool enabled) {
         if (enabled) {
             glfwSwapInterval(1);
         }
@@ -168,17 +168,17 @@ namespace MemoGL {
         windowData.vSync = enabled;
     }
 
-    void GLFWContext::setEventCallBack(const EventCallBackFunction& callback) {
+    void WindowGLFW::setEventCallBack(const EventCallBackFunction& callback) {
         windowData.eventCallback = callback;
     }
 
 
     // constructors
-	GLFWContext::GLFWContext(const WindowSettings& properties) {
+	WindowGLFW::WindowGLFW(const WindowSettings& properties) {
         init(properties);
 	}
 
-	GLFWContext::~GLFWContext() {
+	WindowGLFW::~WindowGLFW() {
         close();
         MEMOGL_LOG_TRACE("GLFW Context has been deleted.");
     }

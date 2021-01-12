@@ -4,7 +4,7 @@
 
 
 namespace MemoGL {
-    RasterizationEngine::RasterizationEngine(const IContext& context) {
+    RasterizationEngine::RasterizationEngine(const IWindow& context) {
         renderer = std::make_shared<OpenGLRenderer>(context);
         MEMOGL_LOG_TRACE("Rasterization graphics engine initialized.");
     }

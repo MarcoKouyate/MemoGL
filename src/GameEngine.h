@@ -15,7 +15,7 @@ namespace MemoGL {
             
             ~GameEngine();
 
-            virtual inline const IContext& getContext() const {
+            virtual inline const IWindow& getContext() const {
                 return *context;
             }
 
@@ -31,7 +31,7 @@ namespace MemoGL {
             LayerStack layerStack;
 
             bool isRunning = true;
-            std::unique_ptr<IContext> context;
+            std::unique_ptr<IWindow> context;
             std::unique_ptr<IGraphicsEngine> graphicsEngine;
     };
 }

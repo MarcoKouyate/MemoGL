@@ -1,5 +1,5 @@
 #pragma once
-#include "graphics/context/GLFW/GLFWContext.h"
+#include "graphics/context/GLFW/WindowGLFW.h"
 
 namespace MemoGL {
 

@@ -21,7 +21,7 @@ namespace MemoGL {
 
     GameEngine::GameEngine() {
         MEMOGL_LOG_TRACE("Game Engine initialized.")
-        context = std::unique_ptr<IContext>(IContext::create(WindowSettings()));
+        context = std::unique_ptr<IWindow>(IWindow::create(WindowSettings()));
         context->setEventCallBack(EVENT_CALLBACK(GameEngine::onEvent));
         graphicsEngine = std::make_unique<RasterizationEngine>(*context);
     }

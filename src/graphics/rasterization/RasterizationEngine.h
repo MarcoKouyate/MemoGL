@@ -10,7 +10,7 @@ namespace MemoGL {
         public:
             void render(std::shared_ptr<Scene> scene, float lag) override;
             
-            RasterizationEngine(const IContext& context);
+            RasterizationEngine(const IWindow& context);
             virtual ~RasterizationEngine();
     };
 }

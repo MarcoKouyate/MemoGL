@@ -3,7 +3,7 @@
 
 #include "graphics/buffer/Vertex2D.h"
 #include "tools/File.h"
-#include "graphics/context/GLFW/GLFWContext.h"
+#include "graphics/context/GLFW/WindowGLFW.h"
 #include "glm/glm.hpp"
 
 #include "tools/Log.h"
@@ -72,7 +72,7 @@ namespace MemoGL {
 
 
     // CONSTRUCTORS 
-    OpenGLRenderer::OpenGLRenderer(const IContext& context) : context(context) {
+    OpenGLRenderer::OpenGLRenderer(const IWindow& context) : context(context) {
         MEMOGL_LOG_TRACE("Initializing OpenGL renderer...");
         init();
         MEMOGL_LOG_TRACE("OpenGL {0} renderer initialized.", GLCallR(glGetString(GL_VERSION)));

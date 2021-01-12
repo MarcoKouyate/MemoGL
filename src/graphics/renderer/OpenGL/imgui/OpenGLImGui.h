@@ -1,5 +1,5 @@
 #pragma once
-#include "graphics/context/IContext.h"
+#include "graphics/context/IWindow.h"
 
 #define IMGUI_IMPL_API
 #include "backends/imgui_impl_opengl3.h"
@@ -11,11 +11,11 @@ namespace MemoGL {
 			void begin();
 			void end();
 
-			OpenGLImGui(const IContext& context, const char* glslVersion, bool darkMode);
+			OpenGLImGui(const IWindow& context, const char* glslVersion, bool darkMode);
 			~OpenGLImGui();
 
 		private:
-			const IContext& context;
+			const IWindow& context;
 			ImGuiIO* io;
 	};
 }
