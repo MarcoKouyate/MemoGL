@@ -2,6 +2,7 @@
 #include "graphics/renderer/IRenderer.h"
 #include "imgui.h"
 #include "../demos/MenuDemo.h"
+#include "GameEngine.h"
 
 namespace MemoGL {
     BasicTextureDemo::BasicTextureDemo() : clearColor{ 0.1f, 0.1f, 0.1f, 1.0f } {
@@ -17,9 +18,9 @@ namespace MemoGL {
     }
 
 
-    void BasicTextureDemo::render(IRenderer& renderer) {
-        renderer.clearColor({ clearColor[0], clearColor[1], clearColor[2], clearColor[3] });
-        renderChildren(renderer);
+    void BasicTextureDemo::render() {
+        std::shared_ptr<IRenderer> renderer = GameEngine::get()->getGraphicsEngine()->getRenderer();
+        renderer->clearColor({ clearColor[0], clearColor[1], clearColor[2], clearColor[3] });
     }
 
 
@@ -33,6 +34,5 @@ namespace MemoGL {
         }
 
         ImGui::End();
-        imguiChildren();
     }
 }

@@ -23,7 +23,7 @@ namespace MemoGL {
         MEMOGL_LOG_TRACE("Game Engine initialized.")
         context = std::unique_ptr<IWindow>(IWindow::create(WindowSettings()));
         context->setEventCallBack(EVENT_CALLBACK(GameEngine::onEvent));
-        graphicsEngine = std::make_unique<RasterizationEngine>(*context);
+        graphicsEngine = std::make_shared<RasterizationEngine>(*context);
     }
 
     GameEngine::~GameEngine() {
@@ -35,17 +35,22 @@ namespace MemoGL {
             throw std::runtime_error("Game Engine tried to run without graphics engine.");
         }
 
-
-        std::shared_ptr<Scene> demo = std::make_shared<MenuDemo>();
-
-        SceneManager* sceneManager = SceneManager::getInstance();
-        sceneManager->load(demo);
+        std::shared_ptr<Scene> loadedScene = nullptr;
+        SceneManager::getInstance()->load(std::make_shared<MenuDemo>());
+        
 
         double lag = 0.0;
         double previous = context->getTime();
         double SECONDS_PER_UPDATE = 1.0 / 60.0;
 
         while (isRunning) {
+
+            if (SceneManager::getInstance()->getCurrentScene() != loadedScene) {
+                std::shared_ptr<Scene> currentScene = SceneManager::getInstance()->getCurrentScene();
+                loadScene(currentScene);
+                loadedScene = currentScene;
+            }
+
             context->onUpdate();
 
             double current = context->getTime();
@@ -56,36 +61,38 @@ namespace MemoGL {
 
             while (lag >= SECONDS_PER_UPDATE) {
                 // Game logic
-                for (auto& layer : layerStack) {
-                    layer->onUpdate();
+                for (auto& entity : entityStack) {
+                    entity->update((float) lag);
                 }
-                sceneManager->getCurrentScene()->update((float) lag);
-
                 lag -= SECONDS_PER_UPDATE;
             }
 
             // Rendering
-            graphicsEngine->render(sceneManager->getCurrentScene(), (float)(lag / SECONDS_PER_UPDATE));
+            graphicsEngine->render(entityStack);
         }
-
     }
     
-    void GameEngine::pushLayer(Layer* layer) {
-        layerStack.pushLayer(layer);
+
+    void GameEngine::loadScene(std::shared_ptr<Scene> scene) {
+        entityStack.clear();
+        loadEntity(scene);
     }
 
-    void GameEngine::pushOverlay(Layer* overlay) {
-        layerStack.pushOverlay(overlay);
+    void GameEngine::loadEntity(std::shared_ptr<Entity> entity) {
+        entityStack.pushLayer(entity);
+        for (auto& child : entity->getChildren()) {
+            loadEntity(child);
+        }
     }
 
     void GameEngine::onEvent(Event& e) {
         EventDispatcher dispatcher(e);
-        dispatcher.dispatch<WindowCloseEvent>(EVENT_CALLBACK(GameEngine::onWindowClosed));
         propagateEventToLayers(e);
+        dispatcher.dispatch<WindowCloseEvent>(EVENT_CALLBACK(GameEngine::onWindowClosed));
     }
 
     void GameEngine::propagateEventToLayers(Event& e) {
-        for (auto it = layerStack.rbegin(); it != layerStack.rend(); ++it) {
+        for (auto it = entityStack.rbegin(); it != entityStack.rend(); ++it) {
             (*it)->onEvent(e);
             if (e.handled) {
                 break;

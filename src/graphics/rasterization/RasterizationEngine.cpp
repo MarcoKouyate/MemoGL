@@ -13,13 +13,20 @@ namespace MemoGL {
         MEMOGL_LOG_TRACE("Rasterization graphics engine has been released.");
     }
         
-    void RasterizationEngine::render(std::shared_ptr<Scene> scene,  float lag) {
+    void RasterizationEngine::render(const EntityStack& entityStack) {
         if (renderer) {
             renderer->clearColor({ 0.0f, 0.0f, 0.0f, 1.0f });
-            scene->render(*renderer);
+
+            for (auto& entity : entityStack) {
+                entity->render();
+            }
 
             renderer->imGuiBegin();
-            scene->imgui();
+            
+            for (auto& entity : entityStack) {
+                entity->imgui();
+            }
+
             renderer->imGuiEnd();
         }
     }
