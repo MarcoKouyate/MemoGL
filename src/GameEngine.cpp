@@ -35,43 +35,56 @@ namespace MemoGL {
             throw std::runtime_error("Game Engine tried to run without graphics engine.");
         }
 
-        std::shared_ptr<Scene> loadedScene = nullptr;
         SceneManager::getInstance()->load(std::make_shared<MenuDemo>());
-        
 
-        double lag = 0.0;
-        double previous = context->getTime();
-        double SECONDS_PER_UPDATE = 1.0 / 60.0;
+        lag = 0.0;
+        previous = context->getTime();
 
         while (isRunning) {
-
-            if (SceneManager::getInstance()->getCurrentScene() != loadedScene) {
-                std::shared_ptr<Scene> currentScene = SceneManager::getInstance()->getCurrentScene();
-                loadScene(currentScene);
-                loadedScene = currentScene;
-            }
-
-            context->onUpdate();
-
-            double current = context->getTime();
-            double elapsed = current - previous;
-            previous = current;
-
-            lag += elapsed;
-
-            while (lag >= SECONDS_PER_UPDATE) {
-                // Game logic
-                for (auto& entity : entityStack) {
-                    entity->update((float) lag);
-                }
-                lag -= SECONDS_PER_UPDATE;
-            }
-
-            // Rendering
-            graphicsEngine->render(entityStack);
+            checkActiveScene();
+            update();
+            render();
         }
     }
-    
+
+
+
+    // Frame Loop
+
+    void GameEngine::checkActiveScene() {
+        if (SceneManager::getInstance()->getCurrentScene() != loadedScene) {
+            std::shared_ptr<Scene> currentScene = SceneManager::getInstance()->getCurrentScene();
+            loadScene(currentScene);
+            loadedScene = currentScene;
+        }
+    }
+
+    void GameEngine::update() {
+        context->onUpdate();
+
+        double current = context->getTime();
+        double elapsed = current - previous;
+        previous = current;
+
+        lag += elapsed;
+
+        while (lag >= SECONDS_PER_UPDATE) {
+            // Game logic
+            for (auto& entity : entityStack) {
+                entity->update((float)lag);
+            }
+            lag -= SECONDS_PER_UPDATE;
+        }
+    }
+
+    void GameEngine::render() {
+        graphicsEngine->render(entityStack);
+    }
+
+
+
+
+    // Load
 
     void GameEngine::loadScene(std::shared_ptr<Scene> scene) {
         entityStack.clear();
@@ -84,6 +97,10 @@ namespace MemoGL {
             loadEntity(child);
         }
     }
+
+
+
+    // Events
 
     void GameEngine::onEvent(Event& e) {
         EventDispatcher dispatcher(e);
@@ -99,6 +116,7 @@ namespace MemoGL {
             }
         }
     }
+
 
     bool GameEngine::onWindowClosed(WindowCloseEvent& e) {
         isRunning = false;

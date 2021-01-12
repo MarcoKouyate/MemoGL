@@ -29,6 +29,10 @@ namespace MemoGL {
             GameEngine();
             static GameEngine* instance;
 
+            void checkActiveScene();
+            void update();
+            void render();
+
             bool onWindowClosed(WindowCloseEvent& e);
             void propagateEventToLayers(Event& e);
             void loadEntity(std::shared_ptr<Entity> entity);
@@ -36,7 +40,12 @@ namespace MemoGL {
             EntityStack entityStack;
 
             bool isRunning = true;
-            std::unique_ptr<IWindow> context;
-            std::shared_ptr<IGraphicsEngine> graphicsEngine;
+            std::unique_ptr<IWindow> context = nullptr;
+            std::shared_ptr<IGraphicsEngine> graphicsEngine = nullptr;
+            std::shared_ptr<Scene> loadedScene = nullptr;
+
+            double lag;
+            double previous;
+            const double SECONDS_PER_UPDATE = 1.0 / 60.0;
     };
 }
