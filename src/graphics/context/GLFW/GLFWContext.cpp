@@ -9,10 +9,6 @@ namespace MemoGL {
 
     bool GLFWContext::GLFW_initialized = false;
 
-    IContext* IContext::create(const WindowSettings& properties) {
-        return new GLFWContext(properties);
-    }
-
     static void ErrorCallback(int error, const char* description) {
         MEMOGL_LOG_ERROR("GLFW Error {0}: {1}", error, description);
     }

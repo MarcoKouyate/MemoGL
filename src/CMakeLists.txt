@@ -10,12 +10,20 @@ file(GLOB_RECURSE TEST_FILES
     "test/*"
     "test/*"
 )
+
 list (REMOVE_ITEM SRC_FILES ${TEST_FILES})
+
+
+add_subdirectory(platform)
 
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}  FILES ${SRC_FILES})
 
+message(STATUS "SOURCE FILES:")
+foreach (filename ${SRC_FILES})
+    message(STATUS "${filename}")
+endforeach()
 
-add_library(${PROJECT_LIB} STATIC 
+add_library(${PROJECT_LIB} STATIC
     ${SRC_FILES}
 )
 
