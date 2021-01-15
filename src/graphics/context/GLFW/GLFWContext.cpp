@@ -30,10 +30,10 @@ namespace MemoGL {
     }
 
     // Init
-    void GLFWContext::init(const WindowSettings& properties) {
-        windowData.title = properties.name;
-        windowData.width = properties.width;
-        windowData.height = properties.height;
+    void GLFWContext::init(const WindowSettings& windowSettings,  const RenderingAPISettings& renderingSettings) {
+        windowData.title = windowSettings.name;
+        windowData.width = windowSettings.width;
+        windowData.height = windowSettings.height;
 
         MEMOGL_LOG_TRACE("Initializing GLFW context : window {0} ({1}, {2})", windowData.title, windowData.width, windowData.height);
 
@@ -46,13 +46,34 @@ namespace MemoGL {
 
         glfwSetErrorCallback(ErrorCallback);
 
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
-        //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, renderingSettings.version_major);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, renderingSettings.version_minor);
         glfwWindowHint(GLFW_SAMPLES, 4);
         glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-        window = glfwCreateWindow(properties.width, properties.height, properties.name, nullptr, nullptr);
+        
+        if(renderingSettings.forward_compatibility) {
+            glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+        } else {
+            glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_FALSE);
+        }
+        
+        switch (renderingSettings.profile) {
+            case APIProfile::Core:
+                glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+                
+                break;
+                
+            case APIProfile::Compatibility:
+                glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+                break;
+                
+            default:
+                glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE);
+                break;
+        }
+        
+        
+        window = glfwCreateWindow(windowSettings.width, windowSettings.height, windowSettings.name, nullptr, nullptr);
 
         if (!window) {
             close();
@@ -170,8 +191,8 @@ namespace MemoGL {
 
 
     // constructors
-	GLFWContext::GLFWContext(const WindowSettings& properties) {
-        init(properties);
+	GLFWContext::GLFWContext(const WindowSettings& properties, const RenderingAPISettings& renderingSettings) {
+        init(properties,  renderingSettings);
 	}
 
 	GLFWContext::~GLFWContext() {

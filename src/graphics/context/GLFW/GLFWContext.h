@@ -4,7 +4,7 @@
 namespace MemoGL {
     class GLFWContext : public IContext {
         public:
-            void init(const WindowSettings& properties);
+            void init(const WindowSettings& properties,  const RenderingAPISettings& renderingSettings);
 
             double getTime() override;
             void close() override;
@@ -18,7 +18,7 @@ namespace MemoGL {
             virtual void setEventCallBack(const EventCallBackFunction & callback) override;
             virtual void setVSync(bool enabled) override;
 
-            GLFWContext(const WindowSettings& properties);
+            GLFWContext(const WindowSettings& properties,  const RenderingAPISettings& renderingSettings);
             ~GLFWContext() override;
 
             void* getNativeWindow() const override {

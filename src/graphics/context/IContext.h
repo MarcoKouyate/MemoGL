@@ -8,6 +8,17 @@
 
 namespace MemoGL {
 
+    enum class APIProfile {
+        Core, Compatibility
+    };
+
+    struct RenderingAPISettings {
+        APIProfile profile;
+        bool forward_compatibility;
+        unsigned int version_major;
+        unsigned int version_minor;
+    };
+
     struct WindowSettings {
         unsigned int width;
         unsigned int height;
