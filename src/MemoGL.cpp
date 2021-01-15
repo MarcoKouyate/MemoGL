@@ -1,8 +1,5 @@
 #include "GameEngine.h"
-#include "layers/ExampleLayer.h"
 #include "tools/Log.h"
-#include "events/KeyBoardEvents.h"
-#include <iostream>
 
 namespace MemoGL{
 
@@ -25,7 +22,6 @@ namespace MemoGL{
             return -1;
         }
 
-        std::cin.get();
         return 0;
     }
     

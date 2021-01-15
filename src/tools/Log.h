@@ -33,7 +33,6 @@ namespace MemoGL {
 #define BREAK() raise(SIGINT);
 #endif
 
-#define _DEBUG
 // Core Log Macro
 #ifdef _DEBUG
     #define MEMOGL_LOG_TRACE(...)      ::MemoGL::Log::getInstance()->getCoreLogger()->trace(__VA_ARGS__);
