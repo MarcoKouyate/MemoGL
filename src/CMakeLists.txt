@@ -27,6 +27,9 @@ add_library(${PROJECT_LIB} STATIC
     ${SRC_FILES}
 )
 
+target_compile_features(${PROJECT_LIB} PRIVATE cxx_std_17)
+target_compile_options(${PROJECT_EXE} PRIVATE -Wall)
+
 target_include_directories(${PROJECT_LIB} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 target_precompile_headers(${PROJECT_LIB} PRIVATE pch.h)
 

@@ -18,12 +18,16 @@ enable_testing()
 add_executable(${PROJECT_EXE} main.cpp)
 
 # options
-set_property(TARGET ${PROJECT_EXE} PROPERTY CXX_STANDARD 14)
 target_compile_options(${PROJECT_EXE} PRIVATE -Wall)
-
+target_compile_features(${PROJECT_EXE} PRIVATE cxx_std_17)
 
 set(RESOURCES_SRC ${CMAKE_SOURCE_DIR}/res)
-set(RESOURCES_DST ${CMAKE_BINARY_DIR}/res)
+
+if(APPLE)
+    set(RESOURCES_DST $<TARGET_FILE_DIR:${PROJECT_EXE}>/res)
+else ()
+    set(RESOURCES_DST ${CMAKE_BINARY_DIR}/res)
+endif()
 
 add_custom_command(TARGET ${PROJECT_EXE} POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_directory
