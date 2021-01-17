@@ -10,3 +10,6 @@ file(GLOB SRC_FILES
 add_library(${LIBRARY_DIR} STATIC 
     ${SRC_FILES}
 )
+
+#imgui uses deprecated functions that trigger warning
+target_compile_definitions(${LIBRARY_DIR} PUBLIC _CRT_SECURE_NO_WARNINGS)

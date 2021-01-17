@@ -32,7 +32,5 @@ namespace MemoGL {
             SceneManager::getInstance()->load(std::make_shared<MenuDemo>());
         }
         ImGui::End();
-
-        imguiChildren();
     }
 }

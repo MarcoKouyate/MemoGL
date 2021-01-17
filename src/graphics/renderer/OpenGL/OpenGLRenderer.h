@@ -24,7 +24,7 @@ namespace MemoGL {
             void imGuiEnd() override;
 
 
-            OpenGLRenderer(const IContext& context);
+            OpenGLRenderer(const IWindow& context);
             ~OpenGLRenderer();
 
         private:
@@ -35,7 +35,7 @@ namespace MemoGL {
             void initializeImGui();
             
             
-            const IContext& context;
+            const IWindow& context;
             std::unique_ptr<IOpenGLVersion> openGLVersion = nullptr;
             std::unique_ptr<OpenGLTexture> texture = nullptr;
             std::unique_ptr<OpenGLImGui> imgui = nullptr;

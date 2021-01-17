@@ -1,8 +1,8 @@
 #pragma once
-#include "../IContext.h"
+#include "../IWindow.h"
 
 namespace MemoGL {
-    class GLFWContext : public IContext {
+    class WindowGLFW : public IWindow {
         public:
             void init(const WindowSettings& properties,  const RenderingAPISettings& renderingSettings);
 
@@ -18,8 +18,8 @@ namespace MemoGL {
             virtual void setEventCallBack(const EventCallBackFunction & callback) override;
             virtual void setVSync(bool enabled) override;
 
-            GLFWContext(const WindowSettings& properties,  const RenderingAPISettings& renderingSettings);
-            ~GLFWContext() override;
+            WindowGLFW(const WindowSettings& properties, const RenderingAPISettings& renderingSettings);
+            ~WindowGLFW() override;
 
             void* getNativeWindow() const override {
                 return window;

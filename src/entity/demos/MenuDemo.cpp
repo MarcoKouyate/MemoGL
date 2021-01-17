@@ -3,15 +3,16 @@
 #include "ClearColorDemo.h"
 #include "BasicTextureDemo.h"
 #include "BasicSceneDemo.h"
+#include "GameEngine.h"
 
 namespace MemoGL {
     void MenuDemo::update(float deltatime) {
 
     }
 
-    void MenuDemo::render(IRenderer& renderer) {
-        renderer.clearColor({ 0.0f, 0.0f, 0.0f, 0.0f });
-        renderChildren(renderer);
+    void MenuDemo::render() {
+        std::shared_ptr<IRenderer> renderer = GameEngine::get()->getGraphicsEngine()->getRenderer();
+        renderer->clearColor({ 0.0f, 0.0f, 0.0f, 0.0f });
     }
 
     void MenuDemo::imgui() {
@@ -21,8 +22,6 @@ namespace MemoGL {
                 break;
             }
         }
-
-        imguiChildren();
     }
 
     MenuDemo::MenuDemo() {

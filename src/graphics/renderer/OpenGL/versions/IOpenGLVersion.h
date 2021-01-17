@@ -1,5 +1,5 @@
 #pragma once
-#include "graphics/context/IContext.h"
+#include "graphics/context/IWindow.h"
 
 namespace MemoGL {
 	class IOpenGLVersion {

@@ -1,6 +1,6 @@
 #include "Object.h"
 #include "imgui.h"
-
+#include "GameEngine.h"
 
 namespace MemoGL {
     Object::Object() {
@@ -16,9 +16,11 @@ namespace MemoGL {
 
     }
 
-    void Object::render(IRenderer& renderer) {
+    void Object::render() {
+        std::shared_ptr<IRenderer> renderer = GameEngine::get()->getGraphicsEngine()->getRenderer();
+
         if (!shader) {
-            shader = renderer.createShader();
+            shader = renderer->createShader();
             shader->init(vertexShader, fragmentShader);
             shader->bind();
             shader->setUniform4f("u_Color", 0.8f, 0.5f, 0.3f, 1.0f);
@@ -28,7 +30,7 @@ namespace MemoGL {
         }
 
         if (!vao) {
-            vao = renderer.createVertexArray();
+            vao = renderer->createVertexArray();
             vao->push(vertices, indices);
         }
 
@@ -36,12 +38,10 @@ namespace MemoGL {
             shader->bind();
             vao->bind();
 
-            renderer.draw();
+            renderer->draw();
 
             vao->unbind();
             shader->unbind();
         }
-
-        renderChildren(renderer);
     }
 }

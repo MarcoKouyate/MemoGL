@@ -43,7 +43,7 @@ namespace MemoGL {
 
     class MouseMovedEvent : public Event {
     public:
-        MouseMovedEvent(int horizontal, int vertical) : 
+        MouseMovedEvent(float horizontal, float vertical) :
             horizontal(horizontal), vertical(vertical) 
         {}
 
@@ -57,13 +57,13 @@ namespace MemoGL {
         EVENT_CLASS_CATEGORY(Mouse | Input);
 
     private:
-        int horizontal, vertical;
+        float horizontal, vertical;
     };
 
 
     class MouseScrollEvent : public Event {
     public:
-        MouseScrollEvent(unsigned int scroll) :
+        MouseScrollEvent(float scroll) :
            scroll(scroll)
         {}
 
@@ -77,6 +77,6 @@ namespace MemoGL {
         EVENT_CLASS_CATEGORY(Mouse | Input);
 
     private:
-        int scroll;
+        float scroll;
     };
 }

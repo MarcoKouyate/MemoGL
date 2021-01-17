@@ -1,11 +1,11 @@
 #pragma once
 #include "renderer/IRenderer.h"
-#include "entity/Scene.h"
+#include "entity/EntityStack.h"
 
 namespace MemoGL {
     class IGraphicsEngine {
         public:
-            virtual void render(std::shared_ptr<Scene> scene, float lag) = 0;
+            virtual void render(const EntityStack& entityStack) = 0;
 
             std::shared_ptr<IRenderer> getRenderer() {
                 return renderer;

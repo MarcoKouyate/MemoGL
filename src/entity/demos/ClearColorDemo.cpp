@@ -2,6 +2,7 @@
 #include "graphics/renderer/OpenGL/OpenGLError.h"
 #include "imgui.h"
 #include "MenuDemo.h"
+#include "GameEngine.h"
 
 namespace MemoGL {
 	ClearColorDemo::ClearColorDemo() :
@@ -18,9 +19,9 @@ namespace MemoGL {
 
 	}
 
-	void ClearColorDemo::render(IRenderer& renderer) {
-		renderer.clearColor({ clearColor[0], clearColor[1], clearColor[2], clearColor[3]});
-		renderChildren(renderer);
+	void ClearColorDemo::render() {
+		std::shared_ptr<IRenderer> renderer = GameEngine::get()->getGraphicsEngine()->getRenderer();
+		renderer->clearColor({ clearColor[0], clearColor[1], clearColor[2], clearColor[3] });
 	}
 
 	void ClearColorDemo::imgui() {
@@ -29,7 +30,5 @@ namespace MemoGL {
 		if (ImGui::Button("< home")) {
 			SceneManager::getInstance()->load(std::make_shared<MenuDemo>());
 		}
-
-		imguiChildren();
 	}
 }

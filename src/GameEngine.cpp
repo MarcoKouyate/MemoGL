@@ -21,9 +21,9 @@ namespace MemoGL {
 
     GameEngine::GameEngine() {
         MEMOGL_LOG_TRACE("Game Engine initialized.")
-        context = std::unique_ptr<IContext>(IContext::create(WindowSettings()));
+        context = std::unique_ptr<IWindow>(IWindow::create(WindowSettings()));
         context->setEventCallBack(EVENT_CALLBACK(GameEngine::onEvent));
-        graphicsEngine = std::make_unique<RasterizationEngine>(*context);
+        graphicsEngine = std::make_shared<RasterizationEngine>(*context);
     }
 
     GameEngine::~GameEngine() {
@@ -35,63 +35,88 @@ namespace MemoGL {
             throw std::runtime_error("Game Engine tried to run without graphics engine.");
         }
 
+        SceneManager::getInstance()->load(std::make_shared<MenuDemo>());
 
-        std::shared_ptr<Scene> demo = std::make_shared<MenuDemo>();
-
-        SceneManager* sceneManager = SceneManager::getInstance();
-        sceneManager->load(demo);
-
-        double lag = 0.0;
-        double previous = context->getTime();
-        double SECONDS_PER_UPDATE = 1.0 / 60.0;
+        lag = 0.0;
+        previous = context->getTime();
 
         while (isRunning) {
-            context->onUpdate();
-
-            double current = context->getTime();
-            double elapsed = current - previous;
-            previous = current;
-
-            lag += elapsed;
-
-            while (lag >= SECONDS_PER_UPDATE) {
-                // Game logic
-                for (auto& layer : layerStack) {
-                    layer->onUpdate();
-                }
-                sceneManager->getCurrentScene()->update(lag);
-
-                lag -= SECONDS_PER_UPDATE;
-            }
-
-            // Rendering
-            graphicsEngine->render(sceneManager->getCurrentScene(), (float)lag / SECONDS_PER_UPDATE);
+            checkActiveScene();
+            update();
+            render();
         }
-
-    }
-    
-    void GameEngine::pushLayer(Layer* layer) {
-        layerStack.pushLayer(layer);
     }
 
-    void GameEngine::pushOverlay(Layer* overlay) {
-        layerStack.pushOverlay(overlay);
+
+
+    // Frame Loop
+
+    void GameEngine::checkActiveScene() {
+        if (SceneManager::getInstance()->getCurrentScene() != loadedScene) {
+            std::shared_ptr<Scene> currentScene = SceneManager::getInstance()->getCurrentScene();
+            loadScene(currentScene);
+            loadedScene = currentScene;
+        }
     }
+
+    void GameEngine::update() {
+        context->onUpdate();
+
+        double current = context->getTime();
+        double elapsed = current - previous;
+        previous = current;
+
+        lag += elapsed;
+
+        while (lag >= SECONDS_PER_UPDATE) {
+            // Game logic
+            for (auto& entity : entityStack) {
+                entity->update((float)lag);
+            }
+            lag -= SECONDS_PER_UPDATE;
+        }
+    }
+
+    void GameEngine::render() {
+        graphicsEngine->render(entityStack);
+    }
+
+
+
+
+    // Load
+
+    void GameEngine::loadScene(std::shared_ptr<Scene> scene) {
+        entityStack.clear();
+        loadEntity(scene);
+    }
+
+    void GameEngine::loadEntity(std::shared_ptr<Entity> entity) {
+        entityStack.pushLayer(entity);
+        for (auto& child : entity->getChildren()) {
+            loadEntity(child);
+        }
+    }
+
+
+
+    // Events
 
     void GameEngine::onEvent(Event& e) {
         EventDispatcher dispatcher(e);
-        dispatcher.dispatch<WindowCloseEvent>(EVENT_CALLBACK(GameEngine::onWindowClosed));
         propagateEventToLayers(e);
+        dispatcher.dispatch<WindowCloseEvent>(EVENT_CALLBACK(GameEngine::onWindowClosed));
     }
 
     void GameEngine::propagateEventToLayers(Event& e) {
-        for (auto it = layerStack.rbegin(); it != layerStack.rend(); ++it) {
+        for (auto it = entityStack.rbegin(); it != entityStack.rend(); ++it) {
             (*it)->onEvent(e);
             if (e.handled) {
                 break;
             }
         }
     }
+
 
     bool GameEngine::onWindowClosed(WindowCloseEvent& e) {
         isRunning = false;

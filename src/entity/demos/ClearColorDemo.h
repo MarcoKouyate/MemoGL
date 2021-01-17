@@ -9,7 +9,7 @@ namespace MemoGL {
 		~ClearColorDemo() override;
 
 		void update(float deltatime) override;
-		void render(IRenderer& renderer) override;
+		void render() override;
 		void imgui() override;
 
 	private:

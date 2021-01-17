@@ -1,5 +1,5 @@
 #pragma once
-#include "graphics/context/IContext.h"
+#include "graphics/context/IWindow.h"
 #include "tools/ColorStructs.h"
 #include "graphics/buffer/Shader.h"
 #include "graphics/buffer/VertexArray.h"

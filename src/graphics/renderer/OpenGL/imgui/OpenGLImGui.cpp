@@ -1,7 +1,7 @@
 #include "OpenGLImGui.h"
 
 namespace MemoGL {
-	OpenGLImGui::OpenGLImGui(const IContext& context, const char* glslVersion, bool darkMode) :
+	OpenGLImGui::OpenGLImGui(const IWindow& context, const char* glslVersion, bool darkMode) :
             context(context)
     {
         IMGUI_CHECKVERSION();

@@ -10,7 +10,7 @@
 namespace MemoGL {
     class Object : public Entity {
         public:
-            void render(IRenderer& renderer) override;
+            void render() override;
             void update(float deltatime) override;
 
         protected:
