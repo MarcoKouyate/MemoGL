@@ -1,4 +1,3 @@
-#pragma once
 #include "events/inputs/GLFWInput.h"
 
 namespace MemoGL {

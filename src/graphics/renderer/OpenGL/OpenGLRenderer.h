@@ -15,7 +15,7 @@ namespace MemoGL {
     class OpenGLRenderer : public IRenderer {
         public:
             void clearColor(const RGBAColor& color) override;
-            void draw();
+            void draw() override;
 
             std::shared_ptr<Shader> createShader() override;
             std::shared_ptr<VertexArray> createVertexArray() override;

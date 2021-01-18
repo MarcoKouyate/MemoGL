@@ -1,7 +1,8 @@
 #pragma once
 #include "graphics/context/IWindow.h"
-
-#define IMGUI_IMPL_API
+#ifndef IMGUI_IMPL_API
+    #define IMGUI_IMPL_API
+#endif
 #include "backends/imgui_impl_opengl3.h"
 #include "backends/imgui_impl_glfw.h"
 

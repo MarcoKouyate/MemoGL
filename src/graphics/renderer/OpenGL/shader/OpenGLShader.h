@@ -11,13 +11,13 @@ namespace MemoGL {
 
 		void init(const std::string& vertexFilePath, const std::string& fragmentFilePath) override;
 
-		void bind() const;
-		void unbind() const;
+		void bind() const override;
+		void unbind() const override;
 
-		void setUniform4f(const std::string& name, float v0, float v1, float v2, float v3);
-		void setUniform1i(const std::string& name, int value);
-		void setUniform1f(const std::string& name, float value);
-		void setUniformMat4f(const std::string& name, const glm::mat4& matrix);
+		void setUniform4f(const std::string& name, float v0, float v1, float v2, float v3) override;
+		void setUniform1i(const std::string& name, int value) override;
+		void setUniform1f(const std::string& name, float value) override;
+		void setUniformMat4f(const std::string& name, const glm::mat4& matrix) override;
 
 	private:
 		unsigned int id;
