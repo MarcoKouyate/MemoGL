@@ -4,6 +4,7 @@
 #include "MenuDemo.h"
 #include "GameEngine.h"
 
+
 namespace MemoGL {
 	ClearColorDemo::ClearColorDemo() :
 		clearColor { 0.5f, 0.2f, 0.3f, 1.0f }

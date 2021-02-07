@@ -34,6 +34,10 @@ target_include_directories(${PROJECT_LIB} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 target_precompile_headers(${PROJECT_LIB} PRIVATE pch.h)
 
 
+#freetype
+target_include_directories(${PROJECT_LIB} PRIVATE ${FREETYPE_INCLUDE_DIR})
+target_link_libraries(${PROJECT_LIB} PRIVATE freetype)
+
 #glfw
 target_include_directories(${PROJECT_LIB} PRIVATE ${GLFW_INCLUDE_DIR})
 target_link_libraries(${PROJECT_LIB} PRIVATE glfw)
