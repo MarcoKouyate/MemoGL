@@ -1,4 +1,5 @@
 #include "../Scene.h"
+#include "../sprite/Sprite.h"
 
 namespace MemoGL {
     class BasicSceneDemo : public Scene {
@@ -10,5 +11,9 @@ namespace MemoGL {
 
         private:
             bool show_demo_window;
+            std::shared_ptr<Sprite> textureSprite;
+
+            float translationX;
+            float translationY;
     };
 }

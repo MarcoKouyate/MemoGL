@@ -12,6 +12,7 @@ namespace MemoGL {
         public:
             void render() override;
             void update(float deltatime) override;
+            void position(float x, float y);
 
         protected:
             Object();
@@ -27,8 +28,7 @@ namespace MemoGL {
             glm::mat4 model;
             glm::mat4 mvp;
 
-            glm::vec3 translationA;
-            glm::vec3 translationB;
+
 
             float camera_position_x = 0;
             float camera_position_y = 0;

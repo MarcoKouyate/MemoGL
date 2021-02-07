@@ -1,6 +1,5 @@
 #include "BasicSceneDemo.h"
 #include "../shapes/ColorRectangle.h"
-#include "../sprite/Sprite.h"
 #include "MenuDemo.h"
 #include "imgui.h"
 #include "tools/Log.h"
@@ -9,16 +8,19 @@
 namespace MemoGL {
     BasicSceneDemo::BasicSceneDemo() {
         std::shared_ptr<ColorRectangle> colorSprite = std::make_shared<ColorRectangle>();
-        std::shared_ptr<Sprite> textureSprite = std::make_shared<Sprite>();
+        textureSprite = std::make_shared<Sprite>();
+        translationX = 0;
+        translationY = 0;
+        show_demo_window = true;
         this->addChild(colorSprite);
         this->addChild(textureSprite);
-        show_demo_window = true;
     }
 
     void BasicSceneDemo::update(float deltatime) {
         if (Input::get()->isKeyPressed(MEMOGL_KEY_TAB)) {
             MEMOGL_LOG_TRACE(deltatime);
         }
+        textureSprite->position(translationX, translationY);
     }
 
     void BasicSceneDemo::imgui() {
@@ -27,6 +29,8 @@ namespace MemoGL {
 
         ImGui::Begin("Debug");
         ImGui::Checkbox("Demo Window", &show_demo_window);
+        ImGui::SliderFloat("Translation X", &translationX, -1, 1);
+        ImGui::SliderFloat("Translation Y", &translationY, -1, 1);
         
         if (ImGui::Button("< home")) {
             SceneManager::getInstance()->load(std::make_shared<MenuDemo>());
