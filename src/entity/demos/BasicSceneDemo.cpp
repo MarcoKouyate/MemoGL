@@ -4,6 +4,7 @@
 #include "imgui.h"
 #include "tools/Log.h"
 #include "events/inputs/Input.h"
+#include "entity/texts/Text.h"
 
 namespace MemoGL {
     BasicSceneDemo::BasicSceneDemo() {
@@ -14,6 +15,8 @@ namespace MemoGL {
         show_demo_window = true;
         this->addChild(colorSprite);
         this->addChild(textureSprite);
+
+        Text text("Example");
     }
 
     void BasicSceneDemo::update(float deltatime) {
