@@ -7,12 +7,18 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "Entity.h"
 
+#include <memory>
+
 namespace MemoGL {
     class Object : public Entity {
         public:
             void render() override;
             void update(float deltatime) override;
             void position(float x, float y);
+
+        private:
+            void binders(std::shared_ptr<IRenderer> renderer);
+            void unbinders();
 
         protected:
             Object();

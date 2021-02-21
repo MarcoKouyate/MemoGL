@@ -17,7 +17,13 @@ namespace MemoGL {
 
     void Object::render() {
         std::shared_ptr<IRenderer> renderer = GameEngine::get()->getGraphicsEngine()->getRenderer();
+        binders(renderer);
+        renderer->draw();
+        unbinders();
+    }
 
+
+    void Object::binders(std::shared_ptr<IRenderer> renderer) {
         if (!shader) {
             shader = renderer->createShader();
             shader->init(vertexShader, fragmentShader);
@@ -32,14 +38,23 @@ namespace MemoGL {
             vao->push(vertices, indices);
         }
 
-        if (vao && shader) {
+        if (shader) {
             shader->bind();
-            vao->bind();
             shader->setUniformMat4f("u_MVP", mvp);
-            renderer->draw();
+        }
 
-            vao->unbind();
+        if (vao) {
+            vao->bind();
+        }
+    }
+
+    void Object::unbinders() {
+        if (shader) {
             shader->unbind();
+        }
+
+        if (vao) {
+            vao->unbind();
         }
     }
 

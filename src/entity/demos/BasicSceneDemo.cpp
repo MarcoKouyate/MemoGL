@@ -8,22 +8,24 @@
 
 namespace MemoGL {
     BasicSceneDemo::BasicSceneDemo() {
-        std::shared_ptr<ColorRectangle> colorSprite = std::make_shared<ColorRectangle>();
-        textureSprite = std::make_shared<Sprite>();
+        std::shared_ptr<ColorRectangle> colorRect = std::make_shared<ColorRectangle>();
+        sprite1 = std::make_shared<Sprite>("res/textures/memoticone_admiration.png");
+        sprite2 = std::make_shared<Sprite>("res/textures/traveler_sketch.png");
         translationX = 0;
         translationY = 0;
         show_demo_window = true;
-        this->addChild(colorSprite);
-        this->addChild(textureSprite);
+        this->addChild(colorRect);
+        this->addChild(sprite2);
+        this->addChild(sprite1);
 
-        Text text("Example");
+        //Text text("Example");
     }
 
     void BasicSceneDemo::update(float deltatime) {
         if (Input::get()->isKeyPressed(MEMOGL_KEY_TAB)) {
             MEMOGL_LOG_TRACE(deltatime);
         }
-        textureSprite->position(translationX, translationY);
+        sprite1->position(translationX, translationY);
     }
 
     void BasicSceneDemo::imgui() {

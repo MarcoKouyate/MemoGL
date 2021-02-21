@@ -11,9 +11,11 @@ namespace MemoGL {
 
         private:
             bool show_demo_window;
-            std::shared_ptr<Sprite> textureSprite;
-
+            
             float translationX;
             float translationY;
+
+            std::shared_ptr<Sprite> sprite1;
+            std::shared_ptr<Sprite> sprite2;
     };
 }

@@ -4,9 +4,11 @@
 #include "tools/Log.h"
 
 namespace MemoGL {
-    OpenGLTexture::OpenGLTexture(const std::string& filepath) :
-        id(0),  filepath(filepath), localBuffer(nullptr), width(0), height(0), bpp(0)
-    {
+    OpenGLTexture::OpenGLTexture() :
+        id(0),  filepath(""), localBuffer(nullptr), width(0), height(0), bpp(0)
+    {}
+
+    void OpenGLTexture::init(const std::string& filepath) {
         GLCall(glGenTextures(1, &id));
         bind();
 

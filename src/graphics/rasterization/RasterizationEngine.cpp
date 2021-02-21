@@ -1,6 +1,7 @@
 #include "RasterizationEngine.h"
 
 #include "tools/Log.h"
+#include "graphics/renderer/OpenGL/OpenGLRenderer.h"
 
 
 namespace MemoGL {

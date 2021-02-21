@@ -1,12 +1,22 @@
 #include "OpenGLRenderer.h"
-#include "OpenGLError.h"
 
-#include "graphics/buffer/Vertex2D.h"
-#include "tools/File.h"
+// buffers
 #include "graphics/context/GLFW/WindowGLFW.h"
+#include "graphics/buffer/Vertex2D.h"
+#include "buffer/OpenGLIndexBuffer.h"
+#include "buffer/OpenGLVertexArray.h"
+
+#include "shader/OpenGLShader.h"
+
+//tools
+#include "OpenGLError.h"
+#include "tools/Log.h"
+#include "tools/File.h"
 #include "glm/glm.hpp"
 
-#include "tools/Log.h"
+// version
+#include "versions/OpenGL3.h"
+#include "versions/OpenGL4.h"
 
 
 namespace MemoGL {
@@ -35,15 +45,11 @@ namespace MemoGL {
     void OpenGLRenderer::initializeTextures() {
         GLCall(glEnable(GL_BLEND));
         GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
-        
-        texture = std::make_unique<OpenGLTexture>("res/textures/memoticone_admiration.png");
-        texture->bind();
     }
 
     std::shared_ptr<VertexArray> OpenGLRenderer::createVertexArray() {
         return std::make_shared<OpenGLVertexArray>();
     }
-
 
     void OpenGLRenderer::initializeImGui() {
         imgui = std::make_unique<OpenGLImGui>(context, "#version 330", true);
@@ -51,6 +57,10 @@ namespace MemoGL {
 
     std::shared_ptr<Shader> OpenGLRenderer::createShader() {
         return std::make_shared<OpenGLShader>();
+    }
+
+    std::shared_ptr<OpenGLTexture> OpenGLRenderer::createTexture() {
+        return std::make_shared<OpenGLTexture>();
     }
 
     void OpenGLRenderer::draw() {

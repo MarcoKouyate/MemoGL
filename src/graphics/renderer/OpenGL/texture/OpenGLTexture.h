@@ -1,12 +1,14 @@
 #pragma once
+#include "graphics/buffer/Texture.h"
 
 namespace MemoGL {
-    class OpenGLTexture {
+    class OpenGLTexture  {
         public:
             void bind(unsigned int slot = 0) const;
             void unbind() const;
+            void init(const std::string& filepath);
 
-            OpenGLTexture(const std::string& filepath);
+            OpenGLTexture();
             ~OpenGLTexture();
 
         private:

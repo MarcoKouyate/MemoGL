@@ -1,14 +1,12 @@
 #pragma once
 #include "graphics/renderer/IRenderer.h"
-#include "versions/OpenGL3.h"
-#include "versions/OpenGL4.h"
-#include "buffer/OpenGLIndexBuffer.h"
-#include "buffer/OpenGLVertexArray.h"
-#include "texture/OpenGLTexture.h"
-#include "shader/OpenGLShader.h"
 
+// imgui
 #include "imgui/OpenGLImGui.h"
+#include "versions/IOpenGLVersion.h"
 
+
+//entities
 #include "entity/Object.h"
 
 namespace MemoGL {
@@ -19,6 +17,7 @@ namespace MemoGL {
 
             std::shared_ptr<Shader> createShader() override;
             std::shared_ptr<VertexArray> createVertexArray() override;
+            std::shared_ptr<OpenGLTexture> createTexture() override;
 
             void imGuiBegin() override;
             void imGuiEnd() override;
@@ -37,9 +36,6 @@ namespace MemoGL {
             
             const IWindow& context;
             std::unique_ptr<IOpenGLVersion> openGLVersion = nullptr;
-            std::unique_ptr<OpenGLTexture> texture = nullptr;
             std::unique_ptr<OpenGLImGui> imgui = nullptr;
-
-
     };
 }
