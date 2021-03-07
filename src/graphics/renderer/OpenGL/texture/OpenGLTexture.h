@@ -1,5 +1,6 @@
 #pragma once
 #include "graphics/buffer/Texture.h"
+#include "graphics/text/Glyph.h"
 
 namespace MemoGL {
     class OpenGLTexture  {
@@ -7,6 +8,7 @@ namespace MemoGL {
             void bind(unsigned int slot = 0) const;
             void unbind() const;
             void init(const std::string& filepath);
+            void init(const Glyph glyph);
 
             OpenGLTexture();
             ~OpenGLTexture();

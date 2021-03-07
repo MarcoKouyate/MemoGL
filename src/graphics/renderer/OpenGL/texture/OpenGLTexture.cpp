@@ -32,6 +32,35 @@ namespace MemoGL {
         }
     }
 
+    void OpenGLTexture::init(const Glyph glyph) {
+        width = glyph.size.x;
+        height = glyph.size.y;
+        localBuffer = glyph.buffer;
+
+        GLCall(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
+        GLCall(glGenTextures(1, &id));
+        bind();
+
+        // set texture options
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+        GLCall(glTexImage2D(
+            GL_TEXTURE_2D,
+            0,
+            GL_RED,
+            width, 
+            height,
+            0,
+            GL_RED,
+            GL_UNSIGNED_BYTE,
+            localBuffer
+        ));
+        unbind();
+    }
+
     void OpenGLTexture::bind(unsigned int slot /*= 0*/) const {
         GLCall(glActiveTexture(GL_TEXTURE0 + slot));
         GLCall(glBindTexture(GL_TEXTURE_2D, id));

@@ -16,6 +16,7 @@ namespace MemoGL {
         initFreetype(ft, face, fontpath.c_str());
         FontFace characters = loadAllGlyphs(face);
         renderGlyph(characters['w']);
+        //clearFreetype(ft, face);
         return characters;
     }
 

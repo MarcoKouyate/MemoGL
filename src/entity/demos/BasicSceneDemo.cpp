@@ -11,14 +11,15 @@ namespace MemoGL {
         std::shared_ptr<ColorRectangle> colorRect = std::make_shared<ColorRectangle>();
         sprite1 = std::make_shared<Sprite>("res/textures/memoticone_admiration.png");
         sprite2 = std::make_shared<Sprite>("res/textures/traveler_sketch.png");
+
+        std::shared_ptr<Text> text = std::make_shared<Text>("Example");
         translationX = 0;
         translationY = 0;
         show_demo_window = true;
         this->addChild(colorRect);
         this->addChild(sprite2);
         this->addChild(sprite1);
-
-        //Text text("Example");
+        this->addChild(text);
     }
 
     void BasicSceneDemo::update(float deltatime) {

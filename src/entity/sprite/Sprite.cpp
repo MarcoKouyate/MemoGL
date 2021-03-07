@@ -4,22 +4,27 @@
 
 
 namespace MemoGL {
-    Sprite::Sprite(const std::string filepath) :
+    Sprite::Sprite(const std::string& filepath) :
         Rectangle()
     {
         vertexShader = "res/shaders/texture2d.vert";
         fragmentShader = "res/shaders/texture2d.frag";
-        texturepath = filepath;
+        renderer = GameEngine::get()->getGraphicsEngine()->getRenderer();
+        texture = renderer->createTexture();
+        texture->init(filepath);
+    }
+
+    Sprite::Sprite(const Glyph& glyph) :
+        Rectangle() 
+    {
+        vertexShader = "res/shaders/texture2d.vert";
+        fragmentShader = "res/shaders/texture2d.frag";
+        renderer = GameEngine::get()->getGraphicsEngine()->getRenderer();
+        texture = renderer->createTexture();
+        texture->init(glyph);
     }
 
     void Sprite::render() {
-        std::shared_ptr<IRenderer> renderer = GameEngine::get()->getGraphicsEngine()->getRenderer();
-
-        if (!texture) {
-            texture = renderer->createTexture();
-            texture->init(texturepath);
-        }
-
         if (texture) {
             texture->bind();
         }
