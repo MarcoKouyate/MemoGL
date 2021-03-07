@@ -58,8 +58,4 @@ namespace MemoGL {
         }
     }
 
-    void Object::position(float x, float y) {
-        model = glm::translate(glm::mat4(1.0f), glm::vec3(x, y, 0));
-        mvp = proj * view * model;
-    }
 }

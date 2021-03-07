@@ -37,7 +37,7 @@ namespace MemoGL {
             return errorCode;
         }
 
-        FT_Set_Pixel_Sizes(face, 0, 48);
+        FT_Set_Pixel_Sizes(face, 0, 64);
         return errorCode;
     }
 

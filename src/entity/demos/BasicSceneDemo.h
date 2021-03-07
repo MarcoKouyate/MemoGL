@@ -16,6 +16,5 @@ namespace MemoGL {
             float translationY;
 
             std::shared_ptr<Sprite> sprite1;
-            std::shared_ptr<Sprite> sprite2;
     };
 }
