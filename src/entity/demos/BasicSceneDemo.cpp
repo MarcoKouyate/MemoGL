@@ -17,8 +17,8 @@ namespace MemoGL {
         translationY = 0;
         show_demo_window = true;
         this->addChild(colorRect);
-        this->addChild(sprite2);
-        this->addChild(sprite1);
+        //this->addChild(sprite2);
+        //this->addChild(sprite1);
         this->addChild(text);
     }
 

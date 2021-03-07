@@ -18,7 +18,7 @@ namespace MemoGL {
         Rectangle() 
     {
         vertexShader = "res/shaders/texture2d.vert";
-        fragmentShader = "res/shaders/texture2d.frag";
+        fragmentShader = "res/shaders/font.frag";
         renderer = GameEngine::get()->getGraphicsEngine()->getRenderer();
         texture = renderer->createTexture();
         texture->init(glyph);
