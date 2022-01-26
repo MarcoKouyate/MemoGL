@@ -24,7 +24,8 @@ namespace MemoGL {
 
         virtual void setPosition(glm::vec2 location) {
             for (const auto& child : children) {
-                child->setPosition(position.x + location.x, position.y + location.y);
+                glm::vec2 offset = child->position - position;
+                child->setPosition(location + offset);
             }
 
             position = location;
