@@ -22,16 +22,27 @@ namespace MemoGL {
             setPosition(glm::vec2(x, y));
         }
 
-        virtual void setPosition(glm::vec2 location) {
+        virtual void setPosition(glm::vec2 value) {
             for (const auto& child : children) {
                 glm::vec2 offset = child->position - position;
-                child->setPosition(location + offset);
+                child->setPosition(value + offset);
             }
 
-            position = location;
+            position = value;
+            update();
+        }
 
-            model = glm::translate(glm::mat4(1.0f), glm::vec3(position.x, position.y, 0));
-            mvp = proj * view * model;
+        virtual void setScale(float x, float y) {
+            setScale(glm::vec2(x, y));
+        }
+
+        virtual void setScale(glm::vec2 value) {
+            for (const auto& child : children) {
+                child->setScale(value);
+            }
+
+            scale = value;
+            update();
         }
 
         virtual void translate(float x, float y) {
@@ -54,6 +65,12 @@ namespace MemoGL {
             }
         }
 
+        virtual void update() {
+            model = glm::scale(glm::mat4(1.0f), glm::vec3(scale.x, scale.y, 1.0f));
+            model = glm::translate(model, glm::vec3(position.x, position.y, 0));
+            mvp = proj * view * model;
+        }
+
     protected:
         glm::mat4 model;
         glm::mat4 proj;
@@ -61,6 +78,7 @@ namespace MemoGL {
         glm::mat4 mvp;
 
         glm::vec2 position;
+        glm::vec2 scale;
 
         std::vector<std::shared_ptr<Entity>> children;
     };

@@ -18,15 +18,14 @@ namespace MemoGL {
         this->addChild(colorRect);
         this->addChild(text);
         this->addChild(sprite1);
-        
     }
 
     void BasicSceneDemo::update(float deltatime) {
         if (Input::get()->isKeyPressed(MEMOGL_KEY_TAB)) {
             MEMOGL_LOG_TRACE(deltatime);
         }
-        text->setPosition(translationX, translationY);
-        sprite1->setPosition(translationX, translationY);
+        text->setScale(translationX, translationY);
+        sprite1->setScale(translationX, translationY);
     }
 
     void BasicSceneDemo::imgui() {
@@ -35,8 +34,8 @@ namespace MemoGL {
 
         ImGui::Begin("Debug");
         ImGui::Checkbox("Demo Window", &show_demo_window);
-        ImGui::SliderFloat("Translation X", &translationX, -1, 1);
-        ImGui::SliderFloat("Translation Y", &translationY, -1, 1);
+        ImGui::SliderFloat("Translation X", &translationX, -10, 10);
+        ImGui::SliderFloat("Translation Y", &translationY, -10, 10);
         
         if (ImGui::Button("< home")) {
             SceneManager::getInstance()->load(std::make_shared<MenuDemo>());
