@@ -6,6 +6,9 @@
 #include "MouseCodes.h"
 #include "GamepadCodes.h"
 
+#include <iostream>
+#include <functional>
+
 namespace MemoGL {
 
  // TO TRY on other compilers than the one in Visual Studio if it doesn't work :

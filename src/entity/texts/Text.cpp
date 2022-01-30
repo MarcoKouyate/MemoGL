@@ -12,9 +12,11 @@ namespace MemoGL {
         float space = 1;
 
         for(auto& letter : content) {
-            std::shared_ptr<Sprite> glyph = std::make_shared<Sprite>(face[letter]);
-            addChild(glyph);
-            glyph->setPosition(positionX, 0);
+            Glyph glyph = face[letter];
+            std::shared_ptr<Sprite> sprite = std::make_shared<Sprite>(glyph);
+            addChild(sprite);
+            //float positionY = 0 - (glyph.size.y - glyph.bearing.y);
+            sprite->getTransform()->setPosition(positionX, 0);
             positionX += space;
         }
     }

@@ -1,14 +1,19 @@
 #pragma once
-#include "graphics/renderer/IRenderer.h"
 #include "events/Event.h"
+#include <vector>
 
-#include "glm/glm.hpp"
-#include "glm/gtc/matrix_transform.hpp"
+#include "components/Transform.h"
 
 namespace MemoGL {
     class Entity
     {
     public:
+        Entity() {
+            /* TODO check if transform should be created with constructor 
+            or with Attach() */
+            transform = std::make_shared<Transform>();
+        }
+
         virtual ~Entity() = default;
         virtual void onAttach() {}
         virtual void onDetach() {}
@@ -18,57 +23,19 @@ namespace MemoGL {
         virtual void imgui() { };
         virtual void onEvent(Event& e) { };
 
-        virtual void setPosition(float x, float y) {
-            setPosition(glm::vec2(x, y));
-        }
 
-        virtual void setPosition(glm::vec2 value) {
-            for (const auto& child : children) {
-                glm::vec2 offset = child->position - position;
-                child->setPosition(value + offset);
-            }
+        void addChild(std::shared_ptr<Entity> entity);
+        void removeChild(std::shared_ptr<Entity> entity);
 
-            position = value;
-            update();
-        }
 
-        virtual void setScale(float x, float y) {
-            setScale(glm::vec2(x, y));
-        }
-
-        virtual void setScale(glm::vec2 value) {
-            for (const auto& child : children) {
-                child->setScale(value);
-            }
-
-            scale = value;
-            update();
-        }
-
-        virtual void translate(float x, float y) {
-            setPosition(position.x + x, position.y + y);
-        }
+        void updateMVP();
 
         std::vector<std::shared_ptr<Entity>> getChildren() const {
             return children;
         }
 
-        void addChild(std::shared_ptr<Entity> entity) {
-            if (entity) {
-                children.push_back(entity);
-            }
-        }
-
-        void removeChild(std::shared_ptr<Entity> entity) {
-            if (entity) {
-                //TODO Remove child from entity
-            }
-        }
-
-        virtual void update() {
-            model = glm::scale(glm::mat4(1.0f), glm::vec3(scale.x, scale.y, 1.0f));
-            model = glm::translate(model, glm::vec3(position.x, position.y, 0));
-            mvp = proj * view * model;
+        std::shared_ptr<Transform> getTransform() const {
+            return transform;
         }
 
     protected:
@@ -77,9 +44,8 @@ namespace MemoGL {
         glm::mat4 view;
         glm::mat4 mvp;
 
-        glm::vec2 position;
-        glm::vec2 scale;
 
+        std::shared_ptr<Transform> transform;
         std::vector<std::shared_ptr<Entity>> children;
     };
 

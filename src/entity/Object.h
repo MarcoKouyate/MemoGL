@@ -3,8 +3,8 @@
 #include "graphics/buffer/VertexArray.h"
 #include "graphics/buffer/Vertex2D.h"
 
-
 #include "Entity.h"
+#include "graphics/renderer/IRenderer.h"
 
 #include <memory>
 

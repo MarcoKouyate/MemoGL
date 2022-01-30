@@ -19,6 +19,7 @@ namespace MemoGL {
             renderer->clearColor({ 0.0f, 0.0f, 0.0f, 1.0f });
 
             for (auto& entity : entityStack) {
+                entity->updateMVP();
                 entity->render();
             }
 

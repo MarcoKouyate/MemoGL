@@ -24,8 +24,8 @@ namespace MemoGL {
         if (Input::get()->isKeyPressed(MEMOGL_KEY_TAB)) {
             MEMOGL_LOG_TRACE(deltatime);
         }
-        text->setScale(translationX, translationY);
-        sprite1->setScale(translationX, translationY);
+        text->getTransform()->setScale(translationX, translationY);
+        sprite1->getTransform()->setScale(translationX, translationY);
     }
 
     void BasicSceneDemo::imgui() {
