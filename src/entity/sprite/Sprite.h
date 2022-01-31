@@ -8,7 +8,7 @@ namespace MemoGL {
     public:
         void render() override;
         Sprite(const std::string& filepath);
-        Sprite(const Glyph& glyph);
+        Sprite(const Glyph& glyph, float scale);
 
     private:
         std::shared_ptr<OpenGLTexture> texture;

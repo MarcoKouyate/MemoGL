@@ -4,20 +4,21 @@
 #include "entity/sprite/Sprite.h"
 
 namespace MemoGL {
-    Text::Text(const std::string& content) {
+    Text::Text(const std::string& content) 
+        : positionX(0), scale(0.01), space(0)
+    {
         FontFace face = loadFont("res/fonts/OpenSans/OpenSans-Regular.ttf");
         MEMOGL_LOG_TRACE("Face has been loaded");
 
-        float positionX = 0;
-        float space = 1;
-
         for(auto& letter : content) {
-            Glyph glyph = face[letter];
-            std::shared_ptr<Sprite> sprite = std::make_shared<Sprite>(glyph);
-            addChild(sprite);
-            //float positionY = 0 - (glyph.size.y - glyph.bearing.y);
-            sprite->getTransform()->setPosition(positionX, 0);
-            positionX += space;
+            CreateGlyphSprite(face[letter]);
         }
+    }
+
+    void Text::CreateGlyphSprite(Glyph glyph) {
+        std::shared_ptr<Sprite> sprite = std::make_shared<Sprite>(glyph, scale);
+        sprite->getTransform()->setPosition(positionX, 0);
+        positionX += (glyph.advance >> 6) * scale + space;
+        addChild(sprite);
     }
 }

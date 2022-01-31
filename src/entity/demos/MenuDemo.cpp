@@ -3,6 +3,7 @@
 #include "ClearColorDemo.h"
 #include "BasicTextureDemo.h"
 #include "BasicSceneDemo.h"
+#include "FontSceneDemo.h"
 #include "GameEngine.h"
 
 namespace MemoGL {
@@ -28,6 +29,7 @@ namespace MemoGL {
         registerDemo<ClearColorDemo>("Clear Color");
         registerDemo<BasicTextureDemo>("Basic Texture");
         registerDemo<BasicSceneDemo>("Basic Scene Demo");
+        registerDemo<FontSceneDemo>("Font Scene Demo");
     }
 
     MenuDemo::~MenuDemo() {

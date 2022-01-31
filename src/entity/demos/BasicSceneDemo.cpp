@@ -11,7 +11,7 @@ namespace MemoGL {
         std::shared_ptr<ColorRectangle> colorRect = std::make_shared<ColorRectangle>();
         sprite1 = std::make_shared<Sprite>("res/textures/memoticone_admiration.png");
 
-        text = std::make_shared<Text>("Example");
+        text = std::make_shared<Text>("Ceci est un example");
         translationX = 0;
         translationY = 0;
         show_demo_window = true;
