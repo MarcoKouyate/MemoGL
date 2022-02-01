@@ -1,5 +1,6 @@
 #pragma once
 #include "Vertex2D.h"
+#include <vector>
 
 
 namespace MemoGL {

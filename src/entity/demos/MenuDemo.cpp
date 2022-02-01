@@ -4,6 +4,7 @@
 #include "BasicTextureDemo.h"
 #include "BasicSceneDemo.h"
 #include "FontSceneDemo.h"
+#include "ButtonSceneDemo.h"
 #include "GameEngine.h"
 
 namespace MemoGL {
@@ -30,6 +31,7 @@ namespace MemoGL {
         registerDemo<BasicTextureDemo>("Basic Texture");
         registerDemo<BasicSceneDemo>("Basic Scene Demo");
         registerDemo<FontSceneDemo>("Font Scene Demo");
+        registerDemo<ButtonSceneDemo>("Button Scene Demo");
     }
 
     MenuDemo::~MenuDemo() {
