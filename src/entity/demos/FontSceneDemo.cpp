@@ -7,7 +7,7 @@ namespace MemoGL {
         //text = std::make_shared<Text>("On continue?");
         //this->addChild(text);
         
-        paragraph = std::make_shared<Text>("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut molestie magna aliquet, varius purus sit amet, scelerisque ante. Sed quis auctor leo. Donec aliquam tellus et ultricies accumsan. Suspendisse eu magna facilisis, consectetur nisi quis, viverra tortor. Nunc a sagittis nulla. Etiam non lacus facilisis, rhoncus velit ac, auctor augue. Maecenas vel elit metus.", 0.1);
+        paragraph = std::make_shared<Text>("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut molestie magna aliquet, varius purus sit amet, scelerisque ante. Sed quis auctor leo. Donec aliquam tellus et ultricies accumsan. Suspendisse eu magna facilisis, consectetur nisi quis, viverra tortor. Nunc a sagittis nulla. Etiam non lacus facilisis, rhoncus velit ac, auctor augue. Maecenas vel elit metus.", 10);
         
 
         this->addChild(paragraph);
