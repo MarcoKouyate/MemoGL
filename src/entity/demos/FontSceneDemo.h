@@ -12,6 +12,7 @@ namespace MemoGL {
 
     private:
         std::shared_ptr<Text> text;
+        std::shared_ptr<Text> paragraph;
         bool show_demo_window;
 
         float translationX;

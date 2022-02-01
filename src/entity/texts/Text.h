@@ -1,7 +1,8 @@
 #pragma once
 #include <string>
 #include <map>
-#include "entity/Object.h"
+#include "entity/Entity.h"
+
 
 
 
@@ -10,12 +11,18 @@ namespace MemoGL {
     class Text : public Entity {
     public: 
         Text(const std::string& content);
+        Text(const std::string& content, float width);
 
     private:
-        void CreateGlyphSprite(Glyph glyph);
+        float width;
 
         float positionX;
+        float positionY;
+        
+        float spaceX;
+        float spaceY;
+        
         float scale;
-        float space;
+        
     };
 }

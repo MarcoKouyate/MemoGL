@@ -4,19 +4,24 @@
 
 namespace MemoGL {
     FontSceneDemo::FontSceneDemo() {
-        text = std::make_shared<Text>("On continue?");
-        this->addChild(text);
-        translationX = -1;
-        translationY = 0;
-        scaleX = 0.5; 
-        scaleY = 0.5;
-        show_demo_window = true;
+        //text = std::make_shared<Text>("On continue?");
+        //this->addChild(text);
+        
+        paragraph = std::make_shared<Text>("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut molestie magna aliquet, varius purus sit amet, scelerisque ante. Sed quis auctor leo. Donec aliquam tellus et ultricies accumsan. Suspendisse eu magna facilisis, consectetur nisi quis, viverra tortor. Nunc a sagittis nulla. Etiam non lacus facilisis, rhoncus velit ac, auctor augue. Maecenas vel elit metus.", 0.1);
+        
+
+        this->addChild(paragraph);
+        translationX = -5;
+        translationY = 2.5;
+        scaleX = 0.150;
+        scaleY = 0.150;
+        show_demo_window = false;
     }
 
     void FontSceneDemo::update(float deltatime)
     {
-        text->getTransform()->setPosition(translationX , translationY);
-        text->getTransform()->setScale(scaleX, scaleY);
+        paragraph->getTransform()->setPosition(translationX , translationY);
+        paragraph->getTransform()->setScale(scaleX, scaleY);
     }
 
     void FontSceneDemo::imgui()
