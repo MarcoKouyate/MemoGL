@@ -10,6 +10,7 @@
 #include <functional>
 
 namespace MemoGL {
+#define EVENT_CALLBACK(x) std::bind(&x, this, std::placeholders::_1)
 
  // TO TRY on other compilers than the one in Visual Studio if it doesn't work :
  // > remove the concatenation of the first line of the EVENT_CLASS_TYPE. 

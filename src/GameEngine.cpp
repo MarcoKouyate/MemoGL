@@ -8,7 +8,6 @@
 #include "events/inputs/Input.h"
 
 namespace MemoGL {
-    #define EVENT_CALLBACK(x) std::bind(&x, this, std::placeholders::_1)
 
     GameEngine* GameEngine::instance = nullptr;
 

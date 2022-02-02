@@ -38,7 +38,7 @@ namespace MemoGL {
             return ss.str();
         }
 
-        EVENT_CLASS_TYPE(MousePressed);
+        EVENT_CLASS_TYPE(MouseReleased);
     };
 
     class MouseMovedEvent : public Event {

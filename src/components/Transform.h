@@ -22,7 +22,6 @@ namespace MemoGL {
             void setScale(float x, float y);
             void setScale(glm::vec2 value);
 
-
             void setParent(std::shared_ptr<Transform> newParent);
 
         private:
